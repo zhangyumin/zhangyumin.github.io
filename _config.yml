@@ -13,8 +13,8 @@ blog:
     tongji:                                              # 百度统计ID
     qiniu:                                               # 七牛云地址
 author:
-    name:                                                # 作者名称
-    email:                                               # 邮箱地址
+    name:Joker                                                # 作者名称
+    email:zhangyumin618@163.com                                               # 邮箱地址
     weibo:                                               # 微博地址
     github:                                              # GitHub地址
     logo:                                                # logo地址
