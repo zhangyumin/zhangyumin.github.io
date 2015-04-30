@@ -5,19 +5,19 @@ paginate: 6
 paginate_path: page/:num
 
 blog:
-    name:Joker                                           # 博客名称
-    description:everyone is everyone                     # 博客描述
-    title:                                               # 网页标题
-    url:                                                 # 博客地址
+    name:Joker						 # 博客名称
+    description:Yesterday you sai tomorrow               # 博客描述
+    title:Joker - man of my word                         # 网页标题
+    url:zhangyumin.github.io                             # 博客地址
     duoshuo:                                             # 多说ID
-    tongji:                                              # 百度统计ID
+    tongji:joker至尊宝                                   # 百度统计ID
     qiniu:                                               # 七牛云地址
 author:
     name:Joker                                           # 作者名称
     email:zhangyumin618@163.com                          # 邮箱地址
     weibo:                                               # 微博地址
-    github:github.com/zhangyumin                         # GitHub地址
-    logo:                                                # logo地址
+    github:https://github.com/zhangyumin                 # GitHub地址
+    logo:http://p6.qhimg.com/t01507b90ce5bbfa954.jpg     # logo地址
     douban:
         name:                                            # 豆瓣地址名称
         key:                                             # 豆瓣API Key
