@@ -6,7 +6,7 @@ paginate_path: page/:num
 
 blog:
     name:Joker						 # 博客名称
-    description:Yesterday you sai tomorrow               # 博客描述
+    description:Yesterday you said tomorrow               # 博客描述
     title:Joker - man of my word                         # 网页标题
     url:zhangyumin.github.io                             # 博客地址
     duoshuo:                                             # 多说ID
