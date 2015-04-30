@@ -5,18 +5,18 @@ paginate: 6
 paginate_path: page/:num
 
 blog:
-    name:                                                # 博客名称
-    description:                                         # 博客描述
+    name:Joker                                           # 博客名称
+    description:everyone is everyone                     # 博客描述
     title:                                               # 网页标题
     url:                                                 # 博客地址
     duoshuo:                                             # 多说ID
     tongji:                                              # 百度统计ID
     qiniu:                                               # 七牛云地址
 author:
-    name:Joker                                                # 作者名称
-    email:zhangyumin618@163.com                                               # 邮箱地址
+    name:Joker                                           # 作者名称
+    email:zhangyumin618@163.com                          # 邮箱地址
     weibo:                                               # 微博地址
-    github:                                              # GitHub地址
+    github:github.com/zhangyumin                         # GitHub地址
     logo:                                                # logo地址
     douban:
         name:                                            # 豆瓣地址名称
