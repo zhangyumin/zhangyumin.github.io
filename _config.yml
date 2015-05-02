@@ -10,7 +10,7 @@ blog:
     description: Yesterday you said tomorrow.                 # 博客描述
     title: Joker blog - 神不为者 人为之         # 网页标题
     url: http://zhangyumin.github.io                                 # 博客地址
-    duoshuo: 永别_陌生人                                       # 多说ID
+    duoshuo: githubjoker                                       # 多说ID
     tongji: joker至尊宝             # 百度统计ID
     qiniu:                       # 七牛云地址
 author:
