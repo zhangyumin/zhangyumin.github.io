@@ -1,7 +1,7 @@
 ---
 layout: post
-title: mysql错误：ERROR 29 (HY000)\: File '/var/www/upload/*.txt' not found (Errcode\: 13)
-category: MySQL
+title: ERROR 29 (HY000) File '/var/www/upload/*.txt' not found (Errcode 13)
+category: [MySQL , Bug]
 date: 2015-05-03
 ---
 
@@ -50,4 +50,5 @@ And then make AppArmor reload the profiles.
 
 	/var/www/upload/import/* rw,
 
-
+## 参考
+> [http://www.phpddt.com/db/mysql-error-29.html](http://www.phpddt.com/db/mysql-error-29.html)
