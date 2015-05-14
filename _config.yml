@@ -19,6 +19,3 @@ author:
     weibo: http://weibo.com/2177156737                        # 微博地址
     github: https://github.com/zhangyumin                     # GitHub地址
     logo: http://p6.qhimg.com/t01507b90ce5bbfa954.jpg    # logo地址
-    douban:
-        name: pexcn                                      # 豆瓣地址名称
-        key: 0acf12df294d2460206d389d7be76d20            # 豆瓣API Key

@@ -1,0 +1,91 @@
+---
+layout: blog
+title: 计划
+---
+
+<link rel="stylesheet" href="/res/css/page.css" />
+<link href='/res/css/fullcalendar.css' rel='stylesheet' />
+<script src="/res/js/moment.min.js"></script>
+<script src="/res/js/fullcalendar.min.js"></script>
+<div id='calendar'></div>
+<script>
+
+	$(document).ready(function() {
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+			buttonText: {
+					today: '今天',
+					month: '月',
+					week: '周',
+					day: '日'
+				},
+			monthNames: ['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
+			dayNamesShort: ['周一','周二','周三','周四','周五','周六','周日'],
+			//defaultDate: '2015-02-12',
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: [
+				{
+					id: 999,
+					title: 'Click for Google',
+					url: 'http://google.com/',
+					start: '2015-02-28T07:00:00',
+					end: '2015-02-12T12:30:00'
+				},
+				{
+					title: 'fullcalendar的日程表',
+					start: '2015-05-14',
+					end: '2015-05-14'
+				},
+				{
+					title: '增加数据下载',
+					start: '2015-05-14',
+					end: '2015-05-14'
+				},
+				{
+					title: 'Python基础学习',
+					url: 'http://www.liaoxuefeng.com/',
+					start: '2015-05-14',
+					end: '2015-05-24'
+				},
+				{
+					title: '增加polyA位点高亮',
+					start: '2015-05-15',
+					end: '2015-05-15'
+				},
+				{
+					title: 'PA数据Jbrowse导入',
+					start: '2015-05-15',
+					end: '2015-05-15'
+				},
+				{
+					title: '完成关于页面修改',
+					start: '2015-05-15',
+					end: '2015-05-15'
+				}
+			]
+		});
+		
+	});
+
+</script>
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+</style>

@@ -10,7 +10,7 @@ blog:
     description: Yesterday you said tomorrow.                 # 博客描述
     title: Joker blog - 神不为者 人为之         # 网页标题
     url: http://zhangyumin.github.io                                 # 博客地址
-    duoshuo: 永别_陌生人                                       # 多说ID
+    duoshuo: githubjoker                                       # 多说ID
     tongji: joker至尊宝             # 百度统计ID
     qiniu:                       # 七牛云地址
 author:
@@ -20,5 +20,5 @@ author:
     github: https://github.com/zhangyumin                     # GitHub地址
     logo: http://p6.qhimg.com/t01507b90ce5bbfa954.jpg    # logo地址
     douban:
-        name: pexcn                                      # 豆瓣地址名称
-        key: 0acf12df294d2460206d389d7be76d20            # 豆瓣API Key
+        name: Joker                                      # 豆瓣地址名称
+        key: 04745438e31748fd0d5cfcaaa945daf7            # 豆瓣API Key

@@ -1,0 +1,20 @@
+---
+title: 阅读
+layout: blog
+---
+
+<style>
+.reading{
+	text-shadow: 0 0 1px;
+	letter-spacing: 2px;
+	color: #0090d3;
+	font-size: 25px;
+	}
+</style>
+<br><br>
+<div id='reading' class='reading'>已读书籍...</div><br>
+<script type="text/javascript" src="http://www.douban.com/service/badge/126710264/?selection=latest&amp;picsize=small&amp;hideself=on&amp;show=collection&amp;n=20&amp;hidelogo=on&amp;cat=book&amp;columns=5"></script><br><br>
+<div id='reading' class='reading'>在读书籍...</div><br>
+<script type="text/javascript" src="http://www.douban.com/service/badge/126710264/?selection=latest&amp;picsize=small&amp;hideself=on&amp;show=dolist&amp;n=20&amp;hidelogo=on&amp;cat=book&amp;columns=5"></script><br><br>
+<div id='reading' class='reading'>想读书籍...</div><br>
+<script type="text/javascript" src="http://www.douban.com/service/badge/126710264/?selection=latest&amp;picsize=small&amp;hideself=on&amp;show=wishlist&amp;n=20&amp;hidelogo=on&amp;cat=book&amp;columns=5"></script><br><br>

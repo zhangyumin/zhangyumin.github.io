@@ -10,6 +10,10 @@
   icon: fa fa-calendar
   title: 计划
 
+- href: /page/test.html
+  icon: fa fa-calendar
+  title: 测试
+
 - href: /page/read.html
   icon:  fa fa-book
   title: 阅读

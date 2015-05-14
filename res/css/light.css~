@@ -61,8 +61,8 @@ strong,b {
 }
 table {
 	border-collapse:collapse;
-	/*margin-bottom:25px;
-	margin-top:-10px;*/
+	margin-bottom:25px;
+	margin-top:-10px;
 }
 th {
 	padding:8px 20px;
