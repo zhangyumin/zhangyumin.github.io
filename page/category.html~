@@ -15,7 +15,7 @@ title: 文章分类
     {% endunless %}{% endfor %}
   </ul>
 </div>
- <hr id="line"/>
+<hr id="line"/>
 {% for item in (0..site.categories.size) %}{% unless forloop.last %}
 {% capture word %}{{ category[item] | strip_newlines }}{% endcapture %}
 <h2 class="category" id="{{ word }}">{{ word }}</h2>
