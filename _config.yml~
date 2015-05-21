@@ -18,7 +18,4 @@ author:
     email: zhangyumin618@163.com                                  # 邮箱地址
     weibo: http://weibo.com/2177156737                        # 微博地址
     github: https://github.com/zhangyumin                     # GitHub地址
-    logo: http://p6.qhimg.com/t01507b90ce5bbfa954.jpg    # logo地址
-    douban:
-        name: Joker                                      # 豆瓣地址名称
-        key: 04745438e31748fd0d5cfcaaa945daf7            # 豆瓣API Key
+    logo: ./res/img/logo/1.jpg    # logo地址
