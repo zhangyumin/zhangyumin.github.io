@@ -1,0 +1,85 @@
+---
+layout: post
+title: jTable的分页问题及搜索框功能实现
+category: javascript
+date: 2015-05-26
+---
+
+jTable是一款jQuery的插件，用于创建基于Ajax的CRUD表格，可以对数据进行排序、分页等，功能可以满足展示数据的需求。
+
+在显示数据时发现了分页问题，数据的个数与分页数都设置正确，而当前页面实际显示的数据个数却大于最大数据显示数。
+
+也就是说数据并没有分页显示，还是一股脑的贴在了首页上。
+
+![jTable](/images/20150526.jpg)
+
+后来分析网站上下载的demo发现，分页不只是要设置好参数，数据库查询语句也要做相应的修改，jTable好像也没有想象那么省心。
+
+	//in listAction
+	$result = mysql_query("SELECT * FROM people ORDER BY " . $_GET["jtSorting"] . " LIMIT " .$_GET["jtStartIndex"] . "," . $_GET["jtPageSize"] . ";");
+
+	//in mainpage
+	$(document).ready(function (){
+		$('#PeopleTableContainer').jtable({
+			title: 'Table of people',
+			paging: true,
+			pageSize: 2,
+			sorting: true,
+			defaultSorting: 'Name ASC',
+		........});
+	........});
+
+需要实现搜索功能时，查过了网站的document，获取到的有效信息是提供了filter参数可以直接对数据进行过滤。
+
+可是网站并没有基于php的demo，经过一下午的摸索也算是大功告成。
+
+	//creat a container
+	<div class="filter" id="filter">
+		<form>
+			<input type="text" name="search" id="search" />
+			<button type="submit" id="search_button">search</button>
+			<button type="reset" id="reset_button">reset</button>
+		</form>
+	</div>
+	
+	//initialize
+	$(document).ready(function (){
+		$('#PeopleTableContainer').jtable({
+		........
+		});
+		$('#filter').appendTo(".jtable-title").addClass('filter_class');//放置于标题栏
+		$('#jtable').jtable('load');
+		$('#search_button').click(function (e){
+		    e.preventDefault();
+		            $('#jtable').jtable('load',{
+		                search: $('#search').val()//post传递的值
+		            });
+		});
+		$('#reset_button').click(function(e){
+		    e.preventDefault();
+		    $('#jtable').jtable('load');
+		});
+	});
+	
+	//in listAction.php
+	if(empty ($_POST['search']))
+    	{
+		$result=  mysql_query("SELECT COUNT(*) AS RecordCount FROM pac_arab10;");
+		$row=  mysql_fetch_array($result);
+		$recordCount=  $row['RecordCount'];
+
+		$result=  mysql_query("SELECT * FROM pac_arab10 ORDER BY ".$_GET['jtSorting']." LIMIT ".$_GET['jtStartIndex'].",".$_GET['jtPageSize'].";");
+	}
+    	else
+	{
+		$search=  $_POST['search'];
+		$result=  mysql_query("SELECT COUNT(*) AS RecordCount FROM pac_arab10 WHERE gene LIKE '%".$search."%';");
+		$row=  mysql_fetch_array($result);
+		$recordCount=  $row['RecordCount'];
+		
+		$result=  mysql_query("SELECT * FROM pac_arab10 WHERE gene LIKE '%".$search."%' ORDER BY ".$_GET['jtSorting']." LIMIT ".$_GET['jtStartIndex'].",".$_GET['jtPageSize'].";");
+	}
+
+可以通过div.filter_class来修改该搜索框的位置等参数，使得页面更加美观。本人css渣，就随便调了两下，效果如下图所示。
+
+![jTable](/images/20150526(2).jpg)
