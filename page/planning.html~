@@ -51,7 +51,7 @@ title: 计划
 					title: 'Python基础学习',
 					url: 'http://www.liaoxuefeng.com/',
 					start: '2015-05-14',
-					end: '2015-05-24'
+					end: '2015-05-16'
 				},
 				{
 					title: '整理网站文件路径',
@@ -104,11 +104,6 @@ title: 计划
 					end: '2015-05-22'
 				},
 				{
-					title: '增加Help等三个页面',
-					start: '2015-05-23',
-					end: '2015-05-23'
-				},
-				{
 					title: 'PolyA位点可视化',
 					start: '2015-05-23',
 					end: '2015-05-23'
@@ -152,7 +147,23 @@ title: 计划
 					title: '修改summary页面bug',
 					start: '2015-05-30',
 					end: '2015-05-30'
-				}			
+				},
+				{
+					title: '学习Java',
+					start: '2015-05-30',
+					end: '2015-06-30'
+				},
+				{
+					title: '装修网站',
+					start: '2015-06-01',
+					end: '2015-06-07'
+				},
+
+				{
+					title: '增加Help等三个页面',
+					start: '2015-06-2',
+					end: '2015-06-2'
+				}				
 			]
 		});
 		
