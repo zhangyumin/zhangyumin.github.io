@@ -9,7 +9,7 @@ date: 2015-06-5
 
 2.构造方法的重载在于可以为其输入变量,不同种变量可以用不同的方法重载.
 
-	Circle c1 = new Circle(5);//最后的Circle即为构造方法
+		Circle c1 = new Circle(5);//最后的Circle即为构造方法
 	
 3.this是一个对象,可以在类里面引用类的成员变量和方法.
 
