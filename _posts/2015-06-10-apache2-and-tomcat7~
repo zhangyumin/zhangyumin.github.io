@@ -1,0 +1,56 @@
+---
+layout: post
+title: 通过mod_jk集成Apache2和tomcat7
+category: 经验积累
+date: 2015-06-10
+---
+1.JDK安装
+	sudo add-apt-repository ppa:webup8team/java
+	sudo apt-get update
+	sudo apt-get install oracle-java7-install
+
+2.安装Apache2和Tomcat7
+	sudo apt-get install apache2
+	sudo apt-get install tomcat7
+	sudo apt-get install tomcat7-admin
+
+3.创建测试网站
+	cd /var/lib/tomcat7/webapps
+	sudo mkdir tomcat-demo
+	sudo mkdir tomcat-demo/goodmorning
+	sudo vim tomcat-demo/goodmorning/index.jsp
+
+4.粘贴下面的代码到s上述的index.jsp：
+	<HTML>
+	<HEAD>
+	<TITLE>Good Morning</TITLE>
+	</HEAD>
+	<BODY>
+	<H1>Good Morning</H1>
+	Today is: <%=new java.util.Date().toString() %>
+	</BODY>
+	</HTML>
+
+5.安装mod_jk
+	sudo apt-get install libapache2-mod-jk
+
+6.启用Tomcat的8443转发端口
+	sudo vim /etc/tomcat7/server.xml
+	//解除下面注释行
+	<Connectorport="8009"protocol="AJP/1.3"redirectPort="8443"/>
+
+7.创建workers.properties文件
+	sudo vim /etc/apache2/workers.properties
+	//将以下行粘贴到workers.properties
+	worker.list=worker1
+	worker.worker1.type=ajp13
+	worker.worker1.host=localhost
+	worker.worker1.port=8009
+	
+	worker.list=jk-status
+	worker.jk-status.type=stauts
+	worker.js-status.read_only=true
+	
+	worker.list=jk-manager
+	worker.jk-manager.type=status
+
