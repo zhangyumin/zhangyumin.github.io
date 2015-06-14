@@ -1,0 +1,766 @@
+---
+layout: post
+title: fineuploader部署实例及相关配置说明
+category: Javascript
+date: 2015-06-14
+---
+为了文件上传找了不少的js插件,能够满足需求的就属fineuploader最合适,但官网的文档对新手并不友好,琢磨了很久才把fineuploader弄好.
+
+fine-uploader优点:
+1.支持多文件上传,可以控制文件大小和文件类型,与大多数上传插件一样属于基本功能.
+2.支持文件改名,对我来说很关键的一点,允许在上传前修改文件名.
+3.上传后可根据需求删除文件.
+4.支持拖拽上传.
+5.支持图片缩略图预览.
+6.Ajax页面无刷新.
+
+代码部分可以去[官网](http://fineuploader.com)或者[Github](http://github.com/FineUploader)下载所需的源码和客户端代码.
+
+下载的代码中含有一个demo位于test文件夹中,可以用来测试.
+主要文件说明:
+1.all-fine-uploader.js 可能也为其它名字,是fineuploader组件的主要js文件.
+2.devenv.js 本地部署的js配置文件,各种属性可以在官网查询,路径需要设置需要修改.
+3.handler.php 服务器端功能的实现方法,包括文件上传、删除、更名等实现方式,供endpoint.php调用.
+4.endpoint.php 本地服务器端的具体配置,可以控制文件大小、类型、路径等,具体配置方式见官网文档.
+
+其他:
+1.每个文件上传后都会存在相应目录的一个新文件夹下,文件夹的名字是$uuid,$uuid是机器产生的标识符,能够保证文件夹的唯一性.
+2.文件的存储路径在endpoint.php中修改,必须使用绝对路径.
+3.uuid可以在handler.php中进行修改.
+4.我使用的是fineuploader-gallery.css,图片路径需要在这个文件里修改.
+
+代码:(修改了uuid)
+1.devenv.js
+	
+	qq(window).attach("load", function() {
+    "use strict";
+
+    	var errorHandler = function(event, id, fileName, reason) {
+        	return qq.log("id: " + id + ", fileName: " + fileName + ", reason: " + reason);
+        },
+        azureUploader, s3Uploader, manualUploader, validatingUploader, failingUploader;
+
+    	manualUploader = new qq.FineUploader({
+		element: document.getElementById("manual-example"),
+		autoUpload: false,
+		debug: true,
+		uploadButtonText: "Select Files",
+		display: {
+		    fileSizeOnSubmit: true
+		},
+		request: {
+		    endpoint: "./src/fineuploader/server/endpoint.php"
+		},
+		deleteFile: {
+		    enabled: false,
+		    endpoint: "./src/fineuploader/server/endpoint.php",
+		    forceConfirm: true,
+		    params: {
+		        foo: "bar"
+		    }
+		},
+		chunking: {
+		    enabled: true,
+		    concurrent: {
+		        enabled: true
+		    },
+		    success: {
+		        endpoint: "./src/fineuploader/server/endpoint.php?done"
+		    }
+		},
+		resume: {
+		    enabled: true
+		},
+		retry: {
+		    enableAuto: true
+		},
+		thumbnails: {
+		    placeholders: {
+		        waitingPath: "./src/fineuploader/pic/waiting-generic.png",
+		        notAvailablePath: "./src/fineuploader/pic/not_available-generic.png"
+		    }
+		},
+		scaling: {
+		    sizes: [{name: "small", maxSize: 300}, {name: "medium", maxSize: 600}]
+		},
+		callbacks: {
+		    onError: errorHandler,
+		    onUpload: function (id, filename) {
+		        this.setParams({
+		            "hey": "hi ɛ $ hmm \\ hi",
+		            "ho": "foobar"
+		        }, id);
+
+		    },
+		    onStatusChange: function (id, oldS, newS) {
+		        qq.log("id: " + id + " " + newS);
+		    },
+		    onComplete: function (id, name, response) {
+		        qq.log(response);
+		    }
+		}
+    	});
+
+    	qq(document.getElementById("triggerUpload")).attach("click", function() {
+        	manualUploader.uploadStoredFiles();
+		});
+ 	});
+
+2.index.html
+	
+	<!DOCTYPE html>
+	<html>
+    <head>
+        <!--GALLERY TEMPLATE-->
+        <script type="text/template" id="qq-template">
+            <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop files here">
+                <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+                    <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+                </div>
+                <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                    <span class="qq-upload-drop-area-text-selector">Drop files here to upload</span>
+                </div>
+                <div class="qq-upload-button-selector qq-upload-button">
+                    <div>Upload a file</div>
+                </div>
+                <span class="qq-drop-processing-selector qq-drop-processing">
+                    <span>Processing dropped files...</span>
+                    <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+                </span>
+                <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
+                    <li>
+                        <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                        <div class="qq-progress-bar-container-selector qq-progress-bar-container">
+                            <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                        </div>
+                        <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                        <div class="qq-thumbnail-wrapper">
+                            <img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>
+                        </div>
+                        <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
+                        <button type="button" class="qq-upload-retry-selector qq-upload-retry">
+                            <span class="qq-btn qq-retry-icon" aria-label="Retry"></span>
+                            Retry
+                        </button>
+
+                        <div class="qq-file-info">
+                            <div class="qq-file-name">
+                                <span class="qq-upload-file-selector qq-upload-file"></span>
+                                <span class="qq-edit-filename-icon-selector qq-btn qq-edit-filename-icon" aria-label="Edit filename"></span>
+                            </div>
+                            <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                            <span class="qq-upload-size-selector qq-upload-size"></span>
+                            <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">
+                                <span class="qq-btn qq-delete-icon" aria-label="Delete"></span>
+                            </button>
+                            <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">
+                                <span class="qq-btn qq-pause-icon" aria-label="Pause"></span>
+                            </button>
+                            <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
+                                <span class="qq-btn qq-continue-icon" aria-label="Continue"></span>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+
+                <dialog class="qq-alert-dialog-selector">
+                    <div class="qq-dialog-message-selector"></div>
+                    <div class="qq-dialog-buttons">
+                        <button type="button" class="qq-cancel-button-selector">Close</button>
+                    </div>
+                </dialog>
+
+                <dialog class="qq-confirm-dialog-selector">
+                    <div class="qq-dialog-message-selector"></div>
+                    <div class="qq-dialog-buttons">
+                        <button type="button" class="qq-cancel-button-selector">No</button>
+                        <button type="button" class="qq-ok-button-selector">Yes</button>
+                    </div>
+                </dialog>
+
+                <dialog class="qq-prompt-dialog-selector">
+                    <div class="qq-dialog-message-selector"></div>
+                    <input type="text">
+                    <div class="qq-dialog-buttons">
+                        <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                        <button type="button" class="qq-ok-button-selector">Ok</button>
+                    </div>
+                </dialog>
+            </div>
+
+        </script>
+
+        <!--THUMBNAILS TEMPLATE-->
+        <!--<script type="text/template" id="qq-template">-->
+            <!--<div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">-->
+                <!--<div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">-->
+                    <!--<div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>-->
+                <!--</div>-->
+                <!--<div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>-->
+                    <!--<span class="qq-upload-drop-area-text-selector">Drop files here to upload</span>-->
+                <!--</div>-->
+                <!--<div class="qq-upload-button-selector qq-upload-button">-->
+                    <!--<div>Upload a file</div>-->
+                <!--</div>-->
+                <!--<span class="qq-drop-processing-selector qq-drop-processing">-->
+                    <!--<span>Processing dropped files...</span>-->
+                    <!--<span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>-->
+                <!--</span>-->
+                <!--<ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">-->
+                    <!--<li>-->
+                        <!--<div class="qq-progress-bar-container-selector">-->
+                            <!--<div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>-->
+                        <!--</div>-->
+                        <!--<span class="qq-upload-spinner-selector qq-upload-spinner"></span>-->
+                        <!--<img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>-->
+                        <!--<span class="qq-upload-file-selector qq-upload-file"></span>-->
+                        <!--<span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>-->
+                        <!--<input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">-->
+                        <!--<span class="qq-upload-size-selector qq-upload-size"></span>-->
+                        <!--<button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">Cancel</button>-->
+                        <!--<button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">Retry</button>-->
+                        <!--<button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">Delete</button>-->
+                        <!--<span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>-->
+                    <!--</li>-->
+                <!--</ul>-->
+
+                <!--<dialog class="qq-alert-dialog-selector">-->
+                    <!--<div class="qq-dialog-message-selector"></div>-->
+                    <!--<div class="qq-dialog-buttons">-->
+                        <!--<button type="button" class="qq-cancel-button-selector">Close</button>-->
+                    <!--</div>-->
+                <!--</dialog>-->
+
+                <!--<dialog class="qq-confirm-dialog-selector">-->
+                    <!--<div class="qq-dialog-message-selector"></div>-->
+                    <!--<div class="qq-dialog-buttons">-->
+                        <!--<button type="button" class="qq-cancel-button-selector">No</button>-->
+                        <!--<button type="button" class="qq-ok-button-selector">Yes</button>-->
+                    <!--</div>-->
+                <!--</dialog>-->
+
+                <!--<dialog class="qq-prompt-dialog-selector">-->
+                    <!--<div class="qq-dialog-message-selector"></div>-->
+                    <!--<input type="text">-->
+                    <!--<div class="qq-dialog-buttons">-->
+                        <!--<button type="button" class="qq-cancel-button-selector">Cancel</button>-->
+                        <!--<button type="button" class="qq-ok-button-selector">Ok</button>-->
+                    <!--</div>-->
+                <!--</dialog>-->
+            <!--</div>-->
+        <!--</script>-->
+
+        <!--SIMPLE TEMPLATE-->
+        <!--<script type="text/template" id="qq-template">-->
+            <!--<div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here">-->
+                <!--<div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">-->
+                    <!--<div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>-->
+                <!--</div>-->
+                <!--<div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>-->
+                    <!--<span class="qq-upload-drop-area-text-selector">Drop files here to upload</span>-->
+                <!--</div>-->
+                <!--<div class="qq-upload-button-selector qq-upload-button">-->
+                    <!--<div>Upload a file</div>-->
+                <!--</div>-->
+                <!--<span class="qq-drop-processing-selector qq-drop-processing">-->
+                    <!--<span>Processing dropped files...</span>-->
+                    <!--<span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>-->
+                <!--</span>-->
+                <!--<ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals">-->
+                    <!--<li>-->
+                        <!--<div class="qq-progress-bar-container-selector">-->
+                            <!--<div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>-->
+                        <!--</div>-->
+                        <!--<span class="qq-upload-spinner-selector qq-upload-spinner"></span>-->
+                        <!--<span class="qq-upload-file-selector qq-upload-file"></span>-->
+                        <!--<span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"></span>-->
+                        <!--<input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">-->
+                        <!--<span class="qq-upload-size-selector qq-upload-size"></span>-->
+                        <!--<button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel">Cancel</button>-->
+                        <!--<button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry">Retry</button>-->
+                        <!--<button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">Delete</button>-->
+                        <!--<span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>-->
+                    <!--</li>-->
+                <!--</ul>-->
+
+                <!--<dialog class="qq-alert-dialog-selector">-->
+                    <!--<div class="qq-dialog-message-selector"></div>-->
+                    <!--<div class="qq-dialog-buttons">-->
+                        <!--<button type="button" class="qq-cancel-button-selector">Close</button>-->
+                    <!--</div>-->
+                <!--</dialog>-->
+
+                <!--<dialog class="qq-confirm-dialog-selector">-->
+                    <!--<div class="qq-dialog-message-selector"></div>-->
+                    <!--<div class="qq-dialog-buttons">-->
+                        <!--<button type="button" class="qq-cancel-button-selector">No</button>-->
+                        <!--<button type="button" class="qq-ok-button-selector">Yes</button>-->
+                    <!--</div>-->
+                <!--</dialog>-->
+
+                <!--<dialog class="qq-prompt-dialog-selector">-->
+                    <!--<div class="qq-dialog-message-selector"></div>-->
+                    <!--<input type="text">-->
+                    <!--<div class="qq-dialog-buttons">-->
+                        <!--<button type="button" class="qq-cancel-button-selector">Cancel</button>-->
+                        <!--<button type="button" class="qq-ok-button-selector">Ok</button>-->
+                    <!--</div>-->
+                <!--</dialog>-->
+            <!--</div>-->
+        <!--</script>-->
+
+        <title>Fine Uploader Development</title>
+        <meta charset="utf-8" />
+        <script src="jquery-2.0.0.min.js"></script>
+        <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="fineuploader-gallery.css" rel="stylesheet" type="text/css"/>
+        <link href="fineuploader-new.css" rel="stylesheet" type="text/css"/>
+        <link href="styles.css" rel="stylesheet" type="text/css"/>
+        <script src="all.fine-uploader.js"></script>
+        <script src="devenv.js"></script>
+    </head>
+    <body>
+        <ul id="foobar"></ul>
+        <h1>Fine Uploader Development</h1>
+
+        <div id="examples">
+            <div class="example">
+                <h3>Manually Trigger Uploads</h3>
+                <ul id="manual-example" class="unstyled"></ul>
+                <button type="button" id="triggerUpload" class="btn btn-primary">Upload Queued Files</button>
+            </div>
+        </div>
+    </body>
+	</html>
+
+3.endpoint.php
+	
+	<?php
+	/**
+	 * PHP Server-Side Example for Fine Uploader (traditional endpoint handler).
+	 * Maintained by Widen Enterprises.
+	 *
+	 * This example:
+	 *  - handles chunked and non-chunked requests
+	 *  - assumes all upload requests are multipart encoded
+	 *
+	 *
+	 * Follow these steps to get up and running with Fine Uploader in a PHP environment:
+	 *
+	 * 1. Setup your client-side code, as documented on http://docs.fineuploader.com.
+	 *
+	 * 2. Copy this file and handler.php to your server.
+	 *
+	 * 3. Ensure your php.ini file contains appropriate values for
+	 *    max_input_time, upload_max_filesize and post_max_size.
+	 *
+	 * 4. Ensure your "chunks" and "files" folders exist and are writable.
+	 *    "chunks" is only needed if you have enabled the chunking feature client-side.
+	 */
+
+	// Include the upload handler class
+	require_once "handler.php";
+
+
+	$uploader = new UploadHandler();
+
+	// Specify the list of valid extensions, ex. array("jpeg", "xml", "bmp")
+	$uploader->allowedExtensions = array(); // all files types allowed by default
+
+	// Specify max file size in bytes.
+	$uploader->sizeLimit = 10 * 1024 * 1024; // default is 10 MiB
+
+	// Specify the input name set in the javascript.
+	$uploader->inputName = "qqfile"; // matches Fine Uploader's default inputName value by default
+
+	// If you want to use the chunking/resume feature, specify the folder to temporarily save parts.
+	$uploader->chunksFolder = "chunks";
+
+	$method = $_SERVER["REQUEST_METHOD"];
+	if ($method == "POST") {
+	    header("Content-Type: text/plain");
+
+	    if (isset($_POST["generateError"])) {
+		$result["error"] = "Forced error";
+	    }
+	    else if (isset($_GET["done"])) {
+		$result = $uploader->combineChunks("/var/www/html/front/data/");
+	    }
+	    else {
+		// Call handleUpload() with the name of the folder, relative to PHP's getcwd()
+		$result = $uploader->handleUpload("/var/www/html/front/data/");
+
+		// To return a name used for uploaded file you can use the following line.
+		$result["uploadName"] = $uploader->getUploadName();
+	    }
+
+
+	    echo json_encode($result);
+	}
+	else if ($method == "DELETE") {
+	    $result = $uploader->handleDelete("/var/www/html/front/data/");
+	    echo json_encode($result);
+	}
+	else {
+	    header("HTTP/1.0 405 Method Not Allowed");
+	}
+
+	?>
+
+4.handler.php
+	
+	<?php
+	session_start();
+	/**
+	 * Do not use or reference this directly from your client-side code.
+	 * Instead, this should be required via the endpoint.php or endpoint-cors.php
+	 * file(s).
+	 */
+
+	class UploadHandler {
+
+	    public $allowedExtensions = array();
+	    public $sizeLimit = null;
+	    public $inputName = 'qqfile';
+	    public $chunksFolder = 'chunks';
+
+	    public $chunksCleanupProbability = 0.001; // Once in 1000 requests on avg
+	    public $chunksExpireIn = 604800; // One week
+
+	    protected $uploadName;
+
+	    function __construct(){
+		$this->sizeLimit = $this->toBytes(ini_get('upload_max_filesize'));
+	    }
+
+	    /**
+	     * Get the original filename
+	     */
+	    public function getName(){
+		if (isset($_REQUEST['qqfilename']))
+		    return $_REQUEST['qqfilename'];
+
+		if (isset($_FILES[$this->inputName]))
+		    return $_FILES[$this->inputName]['name'];
+	    }
+
+	    /**
+	     * Get the name of the uploaded file
+	     */
+	    public function getUploadName(){
+		return $this->uploadName;
+	    }
+
+	    public function combineChunks($uploadDirectory, $name = null) {
+		//$uuid = $_POST['qquuid'];
+		$uuid = $_SESSION['tmp'];
+		$name = $this->getName();
+		$targetFolder = $this->chunksFolder.DIRECTORY_SEPARATOR.$uuid;
+		$totalParts = isset($_REQUEST['qqtotalparts']) ? (int)$_REQUEST['qqtotalparts'] : 1;
+
+		$target = join(DIRECTORY_SEPARATOR, array($uploadDirectory, $uuid, $name));
+		$this->uploadName = $name;
+
+		if (!file_exists($target)){
+		    mkdir(dirname($target));
+		}
+		$target = fopen($target, 'wb');
+
+		for ($i=0; $i<$totalParts; $i++){
+		    $chunk = fopen($targetFolder.DIRECTORY_SEPARATOR.$i, "rb");
+		    stream_copy_to_stream($chunk, $target);
+		    fclose($chunk);
+		}
+
+		// Success
+		fclose($target);
+
+		for ($i=0; $i<$totalParts; $i++){
+		    unlink($targetFolder.DIRECTORY_SEPARATOR.$i);
+		}
+
+		rmdir($targetFolder);
+
+		return array("success" => true, "uuid" => $uuid);
+	    }
+
+	    /**
+	     * Process the upload.
+	     * @param string $uploadDirectory Target directory.
+	     * @param string $name Overwrites the name of the file.
+	     */
+	    public function handleUpload($uploadDirectory, $name = null){
+
+		if (is_writable($this->chunksFolder) &&
+		    1 == mt_rand(1, 1/$this->chunksCleanupProbability)){
+
+		    // Run garbage collection
+		    $this->cleanupChunks();
+		}
+
+		// Check that the max upload size specified in class configuration does not
+		// exceed size allowed by server config
+		if ($this->toBytes(ini_get('post_max_size')) < $this->sizeLimit ||
+		    $this->toBytes(ini_get('upload_max_filesize')) < $this->sizeLimit){
+		    $size = max(1, $this->sizeLimit / 1024 / 1024) . 'M';
+		    return array('error'=>"Server error. Increase post_max_size and upload_max_filesize to ".$size);
+		}
+
+		if ($this->isInaccessible($uploadDirectory)){
+		    return array('error' => "Server error. Uploads directory isn't writable");
+		}
+
+		$type = $_SERVER['CONTENT_TYPE'];
+		if (isset($_SERVER['HTTP_CONTENT_TYPE'])) {
+		    $type = $_SERVER['HTTP_CONTENT_TYPE'];
+		}
+
+		if(!isset($type)) {
+		    return array('error' => "No files were uploaded.");
+		} else if (strpos(strtolower($type), 'multipart/') !== 0){
+		    return array('error' => "Server error. Not a multipart request. Please set forceMultipart to default value (true).");
+		}
+
+		// Get size and name
+		$file = $_FILES[$this->inputName];
+		$size = $file['size'];
+
+		if ($name === null){
+		    $name = $this->getName();
+		}
+
+		// Validate name
+		if ($name === null || $name === ''){
+		    return array('error' => 'File name empty.');
+		}
+
+		// Validate file size
+		if ($size == 0){
+		    return array('error' => 'File is empty.');
+		}
+
+		if ($size > $this->sizeLimit){
+		    return array('error' => 'File is too large.');
+		}
+
+		// Validate file extension
+		$pathinfo = pathinfo($name);
+		$ext = isset($pathinfo['extension']) ? $pathinfo['extension'] : '';
+
+		if($this->allowedExtensions && !in_array(strtolower($ext), array_map("strtolower", $this->allowedExtensions))){
+		    $these = implode(', ', $this->allowedExtensions);
+		    return array('error' => 'File has an invalid extension, it should be one of '. $these . '.');
+		}
+
+		// Save a chunk
+		$totalParts = isset($_REQUEST['qqtotalparts']) ? (int)$_REQUEST['qqtotalparts'] : 1;
+
+		//$uuid = $_REQUEST['qquuid'];
+		$uuid = $_SESSION['tmp'];
+		if ($totalParts > 1){
+		# chunked upload
+
+		    $chunksFolder = $this->chunksFolder;
+		    $partIndex = (int)$_REQUEST['qqpartindex'];
+
+		    if (!is_writable($chunksFolder) && !is_executable($uploadDirectory)){
+		        return array('error' => "Server error. Chunks directory isn't writable or executable.");
+		    }
+		    
+		    $targetFolder = $this->chunksFolder.DIRECTORY_SEPARATOR.$uuid;
+
+		    if (!file_exists($targetFolder)){
+		        mkdir($targetFolder);
+		    }
+
+		    $target = $targetFolder.'/'.$partIndex;
+		    $success = move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $target);
+
+		    return array("success" => true, "uuid" => $uuid);
+
+		}
+		else {
+		# non-chunked upload
+
+		    $target = join(DIRECTORY_SEPARATOR, array($uploadDirectory, $uuid, $name));
+		    //$target = $this->getUniqueTargetPath($uploadDirectory, $name);
+
+		    if ($target){
+		        $this->uploadName = basename($target);
+
+		        if (!is_dir(dirname($target))){
+		            mkdir(dirname($target));
+		        }
+		        if (move_uploaded_file($file['tmp_name'], $target)){
+		            return array('success'=> true, "uuid" => $uuid);
+		        }
+		    }
+
+		    return array('error'=> 'Could not save uploaded file.' .
+		        'The upload was cancelled, or server error encountered');
+		}
+	    }
+
+	    /**
+	     * Process a delete.
+	     * @param string $uploadDirectory Target directory.
+	     * @params string $name Overwrites the name of the file.
+	     *
+	     */
+	    public function handleDelete($uploadDirectory, $name=null)
+	    {
+		if ($this->isInaccessible($uploadDirectory)) {
+		    return array('error' => "Server error. Uploads directory isn't writable" . ((!$this->isWindows()) ? " or executable." : "."));
+		}
+
+		$targetFolder = $uploadDirectory;
+		$url = parse_url($_SERVER['REQUEST_URI'])['path'];
+		$tokens = explode('/', $url);
+		$uuid = $tokens[sizeof($tokens)-1];
+
+		$target = join(DIRECTORY_SEPARATOR, array($targetFolder, $uuid));
+
+		print_r($target);
+		if (is_dir($target)){
+		    $this->removeDir($target);
+		    return array("success" => true, "uuid" => $uuid);
+		} else {
+		    return array("success" => false,
+		        "error" => "File not found! Unable to delete.".$url,
+		        "path" => $uuid
+		    );
+		}
+
+	    }
+
+	    /**
+	     * Returns a path to use with this upload. Check that the name does not exist,
+	     * and appends a suffix otherwise.
+	     * @param string $uploadDirectory Target directory
+	     * @param string $filename The name of the file to use.
+	     */
+	    protected function getUniqueTargetPath($uploadDirectory, $filename)
+	    {
+		// Allow only one process at the time to get a unique file name, otherwise
+		// if multiple people would upload a file with the same name at the same time
+		// only the latest would be saved.
+
+		if (function_exists('sem_acquire')){
+		    $lock = sem_get(ftok(__FILE__, 'u'));
+		    sem_acquire($lock);
+		}
+
+		$pathinfo = pathinfo($filename);
+		$base = $pathinfo['filename'];
+		$ext = isset($pathinfo['extension']) ? $pathinfo['extension'] : '';
+		$ext = $ext == '' ? $ext : '.' . $ext;
+
+		$unique = $base;
+		$suffix = 0;
+
+		// Get unique file name for the file, by appending random suffix.
+
+		while (file_exists($uploadDirectory . DIRECTORY_SEPARATOR . $unique . $ext)){
+		    $suffix += rand(1, 999);
+		    $unique = $base.'-'.$suffix;
+		}
+
+		$result =  $uploadDirectory . DIRECTORY_SEPARATOR . $unique . $ext;
+
+		// Create an empty target file
+		if (!touch($result)){
+		    // Failed
+		    $result = false;
+		}
+
+		if (function_exists('sem_acquire')){
+		    sem_release($lock);
+		}
+
+		return $result;
+	    }
+
+	    /**
+	     * Deletes all file parts in the chunks folder for files uploaded
+	     * more than chunksExpireIn seconds ago
+	     */
+	    protected function cleanupChunks(){
+		foreach (scandir($this->chunksFolder) as $item){
+		    if ($item == "." || $item == "..")
+		        continue;
+
+		    $path = $this->chunksFolder.DIRECTORY_SEPARATOR.$item;
+
+		    if (!is_dir($path))
+		        continue;
+
+		    if (time() - filemtime($path) > $this->chunksExpireIn){
+		        $this->removeDir($path);
+		    }
+		}
+	    }
+
+	    /**
+	     * Removes a directory and all files contained inside
+	     * @param string $dir
+	     */
+	    protected function removeDir($dir){
+		foreach (scandir($dir) as $item){
+		    if ($item == "." || $item == "..")
+		        continue;
+
+		    if (is_dir($item)){
+		        $this->removeDir($item);
+		    } else {
+		        unlink(join(DIRECTORY_SEPARATOR, array($dir, $item)));
+		    }
+
+		}
+		rmdir($dir);
+	    }
+
+	    /**
+	     * Converts a given size with units to bytes.
+	     * @param string $str
+	     */
+	    protected function toBytes($str){
+		$val = trim($str);
+		$last = strtolower($str[strlen($str)-1]);
+		switch($last) {
+		    case 'g': $val *= 1024;
+		    case 'm': $val *= 1024;
+		    case 'k': $val *= 1024;
+		}
+		return $val;
+	    }
+
+	    /**
+	     * Determines whether a directory can be accessed.
+	     *
+	     * is_executable() is not reliable on Windows prior PHP 5.0.0
+	     *  (http://www.php.net/manual/en/function.is-executable.php)
+	     * The following tests if the current OS is Windows and if so, merely
+	     * checks if the folder is writable;
+	     * otherwise, it checks additionally for executable status (like before).
+	     *
+	     * @param string $directory The target directory to test access
+	     */
+	    protected function isInaccessible($directory) {
+		$isWin = $this->isWindows();
+		$folderInaccessible = ($isWin) ? !is_writable($directory) : ( !is_writable($directory) && !is_executable($directory) );
+		return $folderInaccessible;
+	    }
+
+	    /**
+	     * Determines is the OS is Windows or not
+	     *
+	     * @return boolean
+	     */
+
+	    protected function isWindows() {
+	    	$isWin = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
+	    	return $isWin;
+	    }
+
+	}
+	?>
