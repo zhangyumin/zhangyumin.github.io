@@ -189,7 +189,7 @@ title: 计划
 					end: '2015-06-11'
 				},
 				{
-					title: '改用fineuploader上传',
+					title: '改fineuploader上传',
 					start: '2015-06-12',
 					end: '2015-06-12'
 				},
@@ -197,6 +197,11 @@ title: 计划
 					title: '修改多文件上传逻辑',
 					start: '2015-06-15',
 					end: '2015-06-15'
+				},
+				{
+					title: '寻找页面收缩js插件',
+					start: '2015-06-16',
+					end: '2015-06-16',
 				},
 				{
 					title: '测试三个新程序',
