@@ -35,6 +35,7 @@ date: 2015-06-10
 	</BODY>
 	</HTML>
 
+<!-- more -->
 5.安装mod_jk
 	
 	sudo apt-get install libapache2-mod-jk

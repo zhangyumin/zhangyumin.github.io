@@ -30,7 +30,7 @@ jTable是一款jQuery的插件，用于创建基于Ajax的CRUD表格，可以对
 	........});
 
 需要实现搜索功能时，查过了网站的document，获取到的有效信息是提供了filter参数可以直接对数据进行过滤。
-
+<!-- more -->
 可是网站并没有基于php的demo，经过一下午的摸索也算是大功告成。
 
 	//creat a container

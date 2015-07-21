@@ -4,6 +4,7 @@ highlighter: pygments
 permalink: blog/:year/:month/:day/:title.html
 paginate: 6
 paginate_path: page/:num
+excerpt_separator: #zhaiyao
 
 blog:
     name: Joker                                     # 博客名称
@@ -18,4 +19,4 @@ author:
     email: zhangyumin618@163.com                                  # 邮箱地址
     weibo: http://weibo.com/2177156737                        # 微博地址
     github: https://github.com/zhangyumin                     # GitHub地址
-    logo: zhangyumin.github.io/res/img/logo/1.jpg    # logo地址
+    logo: http://zhangyumin.github.io/res/img/logo/1.jpg    # logo地址

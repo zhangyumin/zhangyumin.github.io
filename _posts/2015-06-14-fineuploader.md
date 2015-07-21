@@ -18,11 +18,13 @@ fine-uploader优点:
 
 下载的代码中含有一个demo位于test文件夹中,可以用来测试.
 主要文件说明:
-1.all-fine-uploader.js 可能也为其它名字,是fineuploader组件的主要js文件.
-2.devenv.js 本地部署的js配置文件,各种属性可以在官网查询,路径需要设置需要修改.
-3.handler.php 服务器端功能的实现方法,包括文件上传、删除、更名等实现方式,供endpoint.php调用.
-4.endpoint.php 本地服务器端的具体配置,可以控制文件大小、类型、路径等,具体配置方式见官网文档.
 
+	1.all-fine-uploader.js 可能也为其它名字,是fineuploader组件的主要js文件.
+	2.devenv.js 本地部署的js配置文件,各种属性可以在官网查询,路径需要设置需要修改.
+	3.handler.php 服务器端功能的实现方法,包括文件上传、删除、更名等实现方式,供endpoint.php调用.
+	4.endpoint.php 本地服务器端的具体配置,可以控制文件大小、类型、路径等,具体配置方式见官网文档.
+
+<!-- more -->
 其他:
 1.每个文件上传后都会存在相应目录的一个新文件夹下,文件夹的名字是$uuid,$uuid是机器产生的标识符,能够保证文件夹的唯一性.
 2.文件的存储路径在endpoint.php中修改,必须使用绝对路径.
