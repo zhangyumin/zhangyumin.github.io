@@ -390,7 +390,7 @@ title: 计划
 				},
 				{
 					title: '完成PAC导入Jbrowse',
-					start: '2015-08-09'
+					start: '2015-08-09',
 					end: '2015-08-09'
 				},
 				{
