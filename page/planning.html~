@@ -495,17 +495,75 @@ title: 计划
 					end: '2015-09-18'
 				},
 				{
-					title: '优化Jbrowse检索',
-					start: '2015-09-17',
-					end: '2015-09-17'
+					title: '重置Jbrowse搜索功能',
+					start: '2015-09-18',
+					end: '2015-09-18'
 				},
 				{
 					title: '修正onclick命令',
-					start: '2015-09-17',
-					end: '2015-09-17'
+					start: '2015-09-18',
+					end: '2015-09-18'
 				},
-
-
+				{
+					title: '完成browse页面',
+					start: '2015-09-18',
+					end: '2015-09-18'
+				},				
+				{
+					title: 'search_result增加pac跳转',
+					start: '2015-09-18',
+					end: '2015-09-18'
+				},
+				{
+					title: '修正sequence_result显示bug',
+					start: '2015-09-18',
+					end: '2015-09-18'
+				},
+				{
+					title: '添加Jbrowse的iframe窗口',
+					start: '2015-09-19',
+					end: '2015-09-19'
+				},
+				{
+					title: '为iframe添加onchange的js',
+					start: '2015-09-19',
+					end: '2015-09-19'
+				},
+				{
+					title: '修改show_result页面jtable的column',
+					start: '2015-09-19',
+					end: '2015-09-19'
+				},
+				{
+					title: '创建analysis页面',
+					start: '2015-09-20',
+					end: '2015-09-20'
+				},
+				{
+					title: 'search_result增加pac跳转',
+					start: '2015-09-18',
+					end: '2015-09-18'
+				},
+				{
+					title: 'search_result增加pac跳转',
+					start: '2015-09-18',
+					end: '2015-09-18'
+				},
+				{
+					title: 'search_result增加pac跳转',
+					start: '2015-09-18',
+					end: '2015-09-18'
+				},
+				{
+					title: 'search_result增加pac跳转',
+					start: '2015-09-18',
+					end: '2015-09-18'
+				},
+				{
+					title: 'search_result增加pac跳转',
+					start: '2015-09-18',
+					end: '2015-09-18'
+				},
 
 			]
 		});
