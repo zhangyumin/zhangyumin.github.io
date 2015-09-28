@@ -45,8 +45,8 @@ Git的个人服务器搭建并不麻烦,但是实验室只有这一台服务器,
 	#初始化为bare仓库
 	git init --bare
 
-'git init'和'git init ——bare'的区别:
-用'git init'初始化的版本库,其保存的都是原文件,但某些用户的push操作可能导致冲突.而'git init ——bare'创建的是裸仓库,它不保存原文件而只保存git历史提交的版本信息,并不允许用户直接在上面进行git操作.
+'git init'和'git init --bare'的区别:
+用'git init'初始化的版本库,其保存的都是原文件,但某些用户的push操作可能导致冲突.而'git init --bare'创建的是裸仓库,它不保存原文件而只保存git历史提交的版本信息,并不允许用户直接在上面进行git操作.
 
 ##Git客户机(开发)操作
 Git服务器配置好后就可以直接git remote并提交推送到远程仓库中了.
