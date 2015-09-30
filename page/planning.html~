@@ -620,9 +620,14 @@ title: 计划
 					end: '2015-09-28'
 				},
 				{
-					title: '',
-					start: '2015-09-28',
-					end: '2015-09-28'
+					title: '添加genepic.php页面',
+					start: '2015-10-09',
+					end: '2015-10-09'
+				},
+				{
+					title: '以canvas作genepic',
+					start: '2015-10-09',
+					end: '2015-10-11'
 				},
 
 			]
