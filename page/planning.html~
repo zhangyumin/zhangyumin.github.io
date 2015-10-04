@@ -639,6 +639,16 @@ title: 计划
 					start: '2015-10-11',
 					end: '2015-10-13'
 				},
+				{
+					title: '修复search页面div_option',
+					start: '2015-10-11',
+					end: '2015-10-11'
+				},
+				{
+					title: '修复analysis页面js关联',
+					start: '2015-10-12',
+					end: '2015-10-12'
+				},
 
 			]
 		});
