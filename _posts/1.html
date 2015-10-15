@@ -1,0 +1,16 @@
+<body>
+		<canvas id="gene" width="1000px;" height="150px;" >< /canvas>
+		<script type="text/javascript">
+			window.onload=function(){
+				info("gene");
+			}
+			function info(id){
+				var canvas = document.getElementById(id);
+				var context = canvas.getContext("2d");
+				context.strokeStyle="#000000";
+				context.fillStyle="#000000";//round为黑色
+				context.font="20px Arial";
+				context.fillText("Hello World",95,35);
+		    	}
+		</script>
+	</body>
