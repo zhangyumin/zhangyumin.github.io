@@ -103,3 +103,9 @@ date: 2015-07-22
 3.sleep线程睡眠,join线程合并,yield线程让出.
 
 4.TestSync运行若未加锁可能出现冲突,sleep时间越长可能性越大.
+
+##2015年10月18日
+1.wait()和sleep()的区别:
+ 1)wait属于object类的方法,sleep属于Thread类.
+ 2)wait需要用notify或者notifyAll来唤醒,sleep时间过后自动唤醒.
+ 3)wait后不再拥有锁,sleep仍保持锁.
