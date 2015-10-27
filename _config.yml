@@ -1,4 +1,5 @@
 markdown: kramdown
+gems: [jekyll-paginate]
 #markdown: rdiscount
 highlighter: pygments
 permalink: blog/:year/:month/:day/:title.html
