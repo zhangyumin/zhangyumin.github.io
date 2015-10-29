@@ -723,6 +723,16 @@ title: 计划
 					title: '修改polyA数据显示方式',
 					start: '2015-10-28',
 					end: '2015-10-28'
+				},
+				{
+					title: '修复sequence_detail的方向bug',
+					start: '2015-10-28',
+					end: '2015-10-28'
+				},
+				{
+					title: '删除部分页面的sequence viewer',
+					start: '2015-10-28',
+					end: '2015-10-28'
 				}
 			]
 		});
