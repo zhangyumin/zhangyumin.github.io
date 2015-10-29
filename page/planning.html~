@@ -738,6 +738,11 @@ title: 计划
 					title: '修复arrow在其他位置的显示bug',
 					start: '2015-10-29',
 					end: '2015-10-29'
+				},
+				{
+					title: '修改genepic在analysis后样本数量',
+					start: '2015-10-29',
+					end: '2015-10-29'
 				}
 			]
 		});
