@@ -711,7 +711,7 @@ title: 计划
 				},
 				{
 					title: '更改search数据库',
-					start: '2015-10-28',
+					start: '2015-10-27',
 					end: '2015-10-28'
 				},
 				{
@@ -746,6 +746,11 @@ title: 计划
 				},
 				{
 					title: '修复genepic和pacpic对intergenic的支持',
+					start: '2015-10-29',
+					end: '2015-10-29'
+				},
+				{
+					title: '完成geneviewer的checkbox样式更改',
 					start: '2015-10-29',
 					end: '2015-10-29'
 				}
