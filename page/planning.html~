@@ -751,7 +751,12 @@ title: 计划
 				},
 				{
 					title: '完成geneviewer的checkbox样式更改',
-					start: '2015-10-30',
+					start: '2015-10-30',	
+					end: '2015-10-30'
+				},
+				{
+					title: 'Switching Gene换成3utr lengthening及APA Switching',
+					start: '2015-10-30',	
 					end: '2015-10-30'
 				}
 			]
