@@ -758,6 +758,16 @@ title: 计划
 					title: 'Switching Gene换成3utr lengthening及APA Switching',
 					start: '2015-10-30',	
 					end: '2015-10-30'
+				},
+				{
+					title: '完成polyA文件上传处理',
+					start: '2015-10-30',	
+					end: '2015-10-30'
+				},
+				{
+					title: '增加polyA文件上传验证',
+					start: '2015-10-30',	
+					end: '2015-10-30'
 				}
 			]
 		});
