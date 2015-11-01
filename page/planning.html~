@@ -775,7 +775,7 @@ title: 计划
 					end: '2015-11-01'
 				},
 				{
-					title: 'gff基因图增加3utr_extend部分',
+					title: 'gff基因图增加3utr_extend部',
 					start: '2015-11-01',	
 					end: '2015-11-01'
 				}
