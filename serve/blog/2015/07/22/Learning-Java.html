@@ -1,0 +1,214 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="description" content="Joker blog - 神不为者 人为之">
+  <meta name="author" content="zhangyumin">
+  <meta name="keywords" content="Java学习记录, Joker, zhangyumin">
+  <title>Java学习记录 - Joker</title>
+  <link rel="canonical" href="http://zhangyumin.github.ioblog/2015/07/22/Learning-Java.html">
+  <link rel="icon" href="/res/img/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/res/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/res/css/public.css">
+  <link rel="stylesheet" href="/res/css/light.css">
+  <script src="/res/js/light.js"></script>
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?297079dc3dc43c355fa71b4a219c694f";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+<body>
+  <div id="blog">
+    <div class="sidebar">
+  <div class="profilepic">
+    <a href="/"><img src="http://zhangyumin.github.io/res/img/logo/1.jpg" alt="logo"></img></a>
+  </div>
+  <h1 class="title"><a href="/">Joker</a></h1>
+  <h2 class="sub-title">Yesterday you said tomorrow.</h2>
+  <nav id="nav">
+    <ul>
+    
+    </ul>
+  </nav>  
+  <nav id="sub-nav">
+    <a class="weibo " href="http://weibo.com/2177156737" title="新浪微博" target="_blank"><i class="fa fa-weibo"></i></a>
+    <a class="github" href="https://github.com/zhangyumin" title="GitHub" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    <a class="rss" href="/page/feed.xml" title="RSS订阅" target="_blank"><i class="fa fa-rss"></i></a>
+  </nav>
+  <div id="license">
+    <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="本站所有作品采用：&#10;知识共享《署名 非商业性使用 相同方式共享 3.0》&#10;进行许可" >
+    <img alt="License" height="31" width="88" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAAAfCAYAAABjyArgAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAK8AAACvABQqw0mAAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNAay06AAAAqVSURBVGiB7VptbFPXGX7utYlGJzz/2yYHYYQ2xZFWHAq0dLSx161TS9NcL4FCQ4fNtLYr65KUELaRLwOBxoQ6Hv3QpjX22lWtVirM19qFDt8QtDhxEpvR4vxYZaMkKtWmOThoKvHHux/X98SO7cShbHSsj3R0j8/Hc899znu+3mOOiFQcx13FF7jpICKOA0AAcLrnFHieB8/zUCgU4HkFFDwPXpF68jw4jgfPceA4DuA4mQUEAiUJSUoimZRCIpGQnskEEokkkskEy0tSkpUnIrkxLH47YGPlJgAAB4BkcRUKhRR4xUxcoZDyeEVKZA4cx6frmxInJWxSEjORSIX0eCJT5GQyyYRNF/p2wcbKTVACyBRXoYQy4ymFk8dPwePxYHBwEFPRqQyiJaolWLt2LYzfMaLi0UeQSCrA83GpQxI8OHCQ+nIGlCRpJADSGOIkcUd8frjfcSMYDGaU1+l0EKoErFpTVtDHfV54OAD0p7PvQalUMlGVSqUUFEr0iudge96GiYmJghqk0WjQ+ItGlJffj3gigUQijng8FRJxxOMJZuHplvzxxMc40vUiRoOjAACDwQC9Xg8ACAQCEEURAFCiK8GO2h342te/mvP9Vz7+BC85Xvpc8Gys3CQJ/H7vGSgVyhlhlYuwSKlEa3Mb3MfcrIJarYYgCNBqtSgvLwcA9Pb2IhwOw+12Y3JykpUVTAIaGndi8R2LEY/HEYvHEY/HEI/HM6cMSuJq5Cp++vSziEajEAQBdrsdWq02o7HhcBj19fVwu91QqVRot7VnfdS16DXU7qj73PDI8zCd7TtLff3nqN/XT0MBH134IECCSSBIg5fUajW1tbVRJBKhueB0OkmtVrN6JboSOt/fR0OBIfIO9VNf/zny9J2lM2IPvffnd+l0zyk68e5x0ul0BIDMZnMGn8wz+x0y99vH/5ARSnQlOXkcdjs9/tjmz8QzNjZG3v5+8vb309jYWEE8AIgHAEVqDlYqFFAqMi1Xr9fD7/ejtbUVarU6axikw2w2IxQKsaE0GhxFp+1wxlzOsx2JtBvxeX0IBoMQBAGNu3bNyS+/QxAEjAZHMeLzs/QRnx+jwVGsKivDvfesY+m/6urC8zYbTp4+jd0NuzA+Pl4QT3p7fv/aazCsvw81m7egZvMWGNbfhzM9PXPypIP6vH3kHfLSyIVhchxxMMvR6/XzWm0uRCIR0uv1jMfxooNG/jpCA8NeOu/tI895yYrfff+PpCuVrDcUChXMHwqFCADpdDpmLfIoKPnGN2nFMi2Vf3s9Pf3jJwkAtbW10cEDBwkAHX377YJ45PZ4+/slvrvX0Y+2WahxZwOtWKalFcu05LDb8/LksGDJim3P2wBI863T6ZzXanNBrVbD4/GwuraDttReOmXBXGpPzfMIXgrCYDBkzXEWi4VZucViycjTarUwGAwZK3swKPFUVFRg46ZNGB8fx5meHqxYpsW/pq5h6xNbcenDD1FVXV0Qj1arRTQaRdB/EQBQKfwAv3V1o6PzEPa0NAMAXN3OvDwyeACpYSttxeTdQl1dHRvqNwK1Wg273Q4AmJiYwMkTp9iBRRKZY9u0XO9xuVw54zJy1dHr9bAd7sRBWwfeeOtNVFVX46PLYdgOd2Lp0qVwdTsRvHSpIB4Z7S9IBveb373K0r734IMAgGg0ik+uXMnLA6QElq3J4/EAkMSpra1lhURRhMlkgtFohNFohNVqzZvX1dXF8sxmM7Niz1lPmvVy4PgZgf8TuPuee9DReQhjY2No3NmAsm/diXeOHkXFwxtQs3kLm0PngkqlgsPhwB2qJXjllVdylvn00+tzckgHDY4Dz3EYHBwEAAiCwIQRRRFGozGjkiiKEEURtbW1MJlMWXkXLlyA0+lkXC6XC4ODg9IJMCWsJK4kcCAQyGqY2Wxmlms2m7Pyc9WZnRaNRnGmpwcdnYdgvmRBxcMbAAADXi8GvF4UFxeDW6Sck2eRUonGhgbcsXgxSxvwell8mXZZ3vYAzIKlD5ZPaCtXrmQF6uvrAUjzTCgUgsfjgVarxbZt25gl6/V6hEIhHDt2LGOPDIDFp6JT0nvApT2B0tJSiKKIcDic0TC5g2bHAWkPKooidDodS9PpdFk8P3nyKbTv3YdVd65EzeYt+OhyGFXV1ejoPISarVsL4hkfH0dbSysef2wz2vfuQ/vefWhpagIA7Nq9O297MgQGh4zhmj6fyD1jNpvZZB4KhWA2m1mefPgQBIHlyUhfvCSjzTw2b3xMWnTkjiwEclmhSmBpcjydp6PzECzbt+PKP/6Ov4VCcNjt2NPSjKrqalj370PZmtXz8li2b4dl+3YAgLO7G87ublz/9Do2VDyCLTWP522PjOzx8V/GuvXroCvVwe12w2KxZFnrbMinpxJdSYYfYNWaMpToSjJ4iouLsaelGV9avBgjw8P4WV3dDfHsaWnG9x96CJcvhwFIo05XWjonjwzJginTi5U+n8jW7HK5MDk5iUAggOXLl8NqtbI8+ZicnicjfchKZzN5ezyD5rZmqFQquFwumEwmVofSvGzhcBgmkwldXV1QqVTYUbsj62N2/7IxJ8/OXQ144603PxPP6jWrUVVdjarqauhKSwviAVLOHt/IIIqKirD+3vswFZ2C2WxmluR2u7MWMkCaMiorK/PmyfXr6+vR1dWFJaolOP+XPkxPT2M6No1YPIZYLC45gxJxRP45iQPWA2wvqdfrodfroVarIYoi6/T5nDTXotfQccDGnDS3koc5ewaGB1BUVARrixXuY26o1WpEIhFWUBRFOBwO5swxGAxobW1lHeBwOFjZ9DwAWL58OcLhMB747gM4bO/E9elpxGYJLPuNk4kkfAM+HDt6692MN4OHCewd6seiRUU4f+48ap+V9r92ux11aXPWjcDlcrFT2P4D+/HwhocwHZvGdCyGeCyGWHyWwDkc8P/L2Fi5SZqD5Ssdg7EcGo0GAGC1WrO2TgvB5OQkW101Gk3KEZ+6xUgmkUzNxZS6crpdwQNAkpJIJKR7tH3tewFIAplMpgwfb6GYnJyE0WhkdRt/3physCdmRE67MmKL7KzF9nYBAaCm1ibyjQxS4KKfnvjhExkeNb/fvyBPV7onTTAJFLjoJ9/IIO1t38vS/4/CzI+652ppyO+jwA043CORCLW1tWU43NesXUMXPgjQUMBHTa1Nt/pDb0lg1/YymlubUGkSoFQqcdh2GK+/9jrLW+iVkXVfG+LxOAYGBvHMU89gPqRPD/LJkogyTpmzf+fjyVdHfkehjqZ8bVoQx+zQ3NokWfJFP3W7XiWNRlNwj2k0GnIccVDgop+GAj56+dcvF1yXiOaMp6fNxzNf/UK4cpVZKEeWBcuoe64WNVtr2FWP6OnFieMn5ry2f1R4FAZDObvQPH78BPZb9xfQxxJyWUt63kKsjuO4vM+FYLa1zl6E5+PLKzAArLqrDM2tLSheqkm7jUh3NyJj3yr/8WRifBwvdNpxrvfcgj/ms0wN+XgAZAm8ULFzdVIhHHMKLOP+8vuxoWID7lp9F76iUqX+OiW/WXrR1WgUw0PDOH3y9IKFTf8I1rCbYMG5fi9k/pxvTbhpAn+BGwdPRF++1Y24XUFE3L8BbcIUMlzaN08AAAAASUVORK5CYII=" /></a>
+  </div>
+</div>
+    <div class="main">
+    <header class="post-header">
+  <h1 class="post-title"><a href="blog/2015/07/22/Learning-Java.html">Java学习记录</a></h2>
+  <p class="post-meta">
+    <i class="fa fa-calendar"></i>
+    2015年07月22日
+    <i class="space"></i>
+    <i class="fa fa-tags"></i>
+    <a class="post-category" href="/page/category.html#java">java</a>	
+  </p>
+</header>
+<div class="post-main">
+<h2 id="section">2015年6月5日(第一章)</h2>
+<p>1.面向对象相对于面向过程编程更简单,可以增加代码的复用,面向对象并没有减少实现过程,只是将过程包装成了方法.</p>
+
+<p>2.构造方法的重载在于可以为其输入变量,不同种变量可以用不同的方法重载.</p>
+
+<pre><code>	Circle c1 = new Circle(5);//最后的Circle即为构造方法
+</code></pre>
+
+<p>3.this是一个对象,可以在类里面引用类的成员变量和方法.</p>
+
+<p>4.static关键字,可以允许变量不实例化修改,只存一份,每个对象的static变量都相同,节约空间.
+<!-- more --></p>
+
+<h2 id="section-1">2015年6月8日</h2>
+<p>1.package的作用是防止java类重名,导致调用出错.约定俗成的规则是域名倒写(如com.baidu.www)</p>
+
+<h2 id="section-2">2015年7月21日</h2>
+<p>1.不同的项目需要不同的classpath,以避免包的冲突问题.</p>
+
+<p>2.使用jar -cvf <em>.jar *.</em>可以打包class文件,便于引用.</p>
+
+<p>3.java只支持单继承(C++允许多继承).</p>
+
+<p>4.继承的子类大于等于父类(子类含有父类方法等).</p>
+
+<p>5.继承所有的变量,但是不能修改只能访问.(protected,public)</p>
+
+<pre><code>-------------------------------------------------
+|   修饰符  | 类内部 | 同一个包  | 子类 | 任何地方 |
+-------------------------------------------------
+|  private  |  Yes  |          |      |         |
+-------------------------------------------------
+|  default  |  Yes  |    Yes   |      |         |
+-------------------------------------------------
+| protected |  Yes  |    Yes   |  Yes |         |
+-------------------------------------------------
+|   public  |  Yes  |    Yes   |  Yes |   Yes   |
+-------------------------------------------------
+</code></pre>
+
+<p>6.super引用指向当前对象的父类,this引用指向对象自身.</p>
+
+<p>7.子类构造过程中必须调用父类的构造方法.super的调用必须是构造函数的第一个语句.</p>
+
+<h2 id="section-3">2015年7月22日</h2>
+<p>1.lang中的equals当且仅当指向同一对象,才返回true.但是各个包可能会重写equals.</p>
+
+<p>2.动态绑定(多态)是面向对象的核心,执行期间判断所引用对象的实际类型,根据其实际类型调用其相应的方法.</p>
+
+<p>3.抽象方法用于被重写,方法是抽象的则类也是抽象的,无法被实例化,用于继承.</p>
+
+<p>4.final关键字,不能重写,不能继承.</p>
+
+<p>5.interface属于特殊的抽象类,只包含常量和方法的定义,无实现.接口之间可以相互继承.</p>
+
+<h2 id="section-4">2015年7月23日</h2>
+<p>1.多维数组相当于其低维数组的数组.</p>
+
+<h2 id="section-5">2015年10月15日</h2>
+<p>1.容器是装其它东西的器皿(数组),装其它各种对象.</p>
+
+<pre><code>        Collection(interface)                                         Map(interface)
+         |                 |                                                 |
+    Set(interface)  List(interface)                                          |  
+         |            |        |                                             |
+      HashSet     LinkedList  ArrayList                                   HashMap 
+</code></pre>
+
+<p>2.装在Set中无顺序不可重复,List中有顺序可重复,Map中两两存取.(重复是指两个对象互相equals)</p>
+
+<p>3.Collection中装的(add,remove)必须是对象.</p>
+
+<p>4.容器类对象在调用remove,contains等方法时需要比较对象是否相等,会涉及到对象类型的equals方法和hashCode方法,相等的对象具有相等的hashCode.</p>
+
+<p>5.Iterator为容器的迭代器,用于实现对容器内元素的遍历操作.</p>
+
+<p>6.hashSet无顺序,所以经过iterator迭代后输出顺序不定</p>
+
+<h2 id="section-6">2015年10月16日</h2>
+<p>1.List中元素都对应一个整数型序号记载在其容器的位置,可以根据序号存取容器元素(像数组),List的长度可以根据需要改变.</p>
+
+<p>2.Array读快改慢,Linkded改快读慢,Hash在两者之间.</p>
+
+<p>3.Map接口实现类有HashMap和TreeMap,用来存储Key-Value对,通过Key来标示,不能重复.</p>
+
+<p>4.自动打包:自动将基础类型转换为对象.自动解包:自动将对象转换为基础类型.</p>
+
+<p>5.泛型Generic,创建按类型进行参数化的类,避免类型转换.</p>
+
+<p>6.通过流(Stream)的方式读取数据.</p>
+
+<p>7.system.in接受键盘输入.</p>
+
+<h2 id="section-7">2015年10月17日</h2>
+<p>1.线程是一个程序内部的顺序控制流.</p>
+
+<p>2.创建线程的方法:1)定义线程类实现Runnable接口.2)定义Thread的子类并重写其run方法.一般用第一种,便与实现多重继承.</p>
+
+<p>3.sleep线程睡眠,join线程合并,yield线程让出.</p>
+
+<p>4.TestSync运行若未加锁可能出现冲突,sleep时间越长可能性越大.</p>
+
+<h2 id="section-8">2015年10月18日</h2>
+<p>1.wait()和sleep()的区别:
+ 1)wait属于object类的方法,sleep属于Thread类.
+ 2)wait需要用notify或者notifyAll来唤醒,sleep时间过后自动唤醒.
+ 3)wait后不再拥有锁,sleep仍保持锁.</p>
+
+<p>2.网络通信协议:计算机网络中实现通信必须有一些约定即通信协议,对码率,传输代码,代码结构.传输控制步骤.出错控制等制定标准.</p>
+
+<p>3.端口号来区分数据传输到目标电脑的应用程序接受位置.</p>
+
+</div>
+<div class="share">
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+  </div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":["qzone","tsina","weixin","sqq"],"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/res/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</div>
+<div class="pagination">
+
+<a class="pagination-item newer" href="blog/2015/06/14/fineuploader.html"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;fineuploader部署实例及相关配置说明</a>
+
+
+<a class="pagination-item older" href="blog/2015/08/02/firefox-event-is-not-defined.html">Firefox出现event is not defined解决方法&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
+
+</div>
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="blog/2015/07/22/Learning-Java" data-title="Java学习记录" data-url="http://zhangyumin.github.io/blog/2015/07/22/Learning-Java.html"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"githubjoker"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+    <footer>Copyright&nbsp;&copy;&nbsp;2015 <a href="http://zhangyumin.github.io">Joker</a><br/><i class="fa fa-cogs" style="color:blueviolet;">&nbsp;</i>Powered by <a href="http://jekyllrb.com/" target="_blank">Jekyll</a></footer>
+    </div>
+  </div>    
+  <div id="top"><a id="rocket" href="javascript:;" title="返回顶部"><i></i></a></div>
+  
+</body>
+</html>

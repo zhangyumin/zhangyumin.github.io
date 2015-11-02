@@ -1,0 +1,301 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="description" content="Joker blog - 神不为者 人为之">
+  <meta name="author" content="zhangyumin">
+  <meta name="keywords" content="使用HTML5之Canvas绘图, Joker, zhangyumin">
+  <title>使用HTML5之Canvas绘图 - Joker</title>
+  <link rel="canonical" href="http://zhangyumin.github.ioblog/2015/10/15/canvas-paint.html">
+  <link rel="icon" href="/res/img/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/res/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/res/css/public.css">
+  <link rel="stylesheet" href="/res/css/light.css">
+  <script src="/res/js/light.js"></script>
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?297079dc3dc43c355fa71b4a219c694f";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+<body>
+  <div id="blog">
+    <div class="sidebar">
+  <div class="profilepic">
+    <a href="/"><img src="http://zhangyumin.github.io/res/img/logo/1.jpg" alt="logo"></img></a>
+  </div>
+  <h1 class="title"><a href="/">Joker</a></h1>
+  <h2 class="sub-title">Yesterday you said tomorrow.</h2>
+  <nav id="nav">
+    <ul>
+    
+    </ul>
+  </nav>  
+  <nav id="sub-nav">
+    <a class="weibo " href="http://weibo.com/2177156737" title="新浪微博" target="_blank"><i class="fa fa-weibo"></i></a>
+    <a class="github" href="https://github.com/zhangyumin" title="GitHub" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    <a class="rss" href="/page/feed.xml" title="RSS订阅" target="_blank"><i class="fa fa-rss"></i></a>
+  </nav>
+  <div id="license">
+    <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="本站所有作品采用：&#10;知识共享《署名 非商业性使用 相同方式共享 3.0》&#10;进行许可" >
+    <img alt="License" height="31" width="88" src="data:image/png;base64,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" /></a>
+  </div>
+</div>
+    <div class="main">
+    <header class="post-header">
+  <h1 class="post-title"><a href="blog/2015/10/15/canvas-paint.html">使用HTML5之Canvas绘图</a></h2>
+  <p class="post-meta">
+    <i class="fa fa-calendar"></i>
+    2015年10月15日
+    <i class="space"></i>
+    <i class="fa fa-tags"></i>
+    <a class="post-category" href="/page/category.html#HTML5Javascript经验积累">HTML5Javascript经验积累</a>	
+  </p>
+</header>
+<div class="post-main">
+<p>最近上头来了新的需求,要根据Gene的坐标信息画出Gene Picture.搜了一大圈还是觉得HTML5的Cavans简单易用支持好,捣鼓了几天也算画的能看了.在此记录一下Canvas绘图积累到的知识,便于以后查阅.</p>
+
+<p>Canvas是一块画布,可以画任何的路径,图形,字符,填充等等.画图的操作用的是Javascript,画布是一块矩形区域,可以控制其每一个元素.除了基本图形外,Canvas还支持图形的翻转和变换,因为未用到此类功能,所以暂时就不写了.Canvas功能强大,以下记录仅为最基础的绘图.
+<!-- more --></p>
+
+<h1 id="section">绘图</h1>
+
+<p>1.绘图之前一定是要先添加一块画布Canvas,来确定需要绘制的区域,步骤和添加其他标签一样.</p>
+
+<pre><code>&lt;canvas id="gene" width="1000px;" height="150px;"&gt;&lt;/canvas&gt;
+</code></pre>
+
+<p>创建好画布之后,根据画布的长和宽,就可以确定各个位置的坐标了.画布的左上角为坐标原点(0,0),每一个像素为一个刻度.</p>
+
+<p>2.id属性是必须的,后边的绘图需要用id来拿到当前Canvas的Dom对象.通过获得的Dom对象便可以获取上下文,Canvas绘制图形就是考Canvas对象的上下文对象.</p>
+
+<pre><code>&lt;script type="text/javascript"&gt;
+	//获得Canvas元素
+	var canvas = document.getElementById("gene");
+	//获得上下文,目前只能用2d
+	var context = canvas.getContext("2d");
+&lt;/script&gt;
+</code></pre>
+
+<p>3.接下来就可以绘制图形了,context默认的绘制方式有两种:stroke(线)和fill(填充).</p>
+
+<p>(1)绘制一条直线.</p>
+
+<pre><code>&lt;body&gt;
+	&lt;canvas id="gene" width="800px;" height="50px;" &gt;&lt;/canvas&gt;
+	&lt;script type="text/javascript"&gt;
+		window.onload=function(){
+			line("gene");
+		}
+		function line(id){
+			var canvas = document.getElementById(id);
+			var context = canvas.getContext("2d");
+			context.strokeStyle="#000000";
+			context.fillStyle="#000000";//line为黑色
+			context.moveTo(0,0);//从(0,0)点开始绘图
+			context.lineTo(800,0);//划线到(800,0)位置
+			context.stroke();
+	    	}
+	&lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p>example:
+<canvas id="gene1" width="800px;" height="50px;"></canvas>
+<script type="text/javascript">
+	window.onload=function(){
+				line("gene1");
+				rectangle("gene2");
+				rectangle2("gene3");
+				round("gene4");
+				info("gene5");
+			}
+			function line(id){
+				var canvas = document.getElementById(id);
+				var context = canvas.getContext("2d");
+				context.strokeStyle="#000000";
+				context.fillStyle="#000000";//line为黑色
+				context.moveTo(0,0);//从(0,0)点开始绘图
+				context.lineTo(800,0);//划线到(800,0)位置
+				context.stroke();
+		    	}
+			function rectangle(id){
+				var canvas = document.getElementById(id);
+				var context = canvas.getContext("2d");
+				context.strokeStyle="#000000";
+				context.fillStyle="#000000";//rectangle为黑色
+				context.fillRect(200,0,100,40);//fillRect(x,y,width,height);
+				context.stroke();
+		    	}
+			function rectangle2(id){
+				var canvas = document.getElementById(id);
+				var context = canvas.getContext("2d");
+				context.strokeStyle="#000000";
+				context.fillStyle="#000000";//rectangle为黑色
+				context.strokeRect(200,0,100,40);
+				context.stroke();
+		    	}
+			function round(id){
+				var canvas = document.getElementById(id);
+				var context = canvas.getContext("2d");
+				context.strokeStyle="#000000";
+				context.fillStyle="#000000";//round为黑色
+				context.beginPath();
+				context.arc(250,25,20,0,Math.PI*2,true);//arc(x,y,radius,startAngle,endAngle,anticlockwise)
+				context.closePath;
+				context.fill();
+		    	}
+			function info(id){
+				var canvas = document.getElementById(id);
+				var context = canvas.getContext("2d");
+				context.strokeStyle="#000000";
+				context.fillStyle="#000000";//round为黑色
+				context.font="20px Arial";
+				context.fillText("Hello World",200,35);
+		    	}
+</script></p>
+
+<p>(2)绘制一个矩形</p>
+
+<pre><code>&lt;body&gt;
+	&lt;canvas id="gene" width="800px;" height="50px;" &gt;&lt;/canvas&gt;
+	&lt;script type="text/javascript"&gt;
+		window.onload=function(){
+			rectangle("gene2");
+		}
+		function rectangle(id){
+			var canvas = document.getElementById(id);
+			var context = canvas.getContext("2d");
+			context.strokeStyle="#000000";
+			context.fillStyle="#000000";//rectangle为黑色
+			context.fillRect(200,0,100,40);//fillRect(x,y,width,height);
+			context.stroke();
+	    	}
+	&lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p>example:
+<canvas id="gene2" width="800px;" height="50px;"></canvas></p>
+
+<p>(3)绘制一个矩形边框</p>
+
+<pre><code>&lt;body&gt;
+	&lt;canvas id="gene" width="800px;" height="50px;" &gt;&lt;/canvas&gt;
+	&lt;script type="text/javascript"&gt;
+		window.onload=function(){
+			rectangle("gene");
+		}
+		function rectangle2(id){
+			var canvas = document.getElementById(id);
+			var context = canvas.getContext("2d");
+			context.strokeStyle="#000000";
+			context.fillStyle="#000000";//rectangle为黑色
+			context.strokeRect(200,0,100,40);
+			context.stroke();
+	    	}
+	&lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p>example:
+<canvas id="gene3" width="800px;" height="50px;"></canvas></p>
+
+<p>(4)绘制一个圆形</p>
+
+<pre><code>&lt;body&gt;
+	&lt;canvas id="gene" width="800px;" height="50px;" &gt;&lt;/canvas&gt;
+	&lt;script type="text/javascript"&gt;
+		window.onload=function(){
+			round("gene");
+		}
+		function round(id){
+			var canvas = document.getElementById(id);
+			var context = canvas.getContext("2d");
+			context.strokeStyle="#000000";
+			context.fillStyle="#000000";//round为黑色
+			context.beginPath();
+			context.arc(250,25,20,0,Math.PI*2,true);//arc(x,y,radius,startAngle,endAngle,anticlockwise)
+			context.closePath;
+			context.fill();
+	    	}
+	&lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p>example:
+<canvas id="gene4" width="800px;" height="50px;"></canvas></p>
+
+<p>(5)输入字符</p>
+
+<pre><code>&lt;body&gt;
+	&lt;canvas id="gene" width="1000px;" height="150px;" &gt;&lt; /canvas&gt;
+	&lt;script type="text/javascript"&gt;
+		window.onload=function(){
+			info("gene");
+		}
+		function info(id){
+			var canvas = document.getElementById(id);
+			var context = canvas.getContext("2d");
+			context.strokeStyle="#000000";
+			context.fillStyle="#000000";//round为黑色
+			context.font="20px Arial";
+			context.fillText("Hello World",95,35);
+	    	}
+	&lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p>example:
+<canvas id="gene5" width="800px;" height="50px;"></canvas></p>
+
+<h1 id="section-1">注意事项</h1>
+<p>1.图形最好用beginPath()和endPath()包含,否则可能发生颜色混乱.</p>
+
+</div>
+<div class="share">
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+  </div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":["qzone","tsina","weixin","sqq"],"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/res/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</div>
+<div class="pagination">
+
+<a class="pagination-item newer" href="blog/2015/09/28/git-server-config.html"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;搭建Git服务器及web站点自动化部署</a>
+
+
+<span class="pagination-item older">下一篇&nbsp;<i class="fa fa-chain-broken"></i></span>
+
+</div>
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="blog/2015/10/15/canvas-paint" data-title="使用HTML5之Canvas绘图" data-url="http://zhangyumin.github.io/blog/2015/10/15/canvas-paint.html"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"githubjoker"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+    <footer>Copyright&nbsp;&copy;&nbsp;2015 <a href="http://zhangyumin.github.io">Joker</a><br/><i class="fa fa-cogs" style="color:blueviolet;">&nbsp;</i>Powered by <a href="http://jekyllrb.com/" target="_blank">Jekyll</a></footer>
+    </div>
+  </div>    
+  <div id="top"><a id="rocket" href="javascript:;" title="返回顶部"><i></i></a></div>
+  
+</body>
+</html>

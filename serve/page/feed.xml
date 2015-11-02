@@ -1,0 +1,1615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RSS - Joker</title>
+    <description>Joker - Yesterday you said tomorrow.</description>
+    <link>http://zhangyumin.github.io</link>
+    <atom:link href="http://zhangyumin.github.io/page/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>2015-10-27 22:32:29 +0800</pubDate>
+    <lastBuildDate>2015-10-27 22:32:29 +0800</lastBuildDate>
+    <generator>zhangyumin</generator>
+    
+      <item>
+        <title>使用HTML5之Canvas绘图</title>
+        <description>&lt;p&gt;最近上头来了新的需求,要根据Gene的坐标信息画出Gene Picture.搜了一大圈还是觉得HTML5的Cavans简单易用支持好,捣鼓了几天也算画的能看了.在此记录一下Canvas绘图积累到的知识,便于以后查阅.&lt;/p&gt;
+
+&lt;p&gt;Canvas是一块画布,可以画任何的路径,图形,字符,填充等等.画图的操作用的是Javascript,画布是一块矩形区域,可以控制其每一个元素.除了基本图形外,Canvas还支持图形的翻转和变换,因为未用到此类功能,所以暂时就不写了.Canvas功能强大,以下记录仅为最基础的绘图.
+&lt;!-- more --&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;绘图&lt;/h1&gt;
+
+&lt;p&gt;1.绘图之前一定是要先添加一块画布Canvas,来确定需要绘制的区域,步骤和添加其他标签一样.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;canvas id=&quot;gene&quot; width=&quot;1000px;&quot; height=&quot;150px;&quot;&amp;gt;&amp;lt;/canvas&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;创建好画布之后,根据画布的长和宽,就可以确定各个位置的坐标了.画布的左上角为坐标原点(0,0),每一个像素为一个刻度.&lt;/p&gt;
+
+&lt;p&gt;2.id属性是必须的,后边的绘图需要用id来拿到当前Canvas的Dom对象.通过获得的Dom对象便可以获取上下文,Canvas绘制图形就是考Canvas对象的上下文对象.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
+	//获得Canvas元素
+	var canvas = document.getElementById(&quot;gene&quot;);
+	//获得上下文,目前只能用2d
+	var context = canvas.getContext(&quot;2d&quot;);
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3.接下来就可以绘制图形了,context默认的绘制方式有两种:stroke(线)和fill(填充).&lt;/p&gt;
+
+&lt;p&gt;(1)绘制一条直线.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;body&amp;gt;
+	&amp;lt;canvas id=&quot;gene&quot; width=&quot;800px;&quot; height=&quot;50px;&quot; &amp;gt;&amp;lt;/canvas&amp;gt;
+	&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
+		window.onload=function(){
+			line(&quot;gene&quot;);
+		}
+		function line(id){
+			var canvas = document.getElementById(id);
+			var context = canvas.getContext(&quot;2d&quot;);
+			context.strokeStyle=&quot;#000000&quot;;
+			context.fillStyle=&quot;#000000&quot;;//line为黑色
+			context.moveTo(0,0);//从(0,0)点开始绘图
+			context.lineTo(800,0);//划线到(800,0)位置
+			context.stroke();
+	    	}
+	&amp;lt;/script&amp;gt;
+&amp;lt;/body&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;example:
+&lt;canvas id=&quot;gene1&quot; width=&quot;800px;&quot; height=&quot;50px;&quot;&gt;&lt;/canvas&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+	window.onload=function(){
+				line(&quot;gene1&quot;);
+				rectangle(&quot;gene2&quot;);
+				rectangle2(&quot;gene3&quot;);
+				round(&quot;gene4&quot;);
+				info(&quot;gene5&quot;);
+			}
+			function line(id){
+				var canvas = document.getElementById(id);
+				var context = canvas.getContext(&quot;2d&quot;);
+				context.strokeStyle=&quot;#000000&quot;;
+				context.fillStyle=&quot;#000000&quot;;//line为黑色
+				context.moveTo(0,0);//从(0,0)点开始绘图
+				context.lineTo(800,0);//划线到(800,0)位置
+				context.stroke();
+		    	}
+			function rectangle(id){
+				var canvas = document.getElementById(id);
+				var context = canvas.getContext(&quot;2d&quot;);
+				context.strokeStyle=&quot;#000000&quot;;
+				context.fillStyle=&quot;#000000&quot;;//rectangle为黑色
+				context.fillRect(200,0,100,40);//fillRect(x,y,width,height);
+				context.stroke();
+		    	}
+			function rectangle2(id){
+				var canvas = document.getElementById(id);
+				var context = canvas.getContext(&quot;2d&quot;);
+				context.strokeStyle=&quot;#000000&quot;;
+				context.fillStyle=&quot;#000000&quot;;//rectangle为黑色
+				context.strokeRect(200,0,100,40);
+				context.stroke();
+		    	}
+			function round(id){
+				var canvas = document.getElementById(id);
+				var context = canvas.getContext(&quot;2d&quot;);
+				context.strokeStyle=&quot;#000000&quot;;
+				context.fillStyle=&quot;#000000&quot;;//round为黑色
+				context.beginPath();
+				context.arc(250,25,20,0,Math.PI*2,true);//arc(x,y,radius,startAngle,endAngle,anticlockwise)
+				context.closePath;
+				context.fill();
+		    	}
+			function info(id){
+				var canvas = document.getElementById(id);
+				var context = canvas.getContext(&quot;2d&quot;);
+				context.strokeStyle=&quot;#000000&quot;;
+				context.fillStyle=&quot;#000000&quot;;//round为黑色
+				context.font=&quot;20px Arial&quot;;
+				context.fillText(&quot;Hello World&quot;,200,35);
+		    	}
+&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;(2)绘制一个矩形&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;body&amp;gt;
+	&amp;lt;canvas id=&quot;gene&quot; width=&quot;800px;&quot; height=&quot;50px;&quot; &amp;gt;&amp;lt;/canvas&amp;gt;
+	&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
+		window.onload=function(){
+			rectangle(&quot;gene2&quot;);
+		}
+		function rectangle(id){
+			var canvas = document.getElementById(id);
+			var context = canvas.getContext(&quot;2d&quot;);
+			context.strokeStyle=&quot;#000000&quot;;
+			context.fillStyle=&quot;#000000&quot;;//rectangle为黑色
+			context.fillRect(200,0,100,40);//fillRect(x,y,width,height);
+			context.stroke();
+	    	}
+	&amp;lt;/script&amp;gt;
+&amp;lt;/body&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;example:
+&lt;canvas id=&quot;gene2&quot; width=&quot;800px;&quot; height=&quot;50px;&quot;&gt;&lt;/canvas&gt;&lt;/p&gt;
+
+&lt;p&gt;(3)绘制一个矩形边框&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;body&amp;gt;
+	&amp;lt;canvas id=&quot;gene&quot; width=&quot;800px;&quot; height=&quot;50px;&quot; &amp;gt;&amp;lt;/canvas&amp;gt;
+	&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
+		window.onload=function(){
+			rectangle(&quot;gene&quot;);
+		}
+		function rectangle2(id){
+			var canvas = document.getElementById(id);
+			var context = canvas.getContext(&quot;2d&quot;);
+			context.strokeStyle=&quot;#000000&quot;;
+			context.fillStyle=&quot;#000000&quot;;//rectangle为黑色
+			context.strokeRect(200,0,100,40);
+			context.stroke();
+	    	}
+	&amp;lt;/script&amp;gt;
+&amp;lt;/body&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;example:
+&lt;canvas id=&quot;gene3&quot; width=&quot;800px;&quot; height=&quot;50px;&quot;&gt;&lt;/canvas&gt;&lt;/p&gt;
+
+&lt;p&gt;(4)绘制一个圆形&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;body&amp;gt;
+	&amp;lt;canvas id=&quot;gene&quot; width=&quot;800px;&quot; height=&quot;50px;&quot; &amp;gt;&amp;lt;/canvas&amp;gt;
+	&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
+		window.onload=function(){
+			round(&quot;gene&quot;);
+		}
+		function round(id){
+			var canvas = document.getElementById(id);
+			var context = canvas.getContext(&quot;2d&quot;);
+			context.strokeStyle=&quot;#000000&quot;;
+			context.fillStyle=&quot;#000000&quot;;//round为黑色
+			context.beginPath();
+			context.arc(250,25,20,0,Math.PI*2,true);//arc(x,y,radius,startAngle,endAngle,anticlockwise)
+			context.closePath;
+			context.fill();
+	    	}
+	&amp;lt;/script&amp;gt;
+&amp;lt;/body&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;example:
+&lt;canvas id=&quot;gene4&quot; width=&quot;800px;&quot; height=&quot;50px;&quot;&gt;&lt;/canvas&gt;&lt;/p&gt;
+
+&lt;p&gt;(5)输入字符&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;body&amp;gt;
+	&amp;lt;canvas id=&quot;gene&quot; width=&quot;1000px;&quot; height=&quot;150px;&quot; &amp;gt;&amp;lt; /canvas&amp;gt;
+	&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
+		window.onload=function(){
+			info(&quot;gene&quot;);
+		}
+		function info(id){
+			var canvas = document.getElementById(id);
+			var context = canvas.getContext(&quot;2d&quot;);
+			context.strokeStyle=&quot;#000000&quot;;
+			context.fillStyle=&quot;#000000&quot;;//round为黑色
+			context.font=&quot;20px Arial&quot;;
+			context.fillText(&quot;Hello World&quot;,95,35);
+	    	}
+	&amp;lt;/script&amp;gt;
+&amp;lt;/body&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;example:
+&lt;canvas id=&quot;gene5&quot; width=&quot;800px;&quot; height=&quot;50px;&quot;&gt;&lt;/canvas&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;section-1&quot;&gt;注意事项&lt;/h1&gt;
+&lt;p&gt;1.图形最好用beginPath()和endPath()包含,否则可能发生颜色混乱.&lt;/p&gt;
+</description>
+        <pubDate>2015-10-15 00:00:00 +0800</pubDate>
+        <link>http://zhangyumin.github.ioblog/2015/10/15/canvas-paint.html</link>
+        <guid isPermaLink="true">http://zhangyumin.github.ioblog/2015/10/15/canvas-paint.html</guid>
+        
+        <category>Liquid error: undefined method `gsub' for ["HTML5", "Javascript", "经验积累"]:Array</category>
+        
+      </item>
+    
+      <item>
+        <title>搭建Git服务器及web站点自动化部署</title>
+        <description>&lt;p&gt;作为预备役码农,从半年前开始学习使用Github,之后一直将代码托管在线上仓库中.后来网站代码需要多人协同工作,而且项目不太适合放在Github中,便需要将实验室服务器搭建成私有的Git服务器.&lt;/p&gt;
+
+&lt;p&gt;Git的个人服务器搭建并不麻烦,但是实验室只有这一台服务器,需要在提交推送代码的同时,将网站同时也部署好,以达到边修改边查看页面效果的目的.
+&lt;!-- more --&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;git&quot;&gt;Git个人服务器的搭建及测试&lt;/h1&gt;
+
+&lt;h2 id=&quot;git-1&quot;&gt;Git的安装&lt;/h2&gt;
+&lt;p&gt;1.在服务器端和开发机端都需要在shell中输入以下命令来安装Git&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#ubuntu系统Git的安装	
+sudo apt-get install git-core
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.因为netbeans上对Git的支持很好,所有没有配置常用的ssh协议,这个协议的最直接好处就在于每次向Git提交推送都不需要输密码,由于没有尝试就不写步骤了,Github官方教程可以一看&lt;a href=&quot;http://help.github.com/articles/generating-ssh-keys&quot;&gt;http://help.github.com/articles/generating-ssh-keys&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;git-2&quot;&gt;Git服务器端配置&lt;/h2&gt;
+&lt;p&gt;1.新建用户,作为Git服务器代码仓库的管理者.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo useradd -m github
+#-m功能是Create the user's home directory if it does not exist(若用户home目录不存在,则创建)
+sudo passwd github
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.建立Git仓库目录&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#我的Git仓库目录在/home/github/website/中,因人而异
+sudo mkdir /home/github/website
+#↓将仓库目录权限设置为仅github用户可操作
+sudo chown github:github /home/github/website
+sudo chmod 700 /home/github/website
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3.创建仓库文件夹&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#切换到github用户
+su github
+#进入website目录
+cd /home/github/website/
+#创建仓库文件夹
+mkdir repository
+#初始化为bare仓库
+git init --bare
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;git init和git init –bare的区别:&lt;/p&gt;
+
+&lt;p&gt;用git init初始化的版本库,其保存的都是原文件,但某些用户的push操作可能导致冲突.而git init –bare创建的是裸仓库,它不保存原文件而只保存git历史提交的版本信息,并不允许用户直接在上面进行git操作.&lt;/p&gt;
+
+&lt;h2 id=&quot;git-3&quot;&gt;Git客户机(开发)操作&lt;/h2&gt;
+&lt;p&gt;Git服务器配置好后就可以直接git remote并提交推送到远程仓库中了.&lt;/p&gt;
+
+&lt;p&gt;1.创建本地Git仓库目录&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#创建目录并git初始化
+cd /var/www/website/
+git init
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.添加文件及提交测试&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#创建index.php并将hello world写入
+touch index.php | echo 'hello world' &amp;gt; index.php
+#添加跟踪
+git add index.php
+#添加远程主机,username@yourserverip:address
+git remote add origin github@192.168.1.100:/home/github/website/repository
+#提交
+git commit -am 'new page'
+#推入
+git push origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3.如果推入成功,那么在远程仓库已经能够得到最新的版本了.&lt;/p&gt;
+
+&lt;h1 id=&quot;git-4&quot;&gt;Git自动部署&lt;/h1&gt;
+&lt;p&gt;Git本身可以调用自定义的Hooks脚本,分为两类:客户端和服务器端.客户端Hooks用于客户端的操作,例如提交和合并.服务器端Hooks用于服务器端操作,比如接收推入的提交.在此处,我们自动部署的思路就是每当服务器接收到客户机(开发)的推入,就自动将更新pull到apache的DocumentRoot中去.&lt;/p&gt;
+
+&lt;p&gt;Git的hooks主要包括:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;applypatch-msg
+post-update
+pre-rebase
+commit-msg
+pre-applypatch
+update
+post-commit
+pre-commit
+post-receive
+prepare-commit-msg
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;此处我们用post-receive这个hook,即在post(push)请求之后执行.&lt;/p&gt;
+
+&lt;p&gt;1.在服务器端Git仓库目录的hooks中编辑post-receive&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#切换用户获得权限
+su github
+cd /home/github/website/repository/hooks
+#创建或编写post-receive文件
+vim post-receive
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.在apache的DocumentRoot中clone仓库&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd /var/www
+mkdir website
+cd website
+git clone /home/github/website/repository ./
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;写了很简单的部署代码,因为push后还需要其他验证,所以仍需要更新,此处仅做最简单的pull操作作为参考&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#!/bin/sh
+unset $(git rev-parse --local-env-vars)
+wwwPath=/var/www/website
+cd $wwwPath
+git pull origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最后需要将脚本改为允许执行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;chmod +x post-receive
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;刚编写的时候想当然认为推入后直接pull到目录即可,就没有写&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;unset $(git rev-parse --local-env-vars)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这一句.远程服务器一直不能pull到最新数据,以为是权限问题,但通过调试发现post-receive有执行,但终端有报错&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;remote :fatal: Not a git repository:'.';
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;网上搜了一下发现Git的hooks在要执行的时候会调用GIT_DIR这个环境变量,总之写入unset之后问题就解决了,也能pull到最新数据了.&lt;/p&gt;
+
+&lt;p&gt;注:git的自动部署需要权限,务必确认推入的用户拥有写入apache的DocumentRoot的权限.&lt;/p&gt;
+</description>
+        <pubDate>2015-09-28 00:00:00 +0800</pubDate>
+        <link>http://zhangyumin.github.ioblog/2015/09/28/git-server-config.html</link>
+        <guid isPermaLink="true">http://zhangyumin.github.ioblog/2015/09/28/git-server-config.html</guid>
+        
+        <category>Liquid error: undefined method `gsub' for ["Git", "经验积累"]:Array</category>
+        
+      </item>
+    
+      <item>
+        <title>Firefox出现event is not defined解决方法</title>
+        <description>&lt;p&gt;自己写了一个div+checkbox的弹出式js.在之前一直在chrome中使用一切OK.&lt;/p&gt;
+
+&lt;p&gt;今天换Firefox后,弹出窗一直保持弹出状态不收回.consule中告诉我是event is not defined.&lt;/p&gt;
+
+&lt;p&gt;随便百度了一下,应该是Firefox中使用了不同的事件对象模型,区别于IE　Dom,而是W3C Dom.&lt;/p&gt;
+
+&lt;p&gt;那么DOM中就不包含Event对象.自然调用就无法使用了.&lt;/p&gt;
+
+&lt;p&gt;网友分享的是加入&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;e = e || event;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或者&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;e = e || window.event;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;但是修改之后依然报错 e is not defined.&lt;/p&gt;
+
+&lt;p&gt;后来查阅资料后解决,Firefox需要通过参数传递事件对象.所以给function加入参数event就好.代码如下:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$(document).bind('click', function(event){
+	var targ;
+	if (event.target) 
+		targ = event.target
+	else if (event.srcElement) 
+		targ = event.srcElement
+	if (targ.nodeType == 3) // defeat Safari bug
+		targ = targ.parentNode;
+	if (targ.id !='column8' &amp;amp;&amp;amp; !$(targ).parents('div.container8').attr('class'))
+		$('div.container8').hide(100);
+}
+                                                                                                                    });
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>2015-08-02 00:00:00 +0800</pubDate>
+        <link>http://zhangyumin.github.ioblog/2015/08/02/firefox-event-is-not-defined.html</link>
+        <guid isPermaLink="true">http://zhangyumin.github.ioblog/2015/08/02/firefox-event-is-not-defined.html</guid>
+        
+        <category>Javascript</category>
+        
+      </item>
+    
+      <item>
+        <title>Java学习记录</title>
+        <description>&lt;h2 id=&quot;section&quot;&gt;2015年6月5日(第一章)&lt;/h2&gt;
+&lt;p&gt;1.面向对象相对于面向过程编程更简单,可以增加代码的复用,面向对象并没有减少实现过程,只是将过程包装成了方法.&lt;/p&gt;
+
+&lt;p&gt;2.构造方法的重载在于可以为其输入变量,不同种变量可以用不同的方法重载.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;	Circle c1 = new Circle(5);//最后的Circle即为构造方法
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3.this是一个对象,可以在类里面引用类的成员变量和方法.&lt;/p&gt;
+
+&lt;p&gt;4.static关键字,可以允许变量不实例化修改,只存一份,每个对象的static变量都相同,节约空间.
+&lt;!-- more --&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;2015年6月8日&lt;/h2&gt;
+&lt;p&gt;1.package的作用是防止java类重名,导致调用出错.约定俗成的规则是域名倒写(如com.baidu.www)&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;2015年7月21日&lt;/h2&gt;
+&lt;p&gt;1.不同的项目需要不同的classpath,以避免包的冲突问题.&lt;/p&gt;
+
+&lt;p&gt;2.使用jar -cvf &lt;em&gt;.jar *.&lt;/em&gt;可以打包class文件,便于引用.&lt;/p&gt;
+
+&lt;p&gt;3.java只支持单继承(C++允许多继承).&lt;/p&gt;
+
+&lt;p&gt;4.继承的子类大于等于父类(子类含有父类方法等).&lt;/p&gt;
+
+&lt;p&gt;5.继承所有的变量,但是不能修改只能访问.(protected,public)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-------------------------------------------------
+|   修饰符  | 类内部 | 同一个包  | 子类 | 任何地方 |
+-------------------------------------------------
+|  private  |  Yes  |          |      |         |
+-------------------------------------------------
+|  default  |  Yes  |    Yes   |      |         |
+-------------------------------------------------
+| protected |  Yes  |    Yes   |  Yes |         |
+-------------------------------------------------
+|   public  |  Yes  |    Yes   |  Yes |   Yes   |
+-------------------------------------------------
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;6.super引用指向当前对象的父类,this引用指向对象自身.&lt;/p&gt;
+
+&lt;p&gt;7.子类构造过程中必须调用父类的构造方法.super的调用必须是构造函数的第一个语句.&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;2015年7月22日&lt;/h2&gt;
+&lt;p&gt;1.lang中的equals当且仅当指向同一对象,才返回true.但是各个包可能会重写equals.&lt;/p&gt;
+
+&lt;p&gt;2.动态绑定(多态)是面向对象的核心,执行期间判断所引用对象的实际类型,根据其实际类型调用其相应的方法.&lt;/p&gt;
+
+&lt;p&gt;3.抽象方法用于被重写,方法是抽象的则类也是抽象的,无法被实例化,用于继承.&lt;/p&gt;
+
+&lt;p&gt;4.final关键字,不能重写,不能继承.&lt;/p&gt;
+
+&lt;p&gt;5.interface属于特殊的抽象类,只包含常量和方法的定义,无实现.接口之间可以相互继承.&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;2015年7月23日&lt;/h2&gt;
+&lt;p&gt;1.多维数组相当于其低维数组的数组.&lt;/p&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;2015年10月15日&lt;/h2&gt;
+&lt;p&gt;1.容器是装其它东西的器皿(数组),装其它各种对象.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;        Collection(interface)                                         Map(interface)
+         |                 |                                                 |
+    Set(interface)  List(interface)                                          |  
+         |            |        |                                             |
+      HashSet     LinkedList  ArrayList                                   HashMap 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.装在Set中无顺序不可重复,List中有顺序可重复,Map中两两存取.(重复是指两个对象互相equals)&lt;/p&gt;
+
+&lt;p&gt;3.Collection中装的(add,remove)必须是对象.&lt;/p&gt;
+
+&lt;p&gt;4.容器类对象在调用remove,contains等方法时需要比较对象是否相等,会涉及到对象类型的equals方法和hashCode方法,相等的对象具有相等的hashCode.&lt;/p&gt;
+
+&lt;p&gt;5.Iterator为容器的迭代器,用于实现对容器内元素的遍历操作.&lt;/p&gt;
+
+&lt;p&gt;6.hashSet无顺序,所以经过iterator迭代后输出顺序不定&lt;/p&gt;
+
+&lt;h2 id=&quot;section-6&quot;&gt;2015年10月16日&lt;/h2&gt;
+&lt;p&gt;1.List中元素都对应一个整数型序号记载在其容器的位置,可以根据序号存取容器元素(像数组),List的长度可以根据需要改变.&lt;/p&gt;
+
+&lt;p&gt;2.Array读快改慢,Linkded改快读慢,Hash在两者之间.&lt;/p&gt;
+
+&lt;p&gt;3.Map接口实现类有HashMap和TreeMap,用来存储Key-Value对,通过Key来标示,不能重复.&lt;/p&gt;
+
+&lt;p&gt;4.自动打包:自动将基础类型转换为对象.自动解包:自动将对象转换为基础类型.&lt;/p&gt;
+
+&lt;p&gt;5.泛型Generic,创建按类型进行参数化的类,避免类型转换.&lt;/p&gt;
+
+&lt;p&gt;6.通过流(Stream)的方式读取数据.&lt;/p&gt;
+
+&lt;p&gt;7.system.in接受键盘输入.&lt;/p&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;2015年10月17日&lt;/h2&gt;
+&lt;p&gt;1.线程是一个程序内部的顺序控制流.&lt;/p&gt;
+
+&lt;p&gt;2.创建线程的方法:1)定义线程类实现Runnable接口.2)定义Thread的子类并重写其run方法.一般用第一种,便与实现多重继承.&lt;/p&gt;
+
+&lt;p&gt;3.sleep线程睡眠,join线程合并,yield线程让出.&lt;/p&gt;
+
+&lt;p&gt;4.TestSync运行若未加锁可能出现冲突,sleep时间越长可能性越大.&lt;/p&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;2015年10月18日&lt;/h2&gt;
+&lt;p&gt;1.wait()和sleep()的区别:
+ 1)wait属于object类的方法,sleep属于Thread类.
+ 2)wait需要用notify或者notifyAll来唤醒,sleep时间过后自动唤醒.
+ 3)wait后不再拥有锁,sleep仍保持锁.&lt;/p&gt;
+
+&lt;p&gt;2.网络通信协议:计算机网络中实现通信必须有一些约定即通信协议,对码率,传输代码,代码结构.传输控制步骤.出错控制等制定标准.&lt;/p&gt;
+
+&lt;p&gt;3.端口号来区分数据传输到目标电脑的应用程序接受位置.&lt;/p&gt;
+</description>
+        <pubDate>2015-07-22 00:00:00 +0800</pubDate>
+        <link>http://zhangyumin.github.ioblog/2015/07/22/Learning-Java.html</link>
+        <guid isPermaLink="true">http://zhangyumin.github.ioblog/2015/07/22/Learning-Java.html</guid>
+        
+        <category>java</category>
+        
+      </item>
+    
+      <item>
+        <title>fineuploader部署实例及相关配置说明</title>
+        <description>&lt;p&gt;为了文件上传找了不少的js插件,能够满足需求的就属fineuploader最合适,但官网的文档对新手并不友好,琢磨了很久才把fineuploader弄好.&lt;/p&gt;
+
+&lt;p&gt;fine-uploader优点:
+1.支持多文件上传,可以控制文件大小和文件类型,与大多数上传插件一样属于基本功能.
+2.支持文件改名,对我来说很关键的一点,允许在上传前修改文件名.
+3.上传后可根据需求删除文件.
+4.支持拖拽上传.
+5.支持图片缩略图预览.
+6.Ajax页面无刷新.&lt;/p&gt;
+
+&lt;p&gt;代码部分可以去&lt;a href=&quot;http://fineuploader.com&quot;&gt;官网&lt;/a&gt;或者&lt;a href=&quot;http://github.com/FineUploader&quot;&gt;Github&lt;/a&gt;下载所需的源码和客户端代码.&lt;/p&gt;
+
+&lt;p&gt;下载的代码中含有一个demo位于test文件夹中,可以用来测试.
+主要文件说明:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1.all-fine-uploader.js 可能也为其它名字,是fineuploader组件的主要js文件.
+2.devenv.js 本地部署的js配置文件,各种属性可以在官网查询,路径需要设置需要修改.
+3.handler.php 服务器端功能的实现方法,包括文件上传、删除、更名等实现方式,供endpoint.php调用.
+4.endpoint.php 本地服务器端的具体配置,可以控制文件大小、类型、路径等,具体配置方式见官网文档.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- more --&gt;
+&lt;p&gt;其他:
+1.每个文件上传后都会存在相应目录的一个新文件夹下,文件夹的名字是$uuid,$uuid是机器产生的标识符,能够保证文件夹的唯一性.
+2.文件的存储路径在endpoint.php中修改,必须使用绝对路径.
+3.uuid可以在handler.php中进行修改.
+4.我使用的是fineuploader-gallery.css,图片路径需要在这个文件里修改.&lt;/p&gt;
+
+&lt;p&gt;代码:(修改了uuid)
+1.devenv.js&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;qq(window).attach(&quot;load&quot;, function() {
+&quot;use strict&quot;;
+
+	var errorHandler = function(event, id, fileName, reason) {
+    	return qq.log(&quot;id: &quot; + id + &quot;, fileName: &quot; + fileName + &quot;, reason: &quot; + reason);
+    },
+    azureUploader, s3Uploader, manualUploader, validatingUploader, failingUploader;
+
+	manualUploader = new qq.FineUploader({
+	element: document.getElementById(&quot;manual-example&quot;),
+	autoUpload: false,
+	debug: true,
+	uploadButtonText: &quot;Select Files&quot;,
+	display: {
+	    fileSizeOnSubmit: true
+	},
+	request: {
+	    endpoint: &quot;./src/fineuploader/server/endpoint.php&quot;
+	},
+	deleteFile: {
+	    enabled: false,
+	    endpoint: &quot;./src/fineuploader/server/endpoint.php&quot;,
+	    forceConfirm: true,
+	    params: {
+	        foo: &quot;bar&quot;
+	    }
+	},
+	chunking: {
+	    enabled: true,
+	    concurrent: {
+	        enabled: true
+	    },
+	    success: {
+	        endpoint: &quot;./src/fineuploader/server/endpoint.php?done&quot;
+	    }
+	},
+	resume: {
+	    enabled: true
+	},
+	retry: {
+	    enableAuto: true
+	},
+	thumbnails: {
+	    placeholders: {
+	        waitingPath: &quot;./src/fineuploader/pic/waiting-generic.png&quot;,
+	        notAvailablePath: &quot;./src/fineuploader/pic/not_available-generic.png&quot;
+	    }
+	},
+	scaling: {
+	    sizes: [{name: &quot;small&quot;, maxSize: 300}, {name: &quot;medium&quot;, maxSize: 600}]
+	},
+	callbacks: {
+	    onError: errorHandler,
+	    onUpload: function (id, filename) {
+	        this.setParams({
+	            &quot;hey&quot;: &quot;hi ɛ $ hmm \\ hi&quot;,
+	            &quot;ho&quot;: &quot;foobar&quot;
+	        }, id);
+
+	    },
+	    onStatusChange: function (id, oldS, newS) {
+	        qq.log(&quot;id: &quot; + id + &quot; &quot; + newS);
+	    },
+	    onComplete: function (id, name, response) {
+	        qq.log(response);
+	    }
+	}
+	});
+
+	qq(document.getElementById(&quot;triggerUpload&quot;)).attach(&quot;click&quot;, function() {
+    	manualUploader.uploadStoredFiles();
+	});
+ 	});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.index.html&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;head&amp;gt;
+    &amp;lt;!--GALLERY TEMPLATE--&amp;gt;
+    &amp;lt;script type=&quot;text/template&quot; id=&quot;qq-template&quot;&amp;gt;
+        &amp;lt;div class=&quot;qq-uploader-selector qq-uploader qq-gallery&quot; qq-drop-area-text=&quot;Drop files here&quot;&amp;gt;
+            &amp;lt;div class=&quot;qq-total-progress-bar-container-selector qq-total-progress-bar-container&quot;&amp;gt;
+                &amp;lt;div role=&quot;progressbar&quot; aria-valuenow=&quot;0&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; class=&quot;qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar&quot;&amp;gt;&amp;lt;/div&amp;gt;
+            &amp;lt;/div&amp;gt;
+            &amp;lt;div class=&quot;qq-upload-drop-area-selector qq-upload-drop-area&quot; qq-hide-dropzone&amp;gt;
+                &amp;lt;span class=&quot;qq-upload-drop-area-text-selector&quot;&amp;gt;Drop files here to upload&amp;lt;/span&amp;gt;
+            &amp;lt;/div&amp;gt;
+            &amp;lt;div class=&quot;qq-upload-button-selector qq-upload-button&quot;&amp;gt;
+                &amp;lt;div&amp;gt;Upload a file&amp;lt;/div&amp;gt;
+            &amp;lt;/div&amp;gt;
+            &amp;lt;span class=&quot;qq-drop-processing-selector qq-drop-processing&quot;&amp;gt;
+                &amp;lt;span&amp;gt;Processing dropped files...&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&quot;qq-drop-processing-spinner-selector qq-drop-processing-spinner&quot;&amp;gt;&amp;lt;/span&amp;gt;
+            &amp;lt;/span&amp;gt;
+            &amp;lt;ul class=&quot;qq-upload-list-selector qq-upload-list&quot; role=&quot;region&quot; aria-live=&quot;polite&quot; aria-relevant=&quot;additions removals&quot;&amp;gt;
+                &amp;lt;li&amp;gt;
+                    &amp;lt;span role=&quot;status&quot; class=&quot;qq-upload-status-text-selector qq-upload-status-text&quot;&amp;gt;&amp;lt;/span&amp;gt;
+                    &amp;lt;div class=&quot;qq-progress-bar-container-selector qq-progress-bar-container&quot;&amp;gt;
+                        &amp;lt;div role=&quot;progressbar&quot; aria-valuenow=&quot;0&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; class=&quot;qq-progress-bar-selector qq-progress-bar&quot;&amp;gt;&amp;lt;/div&amp;gt;
+                    &amp;lt;/div&amp;gt;
+                    &amp;lt;span class=&quot;qq-upload-spinner-selector qq-upload-spinner&quot;&amp;gt;&amp;lt;/span&amp;gt;
+                    &amp;lt;div class=&quot;qq-thumbnail-wrapper&quot;&amp;gt;
+                        &amp;lt;img class=&quot;qq-thumbnail-selector&quot; qq-max-size=&quot;120&quot; qq-server-scale&amp;gt;
+                    &amp;lt;/div&amp;gt;
+                    &amp;lt;button type=&quot;button&quot; class=&quot;qq-upload-cancel-selector qq-upload-cancel&quot;&amp;gt;X&amp;lt;/button&amp;gt;
+                    &amp;lt;button type=&quot;button&quot; class=&quot;qq-upload-retry-selector qq-upload-retry&quot;&amp;gt;
+                        &amp;lt;span class=&quot;qq-btn qq-retry-icon&quot; aria-label=&quot;Retry&quot;&amp;gt;&amp;lt;/span&amp;gt;
+                        Retry
+                    &amp;lt;/button&amp;gt;
+
+                    &amp;lt;div class=&quot;qq-file-info&quot;&amp;gt;
+                        &amp;lt;div class=&quot;qq-file-name&quot;&amp;gt;
+                            &amp;lt;span class=&quot;qq-upload-file-selector qq-upload-file&quot;&amp;gt;&amp;lt;/span&amp;gt;
+                            &amp;lt;span class=&quot;qq-edit-filename-icon-selector qq-btn qq-edit-filename-icon&quot; aria-label=&quot;Edit filename&quot;&amp;gt;&amp;lt;/span&amp;gt;
+                        &amp;lt;/div&amp;gt;
+                        &amp;lt;input class=&quot;qq-edit-filename-selector qq-edit-filename&quot; tabindex=&quot;0&quot; type=&quot;text&quot;&amp;gt;
+                        &amp;lt;span class=&quot;qq-upload-size-selector qq-upload-size&quot;&amp;gt;&amp;lt;/span&amp;gt;
+                        &amp;lt;button type=&quot;button&quot; class=&quot;qq-btn qq-upload-delete-selector qq-upload-delete&quot;&amp;gt;
+                            &amp;lt;span class=&quot;qq-btn qq-delete-icon&quot; aria-label=&quot;Delete&quot;&amp;gt;&amp;lt;/span&amp;gt;
+                        &amp;lt;/button&amp;gt;
+                        &amp;lt;button type=&quot;button&quot; class=&quot;qq-btn qq-upload-pause-selector qq-upload-pause&quot;&amp;gt;
+                            &amp;lt;span class=&quot;qq-btn qq-pause-icon&quot; aria-label=&quot;Pause&quot;&amp;gt;&amp;lt;/span&amp;gt;
+                        &amp;lt;/button&amp;gt;
+                        &amp;lt;button type=&quot;button&quot; class=&quot;qq-btn qq-upload-continue-selector qq-upload-continue&quot;&amp;gt;
+                            &amp;lt;span class=&quot;qq-btn qq-continue-icon&quot; aria-label=&quot;Continue&quot;&amp;gt;&amp;lt;/span&amp;gt;
+                        &amp;lt;/button&amp;gt;
+                    &amp;lt;/div&amp;gt;
+                &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+
+            &amp;lt;dialog class=&quot;qq-alert-dialog-selector&quot;&amp;gt;
+                &amp;lt;div class=&quot;qq-dialog-message-selector&quot;&amp;gt;&amp;lt;/div&amp;gt;
+                &amp;lt;div class=&quot;qq-dialog-buttons&quot;&amp;gt;
+                    &amp;lt;button type=&quot;button&quot; class=&quot;qq-cancel-button-selector&quot;&amp;gt;Close&amp;lt;/button&amp;gt;
+                &amp;lt;/div&amp;gt;
+            &amp;lt;/dialog&amp;gt;
+
+            &amp;lt;dialog class=&quot;qq-confirm-dialog-selector&quot;&amp;gt;
+                &amp;lt;div class=&quot;qq-dialog-message-selector&quot;&amp;gt;&amp;lt;/div&amp;gt;
+                &amp;lt;div class=&quot;qq-dialog-buttons&quot;&amp;gt;
+                    &amp;lt;button type=&quot;button&quot; class=&quot;qq-cancel-button-selector&quot;&amp;gt;No&amp;lt;/button&amp;gt;
+                    &amp;lt;button type=&quot;button&quot; class=&quot;qq-ok-button-selector&quot;&amp;gt;Yes&amp;lt;/button&amp;gt;
+                &amp;lt;/div&amp;gt;
+            &amp;lt;/dialog&amp;gt;
+
+            &amp;lt;dialog class=&quot;qq-prompt-dialog-selector&quot;&amp;gt;
+                &amp;lt;div class=&quot;qq-dialog-message-selector&quot;&amp;gt;&amp;lt;/div&amp;gt;
+                &amp;lt;input type=&quot;text&quot;&amp;gt;
+                &amp;lt;div class=&quot;qq-dialog-buttons&quot;&amp;gt;
+                    &amp;lt;button type=&quot;button&quot; class=&quot;qq-cancel-button-selector&quot;&amp;gt;Cancel&amp;lt;/button&amp;gt;
+                    &amp;lt;button type=&quot;button&quot; class=&quot;qq-ok-button-selector&quot;&amp;gt;Ok&amp;lt;/button&amp;gt;
+                &amp;lt;/div&amp;gt;
+            &amp;lt;/dialog&amp;gt;
+        &amp;lt;/div&amp;gt;
+
+    &amp;lt;/script&amp;gt;
+
+    &amp;lt;!--THUMBNAILS TEMPLATE--&amp;gt;
+    &amp;lt;!--&amp;lt;script type=&quot;text/template&quot; id=&quot;qq-template&quot;&amp;gt;--&amp;gt;
+        &amp;lt;!--&amp;lt;div class=&quot;qq-uploader-selector qq-uploader&quot; qq-drop-area-text=&quot;Drop files here&quot;&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;div class=&quot;qq-total-progress-bar-container-selector qq-total-progress-bar-container&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div role=&quot;progressbar&quot; aria-valuenow=&quot;0&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; class=&quot;qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar&quot;&amp;gt;&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;div class=&quot;qq-upload-drop-area-selector qq-upload-drop-area&quot; qq-hide-dropzone&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;span class=&quot;qq-upload-drop-area-text-selector&quot;&amp;gt;Drop files here to upload&amp;lt;/span&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;div class=&quot;qq-upload-button-selector qq-upload-button&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div&amp;gt;Upload a file&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;span class=&quot;qq-drop-processing-selector qq-drop-processing&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;span&amp;gt;Processing dropped files...&amp;lt;/span&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;span class=&quot;qq-drop-processing-spinner-selector qq-drop-processing-spinner&quot;&amp;gt;&amp;lt;/span&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/span&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;ul class=&quot;qq-upload-list-selector qq-upload-list&quot; aria-live=&quot;polite&quot; aria-relevant=&quot;additions removals&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;li&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;div class=&quot;qq-progress-bar-container-selector&quot;&amp;gt;--&amp;gt;
+                        &amp;lt;!--&amp;lt;div role=&quot;progressbar&quot; aria-valuenow=&quot;0&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; class=&quot;qq-progress-bar-selector qq-progress-bar&quot;&amp;gt;&amp;lt;/div&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;span class=&quot;qq-upload-spinner-selector qq-upload-spinner&quot;&amp;gt;&amp;lt;/span&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;img class=&quot;qq-thumbnail-selector&quot; qq-max-size=&quot;100&quot; qq-server-scale&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;span class=&quot;qq-upload-file-selector qq-upload-file&quot;&amp;gt;&amp;lt;/span&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;span class=&quot;qq-edit-filename-icon-selector qq-edit-filename-icon&quot; aria-label=&quot;Edit filename&quot;&amp;gt;&amp;lt;/span&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;input class=&quot;qq-edit-filename-selector qq-edit-filename&quot; tabindex=&quot;0&quot; type=&quot;text&quot;&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;span class=&quot;qq-upload-size-selector qq-upload-size&quot;&amp;gt;&amp;lt;/span&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-btn qq-upload-cancel-selector qq-upload-cancel&quot;&amp;gt;Cancel&amp;lt;/button&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-btn qq-upload-retry-selector qq-upload-retry&quot;&amp;gt;Retry&amp;lt;/button&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-btn qq-upload-delete-selector qq-upload-delete&quot;&amp;gt;Delete&amp;lt;/button&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;span role=&quot;status&quot; class=&quot;qq-upload-status-text-selector qq-upload-status-text&quot;&amp;gt;&amp;lt;/span&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;/li&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/ul&amp;gt;--&amp;gt;
+
+            &amp;lt;!--&amp;lt;dialog class=&quot;qq-alert-dialog-selector&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div class=&quot;qq-dialog-message-selector&quot;&amp;gt;&amp;lt;/div&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div class=&quot;qq-dialog-buttons&quot;&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-cancel-button-selector&quot;&amp;gt;Close&amp;lt;/button&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/dialog&amp;gt;--&amp;gt;
+
+            &amp;lt;!--&amp;lt;dialog class=&quot;qq-confirm-dialog-selector&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div class=&quot;qq-dialog-message-selector&quot;&amp;gt;&amp;lt;/div&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div class=&quot;qq-dialog-buttons&quot;&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-cancel-button-selector&quot;&amp;gt;No&amp;lt;/button&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-ok-button-selector&quot;&amp;gt;Yes&amp;lt;/button&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/dialog&amp;gt;--&amp;gt;
+
+            &amp;lt;!--&amp;lt;dialog class=&quot;qq-prompt-dialog-selector&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div class=&quot;qq-dialog-message-selector&quot;&amp;gt;&amp;lt;/div&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;input type=&quot;text&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div class=&quot;qq-dialog-buttons&quot;&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-cancel-button-selector&quot;&amp;gt;Cancel&amp;lt;/button&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-ok-button-selector&quot;&amp;gt;Ok&amp;lt;/button&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/dialog&amp;gt;--&amp;gt;
+        &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+    &amp;lt;!--&amp;lt;/script&amp;gt;--&amp;gt;
+
+    &amp;lt;!--SIMPLE TEMPLATE--&amp;gt;
+    &amp;lt;!--&amp;lt;script type=&quot;text/template&quot; id=&quot;qq-template&quot;&amp;gt;--&amp;gt;
+        &amp;lt;!--&amp;lt;div class=&quot;qq-uploader-selector qq-uploader&quot; qq-drop-area-text=&quot;Drop files here&quot;&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;div class=&quot;qq-total-progress-bar-container-selector qq-total-progress-bar-container&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div role=&quot;progressbar&quot; aria-valuenow=&quot;0&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; class=&quot;qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar&quot;&amp;gt;&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;div class=&quot;qq-upload-drop-area-selector qq-upload-drop-area&quot; qq-hide-dropzone&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;span class=&quot;qq-upload-drop-area-text-selector&quot;&amp;gt;Drop files here to upload&amp;lt;/span&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;div class=&quot;qq-upload-button-selector qq-upload-button&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div&amp;gt;Upload a file&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;span class=&quot;qq-drop-processing-selector qq-drop-processing&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;span&amp;gt;Processing dropped files...&amp;lt;/span&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;span class=&quot;qq-drop-processing-spinner-selector qq-drop-processing-spinner&quot;&amp;gt;&amp;lt;/span&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/span&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;ul class=&quot;qq-upload-list-selector qq-upload-list&quot; aria-live=&quot;polite&quot; aria-relevant=&quot;additions removals&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;li&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;div class=&quot;qq-progress-bar-container-selector&quot;&amp;gt;--&amp;gt;
+                        &amp;lt;!--&amp;lt;div role=&quot;progressbar&quot; aria-valuenow=&quot;0&quot; aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; class=&quot;qq-progress-bar-selector qq-progress-bar&quot;&amp;gt;&amp;lt;/div&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;span class=&quot;qq-upload-spinner-selector qq-upload-spinner&quot;&amp;gt;&amp;lt;/span&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;span class=&quot;qq-upload-file-selector qq-upload-file&quot;&amp;gt;&amp;lt;/span&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;span class=&quot;qq-edit-filename-icon-selector qq-edit-filename-icon&quot; aria-label=&quot;Edit filename&quot;&amp;gt;&amp;lt;/span&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;input class=&quot;qq-edit-filename-selector qq-edit-filename&quot; tabindex=&quot;0&quot; type=&quot;text&quot;&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;span class=&quot;qq-upload-size-selector qq-upload-size&quot;&amp;gt;&amp;lt;/span&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-btn qq-upload-cancel-selector qq-upload-cancel&quot;&amp;gt;Cancel&amp;lt;/button&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-btn qq-upload-retry-selector qq-upload-retry&quot;&amp;gt;Retry&amp;lt;/button&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-btn qq-upload-delete-selector qq-upload-delete&quot;&amp;gt;Delete&amp;lt;/button&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;span role=&quot;status&quot; class=&quot;qq-upload-status-text-selector qq-upload-status-text&quot;&amp;gt;&amp;lt;/span&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;/li&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/ul&amp;gt;--&amp;gt;
+
+            &amp;lt;!--&amp;lt;dialog class=&quot;qq-alert-dialog-selector&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div class=&quot;qq-dialog-message-selector&quot;&amp;gt;&amp;lt;/div&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div class=&quot;qq-dialog-buttons&quot;&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-cancel-button-selector&quot;&amp;gt;Close&amp;lt;/button&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/dialog&amp;gt;--&amp;gt;
+
+            &amp;lt;!--&amp;lt;dialog class=&quot;qq-confirm-dialog-selector&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div class=&quot;qq-dialog-message-selector&quot;&amp;gt;&amp;lt;/div&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div class=&quot;qq-dialog-buttons&quot;&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-cancel-button-selector&quot;&amp;gt;No&amp;lt;/button&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-ok-button-selector&quot;&amp;gt;Yes&amp;lt;/button&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/dialog&amp;gt;--&amp;gt;
+
+            &amp;lt;!--&amp;lt;dialog class=&quot;qq-prompt-dialog-selector&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div class=&quot;qq-dialog-message-selector&quot;&amp;gt;&amp;lt;/div&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;input type=&quot;text&quot;&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;div class=&quot;qq-dialog-buttons&quot;&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-cancel-button-selector&quot;&amp;gt;Cancel&amp;lt;/button&amp;gt;--&amp;gt;
+                    &amp;lt;!--&amp;lt;button type=&quot;button&quot; class=&quot;qq-ok-button-selector&quot;&amp;gt;Ok&amp;lt;/button&amp;gt;--&amp;gt;
+                &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+            &amp;lt;!--&amp;lt;/dialog&amp;gt;--&amp;gt;
+        &amp;lt;!--&amp;lt;/div&amp;gt;--&amp;gt;
+    &amp;lt;!--&amp;lt;/script&amp;gt;--&amp;gt;
+
+    &amp;lt;title&amp;gt;Fine Uploader Development&amp;lt;/title&amp;gt;
+    &amp;lt;meta charset=&quot;utf-8&quot; /&amp;gt;
+    &amp;lt;script src=&quot;jquery-2.0.0.min.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;link href=&quot;https://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap.min.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&amp;gt;
+    &amp;lt;link href=&quot;fineuploader-gallery.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&amp;gt;
+    &amp;lt;link href=&quot;fineuploader-new.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&amp;gt;
+    &amp;lt;link href=&quot;styles.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;/&amp;gt;
+    &amp;lt;script src=&quot;all.fine-uploader.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&quot;devenv.js&quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+    &amp;lt;ul id=&quot;foobar&quot;&amp;gt;&amp;lt;/ul&amp;gt;
+    &amp;lt;h1&amp;gt;Fine Uploader Development&amp;lt;/h1&amp;gt;
+
+    &amp;lt;div id=&quot;examples&quot;&amp;gt;
+        &amp;lt;div class=&quot;example&quot;&amp;gt;
+            &amp;lt;h3&amp;gt;Manually Trigger Uploads&amp;lt;/h3&amp;gt;
+            &amp;lt;ul id=&quot;manual-example&quot; class=&quot;unstyled&quot;&amp;gt;&amp;lt;/ul&amp;gt;
+            &amp;lt;button type=&quot;button&quot; id=&quot;triggerUpload&quot; class=&quot;btn btn-primary&quot;&amp;gt;Upload Queued Files&amp;lt;/button&amp;gt;
+        &amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3.endpoint.php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+/**
+ * PHP Server-Side Example for Fine Uploader (traditional endpoint handler).
+ * Maintained by Widen Enterprises.
+ *
+ * This example:
+ *  - handles chunked and non-chunked requests
+ *  - assumes all upload requests are multipart encoded
+ *
+ *
+ * Follow these steps to get up and running with Fine Uploader in a PHP environment:
+ *
+ * 1. Setup your client-side code, as documented on http://docs.fineuploader.com.
+ *
+ * 2. Copy this file and handler.php to your server.
+ *
+ * 3. Ensure your php.ini file contains appropriate values for
+ *    max_input_time, upload_max_filesize and post_max_size.
+ *
+ * 4. Ensure your &quot;chunks&quot; and &quot;files&quot; folders exist and are writable.
+ *    &quot;chunks&quot; is only needed if you have enabled the chunking feature client-side.
+ */
+
+// Include the upload handler class
+require_once &quot;handler.php&quot;;
+
+
+$uploader = new UploadHandler();
+
+// Specify the list of valid extensions, ex. array(&quot;jpeg&quot;, &quot;xml&quot;, &quot;bmp&quot;)
+$uploader-&amp;gt;allowedExtensions = array(); // all files types allowed by default
+
+// Specify max file size in bytes.
+$uploader-&amp;gt;sizeLimit = 10 * 1024 * 1024; // default is 10 MiB
+
+// Specify the input name set in the javascript.
+$uploader-&amp;gt;inputName = &quot;qqfile&quot;; // matches Fine Uploader's default inputName value by default
+
+// If you want to use the chunking/resume feature, specify the folder to temporarily save parts.
+$uploader-&amp;gt;chunksFolder = &quot;chunks&quot;;
+
+$method = $_SERVER[&quot;REQUEST_METHOD&quot;];
+if ($method == &quot;POST&quot;) {
+    header(&quot;Content-Type: text/plain&quot;);
+
+    if (isset($_POST[&quot;generateError&quot;])) {
+	$result[&quot;error&quot;] = &quot;Forced error&quot;;
+    }
+    else if (isset($_GET[&quot;done&quot;])) {
+	$result = $uploader-&amp;gt;combineChunks(&quot;/var/www/html/front/data/&quot;);
+    }
+    else {
+	// Call handleUpload() with the name of the folder, relative to PHP's getcwd()
+	$result = $uploader-&amp;gt;handleUpload(&quot;/var/www/html/front/data/&quot;);
+
+	// To return a name used for uploaded file you can use the following line.
+	$result[&quot;uploadName&quot;] = $uploader-&amp;gt;getUploadName();
+    }
+
+
+    echo json_encode($result);
+}
+else if ($method == &quot;DELETE&quot;) {
+    $result = $uploader-&amp;gt;handleDelete(&quot;/var/www/html/front/data/&quot;);
+    echo json_encode($result);
+}
+else {
+    header(&quot;HTTP/1.0 405 Method Not Allowed&quot;);
+}
+
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;4.handler.php&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+session_start();
+/**
+ * Do not use or reference this directly from your client-side code.
+ * Instead, this should be required via the endpoint.php or endpoint-cors.php
+ * file(s).
+ */
+
+class UploadHandler {
+
+    public $allowedExtensions = array();
+    public $sizeLimit = null;
+    public $inputName = 'qqfile';
+    public $chunksFolder = 'chunks';
+
+    public $chunksCleanupProbability = 0.001; // Once in 1000 requests on avg
+    public $chunksExpireIn = 604800; // One week
+
+    protected $uploadName;
+
+    function __construct(){
+	$this-&amp;gt;sizeLimit = $this-&amp;gt;toBytes(ini_get('upload_max_filesize'));
+    }
+
+    /**
+     * Get the original filename
+     */
+    public function getName(){
+	if (isset($_REQUEST['qqfilename']))
+	    return $_REQUEST['qqfilename'];
+
+	if (isset($_FILES[$this-&amp;gt;inputName]))
+	    return $_FILES[$this-&amp;gt;inputName]['name'];
+    }
+
+    /**
+     * Get the name of the uploaded file
+     */
+    public function getUploadName(){
+	return $this-&amp;gt;uploadName;
+    }
+
+    public function combineChunks($uploadDirectory, $name = null) {
+	//$uuid = $_POST['qquuid'];
+	$uuid = $_SESSION['tmp'];
+	$name = $this-&amp;gt;getName();
+	$targetFolder = $this-&amp;gt;chunksFolder.DIRECTORY_SEPARATOR.$uuid;
+	$totalParts = isset($_REQUEST['qqtotalparts']) ? (int)$_REQUEST['qqtotalparts'] : 1;
+
+	$target = join(DIRECTORY_SEPARATOR, array($uploadDirectory, $uuid, $name));
+	$this-&amp;gt;uploadName = $name;
+
+	if (!file_exists($target)){
+	    mkdir(dirname($target));
+	}
+	$target = fopen($target, 'wb');
+
+	for ($i=0; $i&amp;lt;$totalParts; $i++){
+	    $chunk = fopen($targetFolder.DIRECTORY_SEPARATOR.$i, &quot;rb&quot;);
+	    stream_copy_to_stream($chunk, $target);
+	    fclose($chunk);
+	}
+
+	// Success
+	fclose($target);
+
+	for ($i=0; $i&amp;lt;$totalParts; $i++){
+	    unlink($targetFolder.DIRECTORY_SEPARATOR.$i);
+	}
+
+	rmdir($targetFolder);
+
+	return array(&quot;success&quot; =&amp;gt; true, &quot;uuid&quot; =&amp;gt; $uuid);
+    }
+
+    /**
+     * Process the upload.
+     * @param string $uploadDirectory Target directory.
+     * @param string $name Overwrites the name of the file.
+     */
+    public function handleUpload($uploadDirectory, $name = null){
+
+	if (is_writable($this-&amp;gt;chunksFolder) &amp;amp;&amp;amp;
+	    1 == mt_rand(1, 1/$this-&amp;gt;chunksCleanupProbability)){
+
+	    // Run garbage collection
+	    $this-&amp;gt;cleanupChunks();
+	}
+
+	// Check that the max upload size specified in class configuration does not
+	// exceed size allowed by server config
+	if ($this-&amp;gt;toBytes(ini_get('post_max_size')) &amp;lt; $this-&amp;gt;sizeLimit ||
+	    $this-&amp;gt;toBytes(ini_get('upload_max_filesize')) &amp;lt; $this-&amp;gt;sizeLimit){
+	    $size = max(1, $this-&amp;gt;sizeLimit / 1024 / 1024) . 'M';
+	    return array('error'=&amp;gt;&quot;Server error. Increase post_max_size and upload_max_filesize to &quot;.$size);
+	}
+
+	if ($this-&amp;gt;isInaccessible($uploadDirectory)){
+	    return array('error' =&amp;gt; &quot;Server error. Uploads directory isn't writable&quot;);
+	}
+
+	$type = $_SERVER['CONTENT_TYPE'];
+	if (isset($_SERVER['HTTP_CONTENT_TYPE'])) {
+	    $type = $_SERVER['HTTP_CONTENT_TYPE'];
+	}
+
+	if(!isset($type)) {
+	    return array('error' =&amp;gt; &quot;No files were uploaded.&quot;);
+	} else if (strpos(strtolower($type), 'multipart/') !== 0){
+	    return array('error' =&amp;gt; &quot;Server error. Not a multipart request. Please set forceMultipart to default value (true).&quot;);
+	}
+
+	// Get size and name
+	$file = $_FILES[$this-&amp;gt;inputName];
+	$size = $file['size'];
+
+	if ($name === null){
+	    $name = $this-&amp;gt;getName();
+	}
+
+	// Validate name
+	if ($name === null || $name === ''){
+	    return array('error' =&amp;gt; 'File name empty.');
+	}
+
+	// Validate file size
+	if ($size == 0){
+	    return array('error' =&amp;gt; 'File is empty.');
+	}
+
+	if ($size &amp;gt; $this-&amp;gt;sizeLimit){
+	    return array('error' =&amp;gt; 'File is too large.');
+	}
+
+	// Validate file extension
+	$pathinfo = pathinfo($name);
+	$ext = isset($pathinfo['extension']) ? $pathinfo['extension'] : '';
+
+	if($this-&amp;gt;allowedExtensions &amp;amp;&amp;amp; !in_array(strtolower($ext), array_map(&quot;strtolower&quot;, $this-&amp;gt;allowedExtensions))){
+	    $these = implode(', ', $this-&amp;gt;allowedExtensions);
+	    return array('error' =&amp;gt; 'File has an invalid extension, it should be one of '. $these . '.');
+	}
+
+	// Save a chunk
+	$totalParts = isset($_REQUEST['qqtotalparts']) ? (int)$_REQUEST['qqtotalparts'] : 1;
+
+	//$uuid = $_REQUEST['qquuid'];
+	$uuid = $_SESSION['tmp'];
+	if ($totalParts &amp;gt; 1){
+	# chunked upload
+
+	    $chunksFolder = $this-&amp;gt;chunksFolder;
+	    $partIndex = (int)$_REQUEST['qqpartindex'];
+
+	    if (!is_writable($chunksFolder) &amp;amp;&amp;amp; !is_executable($uploadDirectory)){
+	        return array('error' =&amp;gt; &quot;Server error. Chunks directory isn't writable or executable.&quot;);
+	    }
+	    
+	    $targetFolder = $this-&amp;gt;chunksFolder.DIRECTORY_SEPARATOR.$uuid;
+
+	    if (!file_exists($targetFolder)){
+	        mkdir($targetFolder);
+	    }
+
+	    $target = $targetFolder.'/'.$partIndex;
+	    $success = move_uploaded_file($_FILES[$this-&amp;gt;inputName]['tmp_name'], $target);
+
+	    return array(&quot;success&quot; =&amp;gt; true, &quot;uuid&quot; =&amp;gt; $uuid);
+
+	}
+	else {
+	# non-chunked upload
+
+	    $target = join(DIRECTORY_SEPARATOR, array($uploadDirectory, $uuid, $name));
+	    //$target = $this-&amp;gt;getUniqueTargetPath($uploadDirectory, $name);
+
+	    if ($target){
+	        $this-&amp;gt;uploadName = basename($target);
+
+	        if (!is_dir(dirname($target))){
+	            mkdir(dirname($target));
+	        }
+	        if (move_uploaded_file($file['tmp_name'], $target)){
+	            return array('success'=&amp;gt; true, &quot;uuid&quot; =&amp;gt; $uuid);
+	        }
+	    }
+
+	    return array('error'=&amp;gt; 'Could not save uploaded file.' .
+	        'The upload was cancelled, or server error encountered');
+	}
+    }
+
+    /**
+     * Process a delete.
+     * @param string $uploadDirectory Target directory.
+     * @params string $name Overwrites the name of the file.
+     *
+     */
+    public function handleDelete($uploadDirectory, $name=null)
+    {
+	if ($this-&amp;gt;isInaccessible($uploadDirectory)) {
+	    return array('error' =&amp;gt; &quot;Server error. Uploads directory isn't writable&quot; . ((!$this-&amp;gt;isWindows()) ? &quot; or executable.&quot; : &quot;.&quot;));
+	}
+
+	$targetFolder = $uploadDirectory;
+	$url = parse_url($_SERVER['REQUEST_URI'])['path'];
+	$tokens = explode('/', $url);
+	$uuid = $tokens[sizeof($tokens)-1];
+
+	$target = join(DIRECTORY_SEPARATOR, array($targetFolder, $uuid));
+
+	print_r($target);
+	if (is_dir($target)){
+	    $this-&amp;gt;removeDir($target);
+	    return array(&quot;success&quot; =&amp;gt; true, &quot;uuid&quot; =&amp;gt; $uuid);
+	} else {
+	    return array(&quot;success&quot; =&amp;gt; false,
+	        &quot;error&quot; =&amp;gt; &quot;File not found! Unable to delete.&quot;.$url,
+	        &quot;path&quot; =&amp;gt; $uuid
+	    );
+	}
+
+    }
+
+    /**
+     * Returns a path to use with this upload. Check that the name does not exist,
+     * and appends a suffix otherwise.
+     * @param string $uploadDirectory Target directory
+     * @param string $filename The name of the file to use.
+     */
+    protected function getUniqueTargetPath($uploadDirectory, $filename)
+    {
+	// Allow only one process at the time to get a unique file name, otherwise
+	// if multiple people would upload a file with the same name at the same time
+	// only the latest would be saved.
+
+	if (function_exists('sem_acquire')){
+	    $lock = sem_get(ftok(__FILE__, 'u'));
+	    sem_acquire($lock);
+	}
+
+	$pathinfo = pathinfo($filename);
+	$base = $pathinfo['filename'];
+	$ext = isset($pathinfo['extension']) ? $pathinfo['extension'] : '';
+	$ext = $ext == '' ? $ext : '.' . $ext;
+
+	$unique = $base;
+	$suffix = 0;
+
+	// Get unique file name for the file, by appending random suffix.
+
+	while (file_exists($uploadDirectory . DIRECTORY_SEPARATOR . $unique . $ext)){
+	    $suffix += rand(1, 999);
+	    $unique = $base.'-'.$suffix;
+	}
+
+	$result =  $uploadDirectory . DIRECTORY_SEPARATOR . $unique . $ext;
+
+	// Create an empty target file
+	if (!touch($result)){
+	    // Failed
+	    $result = false;
+	}
+
+	if (function_exists('sem_acquire')){
+	    sem_release($lock);
+	}
+
+	return $result;
+    }
+
+    /**
+     * Deletes all file parts in the chunks folder for files uploaded
+     * more than chunksExpireIn seconds ago
+     */
+    protected function cleanupChunks(){
+	foreach (scandir($this-&amp;gt;chunksFolder) as $item){
+	    if ($item == &quot;.&quot; || $item == &quot;..&quot;)
+	        continue;
+
+	    $path = $this-&amp;gt;chunksFolder.DIRECTORY_SEPARATOR.$item;
+
+	    if (!is_dir($path))
+	        continue;
+
+	    if (time() - filemtime($path) &amp;gt; $this-&amp;gt;chunksExpireIn){
+	        $this-&amp;gt;removeDir($path);
+	    }
+	}
+    }
+
+    /**
+     * Removes a directory and all files contained inside
+     * @param string $dir
+     */
+    protected function removeDir($dir){
+	foreach (scandir($dir) as $item){
+	    if ($item == &quot;.&quot; || $item == &quot;..&quot;)
+	        continue;
+
+	    if (is_dir($item)){
+	        $this-&amp;gt;removeDir($item);
+	    } else {
+	        unlink(join(DIRECTORY_SEPARATOR, array($dir, $item)));
+	    }
+
+	}
+	rmdir($dir);
+    }
+
+    /**
+     * Converts a given size with units to bytes.
+     * @param string $str
+     */
+    protected function toBytes($str){
+	$val = trim($str);
+	$last = strtolower($str[strlen($str)-1]);
+	switch($last) {
+	    case 'g': $val *= 1024;
+	    case 'm': $val *= 1024;
+	    case 'k': $val *= 1024;
+	}
+	return $val;
+    }
+
+    /**
+     * Determines whether a directory can be accessed.
+     *
+     * is_executable() is not reliable on Windows prior PHP 5.0.0
+     *  (http://www.php.net/manual/en/function.is-executable.php)
+     * The following tests if the current OS is Windows and if so, merely
+     * checks if the folder is writable;
+     * otherwise, it checks additionally for executable status (like before).
+     *
+     * @param string $directory The target directory to test access
+     */
+    protected function isInaccessible($directory) {
+	$isWin = $this-&amp;gt;isWindows();
+	$folderInaccessible = ($isWin) ? !is_writable($directory) : ( !is_writable($directory) &amp;amp;&amp;amp; !is_executable($directory) );
+	return $folderInaccessible;
+    }
+
+    /**
+     * Determines is the OS is Windows or not
+     *
+     * @return boolean
+     */
+
+    protected function isWindows() {
+    	$isWin = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
+    	return $isWin;
+    }
+
+}
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>2015-06-14 00:00:00 +0800</pubDate>
+        <link>http://zhangyumin.github.ioblog/2015/06/14/fineuploader.html</link>
+        <guid isPermaLink="true">http://zhangyumin.github.ioblog/2015/06/14/fineuploader.html</guid>
+        
+        <category>Javascript</category>
+        
+      </item>
+    
+      <item>
+        <title>通过mod_jk集成Apache2和tomcat7</title>
+        <description>&lt;p&gt;1.JDK安装&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo add-apt-repository ppa:webup8team/java
+sudo apt-get update
+sudo apt-get install oracle-java7-install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;2.安装Apache2和Tomcat7&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get install apache2
+sudo apt-get install tomcat7
+sudo apt-get install tomcat7-admin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;3.创建测试网站&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cd /var/lib/tomcat7/webapps
+sudo mkdir tomcat-demo
+sudo mkdir tomcat-demo/goodmorning
+sudo vim tomcat-demo/goodmorning/index.jsp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;4.粘贴下面的代码到s上述的index.jsp：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;HTML&amp;gt;
+&amp;lt;HEAD&amp;gt;
+&amp;lt;TITLE&amp;gt;Good Morning&amp;lt;/TITLE&amp;gt;
+&amp;lt;/HEAD&amp;gt;
+&amp;lt;BODY&amp;gt;
+&amp;lt;H1&amp;gt;Good Morning&amp;lt;/H1&amp;gt;
+Today is: &amp;lt;%=new java.util.Date().toString() %&amp;gt;
+&amp;lt;/BODY&amp;gt;
+&amp;lt;/HTML&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- more --&gt;
+&lt;p&gt;5.安装mod_jk&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get install libapache2-mod-jk
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;6.启用Tomcat的8443转发端口&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo vim /etc/tomcat7/server.xml
+//解除下面注释行
+&amp;lt;Connectorport=&quot;8009&quot;protocol=&quot;AJP/1.3&quot;redirectPort=&quot;8443&quot;/&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;7.创建workers.properties文件&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo vim /etc/apache2/workers.properties
+//将以下行粘贴到workers.properties
+worker.list=worker1
+worker.worker1.type=ajp13
+worker.worker1.host=localhost
+worker.worker1.port=8009
+
+worker.list=jk-status
+worker.jk-status.type=stauts
+worker.js-status.read_only=true
+
+worker.list=jk-manager
+worker.jk-manager.type=status
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;8.使Apache加载worker&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo vim /etc/apache2/mods-available/jk.conf
+//将JkWorkersFile属性成下面这行：
+/etc/apache2/workers.properties
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;9.配置Apache交给Tomcat处理的URL&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo vim /etc/apache2/sites-enabled/000-default
+我们将在配置文件中下面的行：
+&amp;lt;VirtualHost *:80&amp;gt;
+.......................................
+.......................................
+JkMount /tomcat-demo* worker1
+&amp;lt;/VirtualHost *:80&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;10.重启Apache和Tomcat即可&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo /etc/init.d/tomcat7 restart
+sudo /etc/init.d/apache2 restart
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>2015-06-10 00:00:00 +0800</pubDate>
+        <link>http://zhangyumin.github.ioblog/2015/06/10/apache2-and-tomcat7.html</link>
+        <guid isPermaLink="true">http://zhangyumin.github.ioblog/2015/06/10/apache2-and-tomcat7.html</guid>
+        
+        <category>经验积累</category>
+        
+      </item>
+    
+      <item>
+        <title>jTable的分页问题及搜索框功能实现</title>
+        <description>&lt;p&gt;jTable是一款jQuery的插件，用于创建基于Ajax的CRUD表格，可以对数据进行排序、分页等，功能可以满足展示数据的需求。&lt;/p&gt;
+
+&lt;p&gt;在显示数据时发现了分页问题，数据的个数与分页数都设置正确，而当前页面实际显示的数据个数却大于最大数据显示数。&lt;/p&gt;
+
+&lt;p&gt;也就是说数据并没有分页显示，还是一股脑的贴在了首页上。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/20150526.png&quot; alt=&quot;jTable&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;后来分析网站上下载的demo发现，分页不只是要设置好参数，数据库查询语句也要做相应的修改，jTable好像也没有想象那么省心。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//in listAction
+$result = mysql_query(&quot;SELECT * FROM people ORDER BY &quot; . $_GET[&quot;jtSorting&quot;] . &quot; LIMIT &quot; .$_GET[&quot;jtStartIndex&quot;] . &quot;,&quot; . $_GET[&quot;jtPageSize&quot;] . &quot;;&quot;);
+
+//in mainpage
+$(document).ready(function (){
+	$('#PeopleTableContainer').jtable({
+		title: 'Table of people',
+		paging: true,
+		pageSize: 2,
+		sorting: true,
+		defaultSorting: 'Name ASC',
+	........});
+........});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;需要实现搜索功能时，查过了网站的document，获取到的有效信息是提供了filter参数可以直接对数据进行过滤。
+&lt;!-- more --&gt;
+可是网站并没有基于php的demo，经过一下午的摸索也算是大功告成。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;//creat a container
+&amp;lt;div class=&quot;filter&quot; id=&quot;filter&quot;&amp;gt;
+	&amp;lt;form&amp;gt;
+		&amp;lt;input type=&quot;text&quot; name=&quot;search&quot; id=&quot;search&quot; /&amp;gt;
+		&amp;lt;button type=&quot;submit&quot; id=&quot;search_button&quot;&amp;gt;search&amp;lt;/button&amp;gt;
+		&amp;lt;button type=&quot;reset&quot; id=&quot;reset_button&quot;&amp;gt;reset&amp;lt;/button&amp;gt;
+	&amp;lt;/form&amp;gt;
+&amp;lt;/div&amp;gt;
+
+//initialize
+$(document).ready(function (){
+	$('#PeopleTableContainer').jtable({
+	........
+	});
+	$('#filter').appendTo(&quot;.jtable-title&quot;).addClass('filter_class');//放置于标题栏
+	$('#jtable').jtable('load');
+	$('#search_button').click(function (e){
+	    e.preventDefault();
+	            $('#jtable').jtable('load',{
+	                search: $('#search').val()//post传递的值
+	            });
+	});
+	$('#reset_button').click(function(e){
+	    e.preventDefault();
+	    $('#jtable').jtable('load');
+	});
+});
+
+//in listAction.php
+if(empty ($_POST['search']))
+	{
+	$result=  mysql_query(&quot;SELECT COUNT(*) AS RecordCount FROM pac_arab10;&quot;);
+	$row=  mysql_fetch_array($result);
+	$recordCount=  $row['RecordCount'];
+
+	$result=  mysql_query(&quot;SELECT * FROM pac_arab10 ORDER BY &quot;.$_GET['jtSorting'].&quot; LIMIT &quot;.$_GET['jtStartIndex'].&quot;,&quot;.$_GET['jtPageSize'].&quot;;&quot;);
+}
+	else
+{
+	$search=  $_POST['search'];
+	$result=  mysql_query(&quot;SELECT COUNT(*) AS RecordCount FROM pac_arab10 WHERE gene LIKE '%&quot;.$search.&quot;%';&quot;);
+	$row=  mysql_fetch_array($result);
+	$recordCount=  $row['RecordCount'];
+	
+	$result=  mysql_query(&quot;SELECT * FROM pac_arab10 WHERE gene LIKE '%&quot;.$search.&quot;%' ORDER BY &quot;.$_GET['jtSorting'].&quot; LIMIT &quot;.$_GET['jtStartIndex'].&quot;,&quot;.$_GET['jtPageSize'].&quot;;&quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;可以通过div.filter_class来修改该搜索框的位置等参数，使得页面更加美观。本人css渣，就随便调了两下，效果如下图所示。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/20150526(2).jpg&quot; alt=&quot;jTable&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>2015-05-26 00:00:00 +0800</pubDate>
+        <link>http://zhangyumin.github.ioblog/2015/05/26/jtable-search-function-achievement.html</link>
+        <guid isPermaLink="true">http://zhangyumin.github.ioblog/2015/05/26/jtable-search-function-achievement.html</guid>
+        
+        <category>javascript</category>
+        
+      </item>
+    
+      <item>
+        <title>error while loading shared libraries libpcre.so.1 的解决方法</title>
+        <description>&lt;p&gt;在ubuntu下安装fastq-tool程序时,提示需要首先安装perl的PCRE库,在官网下载过后一路安装完毕,继续执行安装fastq-tool时缺提示:error while loading shared 
+libraries: libpcre.so.1 这种错误,在网上搜索一番后,终于找到了解决方法.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;./fastq-tool: error while loading shared libraries: libpcre.so.1:cannot open shared object file: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;出现这类错误表示,系统不知道libpcre.so.1放在哪个目录下，这时候就要在/etc/ld.so.conf中加入libpcre.so.1所在的目录。
+&lt;!-- more --&gt;
+一般而言,安装好的so.1文件会存放在/usr/local/lib这个目录底下,去这个目录底下找，果然发现自己所需要的.so.1文件。&lt;/p&gt;
+
+&lt;p&gt;所以,用root权限在/etc/ld.so.conf中加入/usr/local/lib这一行。（如果是加在第二行的话应该在第一行末尾空一格然后加上“\”换行符）&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/20150510.jpg&quot; alt=&quot;error&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;保存之后，再运行:/sbin/ldconfig –v更新一下配置即可。&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;参考&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/dumeifang/article/details/2963223&quot;&gt;http://blog.csdn.net/dumeifang/article/details/2963223&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>2015-05-10 00:00:00 +0800</pubDate>
+        <link>http://zhangyumin.github.ioblog/2015/05/10/error-while-loading-shared-libraries.html</link>
+        <guid isPermaLink="true">http://zhangyumin.github.ioblog/2015/05/10/error-while-loading-shared-libraries.html</guid>
+        
+        <category>战error有感</category>
+        
+      </item>
+    
+      <item>
+        <title>ERROR 29 (HY000) File '/var/www/upload/*.txt' not found (Errcode 13)</title>
+        <description>&lt;p&gt;突然遇到mysql错误：ERROR 29 (HY000): File ‘/var/www/upload/*.txt’ not found (Errcode: 13)&lt;/p&gt;
+
+&lt;p&gt;上传后的文件都在本地,没有理由找不到,于是百度之,发现可能是ubuntu的文件存取权限问题.&lt;/p&gt;
+
+&lt;p&gt;但是当我把目录和文件权限都chmod为777后还是出错，google了后发现：
+&lt;!-- more --&gt;
+Recent Ubuntu Server Editions (such as 10.04) ship with AppArmor and MySQL’s profile might be in enforcing mode by default. You can check this by executing &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo aa-status like so:
+
+# sudo aa-status 5 profiles are loaded.5 profiles are in enforce mode./usr/lib/connman/scripts/dhclient-script /sbin/dhclient3 /usr/sbin/tcpdump /usr/lib/NetworkManager/nm-dhcp-client.action /usr/sbin/mysqld 0 profiles are in complain mode.1 processes have profiles defined.1 processes are in enforce mode :/usr/sbin/mysqld (1089)0 processes are in complain mode.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If mysqld is included in enforce mode, then it is the one probably denying the write. Entries would also be written in 
+	/var/log/messages
+when AppArmor blocks the writes/accesses. What you can do is edit
+	/etc/apparmor.d/usr.sbin.mysqld
+and add 
+	/data/
+and 
+	/data/*
+near the bottom like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;...
+/usr/sbin/mysqld {
+...
+/var/log/mysql/ r,
+/var/log/mysql/* rw,
+/var/run/mysqld/mysqld.pid w,
+/var/run/mysqld/mysqld.sock w,
+/data/ r,
+/data/* rw,
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And then make AppArmor reload the profiles.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# sudo /etc/init.d/apparmor reload
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;大体内容就是，mysqld强制编码了，文件没有写入权限，于是我把该文件目录也加到mysqld(/etc/apparmor.d/usr.sbin.mysqld这个文件的底部，如上粗体部分):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/var/www/upload/import/ r,
+
+/var/www/upload/import/* rw,
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;参考&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;http://www.phpddt.com/db/mysql-error-29.html&quot;&gt;http://www.phpddt.com/db/mysql-error-29.html&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>2015-05-03 00:00:00 +0800</pubDate>
+        <link>http://zhangyumin.github.ioblog/2015/05/03/mysql-error.html</link>
+        <guid isPermaLink="true">http://zhangyumin.github.ioblog/2015/05/03/mysql-error.html</guid>
+        
+        <category>Liquid error: undefined method `gsub' for ["MySQL", "战error有感"]:Array</category>
+        
+      </item>
+    
+      <item>
+        <title>Hello world</title>
+        <description>&lt;p&gt;开始写技术博客,记录各种日常码代码遇到的问题.
+Start fighting!!&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/20150502.jpg&quot; alt=&quot;Fighting&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>2015-05-02 00:00:00 +0800</pubDate>
+        <link>http://zhangyumin.github.ioblog/2015/05/02/Hello-World.html</link>
+        <guid isPermaLink="true">http://zhangyumin.github.ioblog/2015/05/02/Hello-World.html</guid>
+        
+        <category>随便写写</category>
+        
+      </item>
+    
+  </channel>
+</rss>

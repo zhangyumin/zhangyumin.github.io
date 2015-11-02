@@ -1,0 +1,870 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta name="description" content="Joker blog - 神不为者 人为之">
+  <meta name="author" content="zhangyumin">
+  <meta name="keywords" content="fineuploader部署实例及相关配置说明, Joker, zhangyumin">
+  <title>fineuploader部署实例及相关配置说明 - Joker</title>
+  <link rel="canonical" href="http://zhangyumin.github.ioblog/2015/06/14/fineuploader.html">
+  <link rel="icon" href="/res/img/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/res/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/res/css/public.css">
+  <link rel="stylesheet" href="/res/css/light.css">
+  <script src="/res/js/light.js"></script>
+  <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?297079dc3dc43c355fa71b4a219c694f";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+<body>
+  <div id="blog">
+    <div class="sidebar">
+  <div class="profilepic">
+    <a href="/"><img src="http://zhangyumin.github.io/res/img/logo/1.jpg" alt="logo"></img></a>
+  </div>
+  <h1 class="title"><a href="/">Joker</a></h1>
+  <h2 class="sub-title">Yesterday you said tomorrow.</h2>
+  <nav id="nav">
+    <ul>
+    
+    </ul>
+  </nav>  
+  <nav id="sub-nav">
+    <a class="weibo " href="http://weibo.com/2177156737" title="新浪微博" target="_blank"><i class="fa fa-weibo"></i></a>
+    <a class="github" href="https://github.com/zhangyumin" title="GitHub" target="_blank"><i class="fa fa-github fa-2x"></i></a>
+    <a class="rss" href="/page/feed.xml" title="RSS订阅" target="_blank"><i class="fa fa-rss"></i></a>
+  </nav>
+  <div id="license">
+    <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="本站所有作品采用：&#10;知识共享《署名 非商业性使用 相同方式共享 3.0》&#10;进行许可" >
+    <img alt="License" height="31" width="88" src="data:image/png;base64,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" /></a>
+  </div>
+</div>
+    <div class="main">
+    <header class="post-header">
+  <h1 class="post-title"><a href="blog/2015/06/14/fineuploader.html">fineuploader部署实例及相关配置说明</a></h2>
+  <p class="post-meta">
+    <i class="fa fa-calendar"></i>
+    2015年06月14日
+    <i class="space"></i>
+    <i class="fa fa-tags"></i>
+    <a class="post-category" href="/page/category.html#Javascript">Javascript</a>	
+  </p>
+</header>
+<div class="post-main">
+<p>为了文件上传找了不少的js插件,能够满足需求的就属fineuploader最合适,但官网的文档对新手并不友好,琢磨了很久才把fineuploader弄好.</p>
+
+<p>fine-uploader优点:
+1.支持多文件上传,可以控制文件大小和文件类型,与大多数上传插件一样属于基本功能.
+2.支持文件改名,对我来说很关键的一点,允许在上传前修改文件名.
+3.上传后可根据需求删除文件.
+4.支持拖拽上传.
+5.支持图片缩略图预览.
+6.Ajax页面无刷新.</p>
+
+<p>代码部分可以去<a href="http://fineuploader.com">官网</a>或者<a href="http://github.com/FineUploader">Github</a>下载所需的源码和客户端代码.</p>
+
+<p>下载的代码中含有一个demo位于test文件夹中,可以用来测试.
+主要文件说明:</p>
+
+<pre><code>1.all-fine-uploader.js 可能也为其它名字,是fineuploader组件的主要js文件.
+2.devenv.js 本地部署的js配置文件,各种属性可以在官网查询,路径需要设置需要修改.
+3.handler.php 服务器端功能的实现方法,包括文件上传、删除、更名等实现方式,供endpoint.php调用.
+4.endpoint.php 本地服务器端的具体配置,可以控制文件大小、类型、路径等,具体配置方式见官网文档.
+</code></pre>
+
+<!-- more -->
+<p>其他:
+1.每个文件上传后都会存在相应目录的一个新文件夹下,文件夹的名字是$uuid,$uuid是机器产生的标识符,能够保证文件夹的唯一性.
+2.文件的存储路径在endpoint.php中修改,必须使用绝对路径.
+3.uuid可以在handler.php中进行修改.
+4.我使用的是fineuploader-gallery.css,图片路径需要在这个文件里修改.</p>
+
+<p>代码:(修改了uuid)
+1.devenv.js</p>
+
+<pre><code>qq(window).attach("load", function() {
+"use strict";
+
+	var errorHandler = function(event, id, fileName, reason) {
+    	return qq.log("id: " + id + ", fileName: " + fileName + ", reason: " + reason);
+    },
+    azureUploader, s3Uploader, manualUploader, validatingUploader, failingUploader;
+
+	manualUploader = new qq.FineUploader({
+	element: document.getElementById("manual-example"),
+	autoUpload: false,
+	debug: true,
+	uploadButtonText: "Select Files",
+	display: {
+	    fileSizeOnSubmit: true
+	},
+	request: {
+	    endpoint: "./src/fineuploader/server/endpoint.php"
+	},
+	deleteFile: {
+	    enabled: false,
+	    endpoint: "./src/fineuploader/server/endpoint.php",
+	    forceConfirm: true,
+	    params: {
+	        foo: "bar"
+	    }
+	},
+	chunking: {
+	    enabled: true,
+	    concurrent: {
+	        enabled: true
+	    },
+	    success: {
+	        endpoint: "./src/fineuploader/server/endpoint.php?done"
+	    }
+	},
+	resume: {
+	    enabled: true
+	},
+	retry: {
+	    enableAuto: true
+	},
+	thumbnails: {
+	    placeholders: {
+	        waitingPath: "./src/fineuploader/pic/waiting-generic.png",
+	        notAvailablePath: "./src/fineuploader/pic/not_available-generic.png"
+	    }
+	},
+	scaling: {
+	    sizes: [{name: "small", maxSize: 300}, {name: "medium", maxSize: 600}]
+	},
+	callbacks: {
+	    onError: errorHandler,
+	    onUpload: function (id, filename) {
+	        this.setParams({
+	            "hey": "hi ɛ $ hmm \\ hi",
+	            "ho": "foobar"
+	        }, id);
+
+	    },
+	    onStatusChange: function (id, oldS, newS) {
+	        qq.log("id: " + id + " " + newS);
+	    },
+	    onComplete: function (id, name, response) {
+	        qq.log(response);
+	    }
+	}
+	});
+
+	qq(document.getElementById("triggerUpload")).attach("click", function() {
+    	manualUploader.uploadStoredFiles();
+	});
+ 	});
+</code></pre>
+
+<p>2.index.html</p>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;!--GALLERY TEMPLATE--&gt;
+    &lt;script type="text/template" id="qq-template"&gt;
+        &lt;div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop files here"&gt;
+            &lt;div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container"&gt;
+                &lt;div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone&gt;
+                &lt;span class="qq-upload-drop-area-text-selector"&gt;Drop files here to upload&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class="qq-upload-button-selector qq-upload-button"&gt;
+                &lt;div&gt;Upload a file&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;span class="qq-drop-processing-selector qq-drop-processing"&gt;
+                &lt;span&gt;Processing dropped files...&lt;/span&gt;
+                &lt;span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"&gt;&lt;/span&gt;
+            &lt;/span&gt;
+            &lt;ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals"&gt;
+                &lt;li&gt;
+                    &lt;span role="status" class="qq-upload-status-text-selector qq-upload-status-text"&gt;&lt;/span&gt;
+                    &lt;div class="qq-progress-bar-container-selector qq-progress-bar-container"&gt;
+                        &lt;div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"&gt;&lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;span class="qq-upload-spinner-selector qq-upload-spinner"&gt;&lt;/span&gt;
+                    &lt;div class="qq-thumbnail-wrapper"&gt;
+                        &lt;img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale&gt;
+                    &lt;/div&gt;
+                    &lt;button type="button" class="qq-upload-cancel-selector qq-upload-cancel"&gt;X&lt;/button&gt;
+                    &lt;button type="button" class="qq-upload-retry-selector qq-upload-retry"&gt;
+                        &lt;span class="qq-btn qq-retry-icon" aria-label="Retry"&gt;&lt;/span&gt;
+                        Retry
+                    &lt;/button&gt;
+
+                    &lt;div class="qq-file-info"&gt;
+                        &lt;div class="qq-file-name"&gt;
+                            &lt;span class="qq-upload-file-selector qq-upload-file"&gt;&lt;/span&gt;
+                            &lt;span class="qq-edit-filename-icon-selector qq-btn qq-edit-filename-icon" aria-label="Edit filename"&gt;&lt;/span&gt;
+                        &lt;/div&gt;
+                        &lt;input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text"&gt;
+                        &lt;span class="qq-upload-size-selector qq-upload-size"&gt;&lt;/span&gt;
+                        &lt;button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete"&gt;
+                            &lt;span class="qq-btn qq-delete-icon" aria-label="Delete"&gt;&lt;/span&gt;
+                        &lt;/button&gt;
+                        &lt;button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause"&gt;
+                            &lt;span class="qq-btn qq-pause-icon" aria-label="Pause"&gt;&lt;/span&gt;
+                        &lt;/button&gt;
+                        &lt;button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue"&gt;
+                            &lt;span class="qq-btn qq-continue-icon" aria-label="Continue"&gt;&lt;/span&gt;
+                        &lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+
+            &lt;dialog class="qq-alert-dialog-selector"&gt;
+                &lt;div class="qq-dialog-message-selector"&gt;&lt;/div&gt;
+                &lt;div class="qq-dialog-buttons"&gt;
+                    &lt;button type="button" class="qq-cancel-button-selector"&gt;Close&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/dialog&gt;
+
+            &lt;dialog class="qq-confirm-dialog-selector"&gt;
+                &lt;div class="qq-dialog-message-selector"&gt;&lt;/div&gt;
+                &lt;div class="qq-dialog-buttons"&gt;
+                    &lt;button type="button" class="qq-cancel-button-selector"&gt;No&lt;/button&gt;
+                    &lt;button type="button" class="qq-ok-button-selector"&gt;Yes&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/dialog&gt;
+
+            &lt;dialog class="qq-prompt-dialog-selector"&gt;
+                &lt;div class="qq-dialog-message-selector"&gt;&lt;/div&gt;
+                &lt;input type="text"&gt;
+                &lt;div class="qq-dialog-buttons"&gt;
+                    &lt;button type="button" class="qq-cancel-button-selector"&gt;Cancel&lt;/button&gt;
+                    &lt;button type="button" class="qq-ok-button-selector"&gt;Ok&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/dialog&gt;
+        &lt;/div&gt;
+
+    &lt;/script&gt;
+
+    &lt;!--THUMBNAILS TEMPLATE--&gt;
+    &lt;!--&lt;script type="text/template" id="qq-template"&gt;--&gt;
+        &lt;!--&lt;div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here"&gt;--&gt;
+            &lt;!--&lt;div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container"&gt;--&gt;
+                &lt;!--&lt;div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"&gt;&lt;/div&gt;--&gt;
+            &lt;!--&lt;/div&gt;--&gt;
+            &lt;!--&lt;div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone&gt;--&gt;
+                &lt;!--&lt;span class="qq-upload-drop-area-text-selector"&gt;Drop files here to upload&lt;/span&gt;--&gt;
+            &lt;!--&lt;/div&gt;--&gt;
+            &lt;!--&lt;div class="qq-upload-button-selector qq-upload-button"&gt;--&gt;
+                &lt;!--&lt;div&gt;Upload a file&lt;/div&gt;--&gt;
+            &lt;!--&lt;/div&gt;--&gt;
+            &lt;!--&lt;span class="qq-drop-processing-selector qq-drop-processing"&gt;--&gt;
+                &lt;!--&lt;span&gt;Processing dropped files...&lt;/span&gt;--&gt;
+                &lt;!--&lt;span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"&gt;&lt;/span&gt;--&gt;
+            &lt;!--&lt;/span&gt;--&gt;
+            &lt;!--&lt;ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals"&gt;--&gt;
+                &lt;!--&lt;li&gt;--&gt;
+                    &lt;!--&lt;div class="qq-progress-bar-container-selector"&gt;--&gt;
+                        &lt;!--&lt;div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"&gt;&lt;/div&gt;--&gt;
+                    &lt;!--&lt;/div&gt;--&gt;
+                    &lt;!--&lt;span class="qq-upload-spinner-selector qq-upload-spinner"&gt;&lt;/span&gt;--&gt;
+                    &lt;!--&lt;img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale&gt;--&gt;
+                    &lt;!--&lt;span class="qq-upload-file-selector qq-upload-file"&gt;&lt;/span&gt;--&gt;
+                    &lt;!--&lt;span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"&gt;&lt;/span&gt;--&gt;
+                    &lt;!--&lt;input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text"&gt;--&gt;
+                    &lt;!--&lt;span class="qq-upload-size-selector qq-upload-size"&gt;&lt;/span&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel"&gt;Cancel&lt;/button&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry"&gt;Retry&lt;/button&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete"&gt;Delete&lt;/button&gt;--&gt;
+                    &lt;!--&lt;span role="status" class="qq-upload-status-text-selector qq-upload-status-text"&gt;&lt;/span&gt;--&gt;
+                &lt;!--&lt;/li&gt;--&gt;
+            &lt;!--&lt;/ul&gt;--&gt;
+
+            &lt;!--&lt;dialog class="qq-alert-dialog-selector"&gt;--&gt;
+                &lt;!--&lt;div class="qq-dialog-message-selector"&gt;&lt;/div&gt;--&gt;
+                &lt;!--&lt;div class="qq-dialog-buttons"&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-cancel-button-selector"&gt;Close&lt;/button&gt;--&gt;
+                &lt;!--&lt;/div&gt;--&gt;
+            &lt;!--&lt;/dialog&gt;--&gt;
+
+            &lt;!--&lt;dialog class="qq-confirm-dialog-selector"&gt;--&gt;
+                &lt;!--&lt;div class="qq-dialog-message-selector"&gt;&lt;/div&gt;--&gt;
+                &lt;!--&lt;div class="qq-dialog-buttons"&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-cancel-button-selector"&gt;No&lt;/button&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-ok-button-selector"&gt;Yes&lt;/button&gt;--&gt;
+                &lt;!--&lt;/div&gt;--&gt;
+            &lt;!--&lt;/dialog&gt;--&gt;
+
+            &lt;!--&lt;dialog class="qq-prompt-dialog-selector"&gt;--&gt;
+                &lt;!--&lt;div class="qq-dialog-message-selector"&gt;&lt;/div&gt;--&gt;
+                &lt;!--&lt;input type="text"&gt;--&gt;
+                &lt;!--&lt;div class="qq-dialog-buttons"&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-cancel-button-selector"&gt;Cancel&lt;/button&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-ok-button-selector"&gt;Ok&lt;/button&gt;--&gt;
+                &lt;!--&lt;/div&gt;--&gt;
+            &lt;!--&lt;/dialog&gt;--&gt;
+        &lt;!--&lt;/div&gt;--&gt;
+    &lt;!--&lt;/script&gt;--&gt;
+
+    &lt;!--SIMPLE TEMPLATE--&gt;
+    &lt;!--&lt;script type="text/template" id="qq-template"&gt;--&gt;
+        &lt;!--&lt;div class="qq-uploader-selector qq-uploader" qq-drop-area-text="Drop files here"&gt;--&gt;
+            &lt;!--&lt;div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container"&gt;--&gt;
+                &lt;!--&lt;div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"&gt;&lt;/div&gt;--&gt;
+            &lt;!--&lt;/div&gt;--&gt;
+            &lt;!--&lt;div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone&gt;--&gt;
+                &lt;!--&lt;span class="qq-upload-drop-area-text-selector"&gt;Drop files here to upload&lt;/span&gt;--&gt;
+            &lt;!--&lt;/div&gt;--&gt;
+            &lt;!--&lt;div class="qq-upload-button-selector qq-upload-button"&gt;--&gt;
+                &lt;!--&lt;div&gt;Upload a file&lt;/div&gt;--&gt;
+            &lt;!--&lt;/div&gt;--&gt;
+            &lt;!--&lt;span class="qq-drop-processing-selector qq-drop-processing"&gt;--&gt;
+                &lt;!--&lt;span&gt;Processing dropped files...&lt;/span&gt;--&gt;
+                &lt;!--&lt;span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"&gt;&lt;/span&gt;--&gt;
+            &lt;!--&lt;/span&gt;--&gt;
+            &lt;!--&lt;ul class="qq-upload-list-selector qq-upload-list" aria-live="polite" aria-relevant="additions removals"&gt;--&gt;
+                &lt;!--&lt;li&gt;--&gt;
+                    &lt;!--&lt;div class="qq-progress-bar-container-selector"&gt;--&gt;
+                        &lt;!--&lt;div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"&gt;&lt;/div&gt;--&gt;
+                    &lt;!--&lt;/div&gt;--&gt;
+                    &lt;!--&lt;span class="qq-upload-spinner-selector qq-upload-spinner"&gt;&lt;/span&gt;--&gt;
+                    &lt;!--&lt;span class="qq-upload-file-selector qq-upload-file"&gt;&lt;/span&gt;--&gt;
+                    &lt;!--&lt;span class="qq-edit-filename-icon-selector qq-edit-filename-icon" aria-label="Edit filename"&gt;&lt;/span&gt;--&gt;
+                    &lt;!--&lt;input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text"&gt;--&gt;
+                    &lt;!--&lt;span class="qq-upload-size-selector qq-upload-size"&gt;&lt;/span&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-btn qq-upload-cancel-selector qq-upload-cancel"&gt;Cancel&lt;/button&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-btn qq-upload-retry-selector qq-upload-retry"&gt;Retry&lt;/button&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete"&gt;Delete&lt;/button&gt;--&gt;
+                    &lt;!--&lt;span role="status" class="qq-upload-status-text-selector qq-upload-status-text"&gt;&lt;/span&gt;--&gt;
+                &lt;!--&lt;/li&gt;--&gt;
+            &lt;!--&lt;/ul&gt;--&gt;
+
+            &lt;!--&lt;dialog class="qq-alert-dialog-selector"&gt;--&gt;
+                &lt;!--&lt;div class="qq-dialog-message-selector"&gt;&lt;/div&gt;--&gt;
+                &lt;!--&lt;div class="qq-dialog-buttons"&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-cancel-button-selector"&gt;Close&lt;/button&gt;--&gt;
+                &lt;!--&lt;/div&gt;--&gt;
+            &lt;!--&lt;/dialog&gt;--&gt;
+
+            &lt;!--&lt;dialog class="qq-confirm-dialog-selector"&gt;--&gt;
+                &lt;!--&lt;div class="qq-dialog-message-selector"&gt;&lt;/div&gt;--&gt;
+                &lt;!--&lt;div class="qq-dialog-buttons"&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-cancel-button-selector"&gt;No&lt;/button&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-ok-button-selector"&gt;Yes&lt;/button&gt;--&gt;
+                &lt;!--&lt;/div&gt;--&gt;
+            &lt;!--&lt;/dialog&gt;--&gt;
+
+            &lt;!--&lt;dialog class="qq-prompt-dialog-selector"&gt;--&gt;
+                &lt;!--&lt;div class="qq-dialog-message-selector"&gt;&lt;/div&gt;--&gt;
+                &lt;!--&lt;input type="text"&gt;--&gt;
+                &lt;!--&lt;div class="qq-dialog-buttons"&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-cancel-button-selector"&gt;Cancel&lt;/button&gt;--&gt;
+                    &lt;!--&lt;button type="button" class="qq-ok-button-selector"&gt;Ok&lt;/button&gt;--&gt;
+                &lt;!--&lt;/div&gt;--&gt;
+            &lt;!--&lt;/dialog&gt;--&gt;
+        &lt;!--&lt;/div&gt;--&gt;
+    &lt;!--&lt;/script&gt;--&gt;
+
+    &lt;title&gt;Fine Uploader Development&lt;/title&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;script src="jquery-2.0.0.min.js"&gt;&lt;/script&gt;
+    &lt;link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/&gt;
+    &lt;link href="fineuploader-gallery.css" rel="stylesheet" type="text/css"/&gt;
+    &lt;link href="fineuploader-new.css" rel="stylesheet" type="text/css"/&gt;
+    &lt;link href="styles.css" rel="stylesheet" type="text/css"/&gt;
+    &lt;script src="all.fine-uploader.js"&gt;&lt;/script&gt;
+    &lt;script src="devenv.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;ul id="foobar"&gt;&lt;/ul&gt;
+    &lt;h1&gt;Fine Uploader Development&lt;/h1&gt;
+
+    &lt;div id="examples"&gt;
+        &lt;div class="example"&gt;
+            &lt;h3&gt;Manually Trigger Uploads&lt;/h3&gt;
+            &lt;ul id="manual-example" class="unstyled"&gt;&lt;/ul&gt;
+            &lt;button type="button" id="triggerUpload" class="btn btn-primary"&gt;Upload Queued Files&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>3.endpoint.php</p>
+
+<pre><code>&lt;?php
+/**
+ * PHP Server-Side Example for Fine Uploader (traditional endpoint handler).
+ * Maintained by Widen Enterprises.
+ *
+ * This example:
+ *  - handles chunked and non-chunked requests
+ *  - assumes all upload requests are multipart encoded
+ *
+ *
+ * Follow these steps to get up and running with Fine Uploader in a PHP environment:
+ *
+ * 1. Setup your client-side code, as documented on http://docs.fineuploader.com.
+ *
+ * 2. Copy this file and handler.php to your server.
+ *
+ * 3. Ensure your php.ini file contains appropriate values for
+ *    max_input_time, upload_max_filesize and post_max_size.
+ *
+ * 4. Ensure your "chunks" and "files" folders exist and are writable.
+ *    "chunks" is only needed if you have enabled the chunking feature client-side.
+ */
+
+// Include the upload handler class
+require_once "handler.php";
+
+
+$uploader = new UploadHandler();
+
+// Specify the list of valid extensions, ex. array("jpeg", "xml", "bmp")
+$uploader-&gt;allowedExtensions = array(); // all files types allowed by default
+
+// Specify max file size in bytes.
+$uploader-&gt;sizeLimit = 10 * 1024 * 1024; // default is 10 MiB
+
+// Specify the input name set in the javascript.
+$uploader-&gt;inputName = "qqfile"; // matches Fine Uploader's default inputName value by default
+
+// If you want to use the chunking/resume feature, specify the folder to temporarily save parts.
+$uploader-&gt;chunksFolder = "chunks";
+
+$method = $_SERVER["REQUEST_METHOD"];
+if ($method == "POST") {
+    header("Content-Type: text/plain");
+
+    if (isset($_POST["generateError"])) {
+	$result["error"] = "Forced error";
+    }
+    else if (isset($_GET["done"])) {
+	$result = $uploader-&gt;combineChunks("/var/www/html/front/data/");
+    }
+    else {
+	// Call handleUpload() with the name of the folder, relative to PHP's getcwd()
+	$result = $uploader-&gt;handleUpload("/var/www/html/front/data/");
+
+	// To return a name used for uploaded file you can use the following line.
+	$result["uploadName"] = $uploader-&gt;getUploadName();
+    }
+
+
+    echo json_encode($result);
+}
+else if ($method == "DELETE") {
+    $result = $uploader-&gt;handleDelete("/var/www/html/front/data/");
+    echo json_encode($result);
+}
+else {
+    header("HTTP/1.0 405 Method Not Allowed");
+}
+
+?&gt;
+</code></pre>
+
+<p>4.handler.php</p>
+
+<pre><code>&lt;?php
+session_start();
+/**
+ * Do not use or reference this directly from your client-side code.
+ * Instead, this should be required via the endpoint.php or endpoint-cors.php
+ * file(s).
+ */
+
+class UploadHandler {
+
+    public $allowedExtensions = array();
+    public $sizeLimit = null;
+    public $inputName = 'qqfile';
+    public $chunksFolder = 'chunks';
+
+    public $chunksCleanupProbability = 0.001; // Once in 1000 requests on avg
+    public $chunksExpireIn = 604800; // One week
+
+    protected $uploadName;
+
+    function __construct(){
+	$this-&gt;sizeLimit = $this-&gt;toBytes(ini_get('upload_max_filesize'));
+    }
+
+    /**
+     * Get the original filename
+     */
+    public function getName(){
+	if (isset($_REQUEST['qqfilename']))
+	    return $_REQUEST['qqfilename'];
+
+	if (isset($_FILES[$this-&gt;inputName]))
+	    return $_FILES[$this-&gt;inputName]['name'];
+    }
+
+    /**
+     * Get the name of the uploaded file
+     */
+    public function getUploadName(){
+	return $this-&gt;uploadName;
+    }
+
+    public function combineChunks($uploadDirectory, $name = null) {
+	//$uuid = $_POST['qquuid'];
+	$uuid = $_SESSION['tmp'];
+	$name = $this-&gt;getName();
+	$targetFolder = $this-&gt;chunksFolder.DIRECTORY_SEPARATOR.$uuid;
+	$totalParts = isset($_REQUEST['qqtotalparts']) ? (int)$_REQUEST['qqtotalparts'] : 1;
+
+	$target = join(DIRECTORY_SEPARATOR, array($uploadDirectory, $uuid, $name));
+	$this-&gt;uploadName = $name;
+
+	if (!file_exists($target)){
+	    mkdir(dirname($target));
+	}
+	$target = fopen($target, 'wb');
+
+	for ($i=0; $i&lt;$totalParts; $i++){
+	    $chunk = fopen($targetFolder.DIRECTORY_SEPARATOR.$i, "rb");
+	    stream_copy_to_stream($chunk, $target);
+	    fclose($chunk);
+	}
+
+	// Success
+	fclose($target);
+
+	for ($i=0; $i&lt;$totalParts; $i++){
+	    unlink($targetFolder.DIRECTORY_SEPARATOR.$i);
+	}
+
+	rmdir($targetFolder);
+
+	return array("success" =&gt; true, "uuid" =&gt; $uuid);
+    }
+
+    /**
+     * Process the upload.
+     * @param string $uploadDirectory Target directory.
+     * @param string $name Overwrites the name of the file.
+     */
+    public function handleUpload($uploadDirectory, $name = null){
+
+	if (is_writable($this-&gt;chunksFolder) &amp;&amp;
+	    1 == mt_rand(1, 1/$this-&gt;chunksCleanupProbability)){
+
+	    // Run garbage collection
+	    $this-&gt;cleanupChunks();
+	}
+
+	// Check that the max upload size specified in class configuration does not
+	// exceed size allowed by server config
+	if ($this-&gt;toBytes(ini_get('post_max_size')) &lt; $this-&gt;sizeLimit ||
+	    $this-&gt;toBytes(ini_get('upload_max_filesize')) &lt; $this-&gt;sizeLimit){
+	    $size = max(1, $this-&gt;sizeLimit / 1024 / 1024) . 'M';
+	    return array('error'=&gt;"Server error. Increase post_max_size and upload_max_filesize to ".$size);
+	}
+
+	if ($this-&gt;isInaccessible($uploadDirectory)){
+	    return array('error' =&gt; "Server error. Uploads directory isn't writable");
+	}
+
+	$type = $_SERVER['CONTENT_TYPE'];
+	if (isset($_SERVER['HTTP_CONTENT_TYPE'])) {
+	    $type = $_SERVER['HTTP_CONTENT_TYPE'];
+	}
+
+	if(!isset($type)) {
+	    return array('error' =&gt; "No files were uploaded.");
+	} else if (strpos(strtolower($type), 'multipart/') !== 0){
+	    return array('error' =&gt; "Server error. Not a multipart request. Please set forceMultipart to default value (true).");
+	}
+
+	// Get size and name
+	$file = $_FILES[$this-&gt;inputName];
+	$size = $file['size'];
+
+	if ($name === null){
+	    $name = $this-&gt;getName();
+	}
+
+	// Validate name
+	if ($name === null || $name === ''){
+	    return array('error' =&gt; 'File name empty.');
+	}
+
+	// Validate file size
+	if ($size == 0){
+	    return array('error' =&gt; 'File is empty.');
+	}
+
+	if ($size &gt; $this-&gt;sizeLimit){
+	    return array('error' =&gt; 'File is too large.');
+	}
+
+	// Validate file extension
+	$pathinfo = pathinfo($name);
+	$ext = isset($pathinfo['extension']) ? $pathinfo['extension'] : '';
+
+	if($this-&gt;allowedExtensions &amp;&amp; !in_array(strtolower($ext), array_map("strtolower", $this-&gt;allowedExtensions))){
+	    $these = implode(', ', $this-&gt;allowedExtensions);
+	    return array('error' =&gt; 'File has an invalid extension, it should be one of '. $these . '.');
+	}
+
+	// Save a chunk
+	$totalParts = isset($_REQUEST['qqtotalparts']) ? (int)$_REQUEST['qqtotalparts'] : 1;
+
+	//$uuid = $_REQUEST['qquuid'];
+	$uuid = $_SESSION['tmp'];
+	if ($totalParts &gt; 1){
+	# chunked upload
+
+	    $chunksFolder = $this-&gt;chunksFolder;
+	    $partIndex = (int)$_REQUEST['qqpartindex'];
+
+	    if (!is_writable($chunksFolder) &amp;&amp; !is_executable($uploadDirectory)){
+	        return array('error' =&gt; "Server error. Chunks directory isn't writable or executable.");
+	    }
+	    
+	    $targetFolder = $this-&gt;chunksFolder.DIRECTORY_SEPARATOR.$uuid;
+
+	    if (!file_exists($targetFolder)){
+	        mkdir($targetFolder);
+	    }
+
+	    $target = $targetFolder.'/'.$partIndex;
+	    $success = move_uploaded_file($_FILES[$this-&gt;inputName]['tmp_name'], $target);
+
+	    return array("success" =&gt; true, "uuid" =&gt; $uuid);
+
+	}
+	else {
+	# non-chunked upload
+
+	    $target = join(DIRECTORY_SEPARATOR, array($uploadDirectory, $uuid, $name));
+	    //$target = $this-&gt;getUniqueTargetPath($uploadDirectory, $name);
+
+	    if ($target){
+	        $this-&gt;uploadName = basename($target);
+
+	        if (!is_dir(dirname($target))){
+	            mkdir(dirname($target));
+	        }
+	        if (move_uploaded_file($file['tmp_name'], $target)){
+	            return array('success'=&gt; true, "uuid" =&gt; $uuid);
+	        }
+	    }
+
+	    return array('error'=&gt; 'Could not save uploaded file.' .
+	        'The upload was cancelled, or server error encountered');
+	}
+    }
+
+    /**
+     * Process a delete.
+     * @param string $uploadDirectory Target directory.
+     * @params string $name Overwrites the name of the file.
+     *
+     */
+    public function handleDelete($uploadDirectory, $name=null)
+    {
+	if ($this-&gt;isInaccessible($uploadDirectory)) {
+	    return array('error' =&gt; "Server error. Uploads directory isn't writable" . ((!$this-&gt;isWindows()) ? " or executable." : "."));
+	}
+
+	$targetFolder = $uploadDirectory;
+	$url = parse_url($_SERVER['REQUEST_URI'])['path'];
+	$tokens = explode('/', $url);
+	$uuid = $tokens[sizeof($tokens)-1];
+
+	$target = join(DIRECTORY_SEPARATOR, array($targetFolder, $uuid));
+
+	print_r($target);
+	if (is_dir($target)){
+	    $this-&gt;removeDir($target);
+	    return array("success" =&gt; true, "uuid" =&gt; $uuid);
+	} else {
+	    return array("success" =&gt; false,
+	        "error" =&gt; "File not found! Unable to delete.".$url,
+	        "path" =&gt; $uuid
+	    );
+	}
+
+    }
+
+    /**
+     * Returns a path to use with this upload. Check that the name does not exist,
+     * and appends a suffix otherwise.
+     * @param string $uploadDirectory Target directory
+     * @param string $filename The name of the file to use.
+     */
+    protected function getUniqueTargetPath($uploadDirectory, $filename)
+    {
+	// Allow only one process at the time to get a unique file name, otherwise
+	// if multiple people would upload a file with the same name at the same time
+	// only the latest would be saved.
+
+	if (function_exists('sem_acquire')){
+	    $lock = sem_get(ftok(__FILE__, 'u'));
+	    sem_acquire($lock);
+	}
+
+	$pathinfo = pathinfo($filename);
+	$base = $pathinfo['filename'];
+	$ext = isset($pathinfo['extension']) ? $pathinfo['extension'] : '';
+	$ext = $ext == '' ? $ext : '.' . $ext;
+
+	$unique = $base;
+	$suffix = 0;
+
+	// Get unique file name for the file, by appending random suffix.
+
+	while (file_exists($uploadDirectory . DIRECTORY_SEPARATOR . $unique . $ext)){
+	    $suffix += rand(1, 999);
+	    $unique = $base.'-'.$suffix;
+	}
+
+	$result =  $uploadDirectory . DIRECTORY_SEPARATOR . $unique . $ext;
+
+	// Create an empty target file
+	if (!touch($result)){
+	    // Failed
+	    $result = false;
+	}
+
+	if (function_exists('sem_acquire')){
+	    sem_release($lock);
+	}
+
+	return $result;
+    }
+
+    /**
+     * Deletes all file parts in the chunks folder for files uploaded
+     * more than chunksExpireIn seconds ago
+     */
+    protected function cleanupChunks(){
+	foreach (scandir($this-&gt;chunksFolder) as $item){
+	    if ($item == "." || $item == "..")
+	        continue;
+
+	    $path = $this-&gt;chunksFolder.DIRECTORY_SEPARATOR.$item;
+
+	    if (!is_dir($path))
+	        continue;
+
+	    if (time() - filemtime($path) &gt; $this-&gt;chunksExpireIn){
+	        $this-&gt;removeDir($path);
+	    }
+	}
+    }
+
+    /**
+     * Removes a directory and all files contained inside
+     * @param string $dir
+     */
+    protected function removeDir($dir){
+	foreach (scandir($dir) as $item){
+	    if ($item == "." || $item == "..")
+	        continue;
+
+	    if (is_dir($item)){
+	        $this-&gt;removeDir($item);
+	    } else {
+	        unlink(join(DIRECTORY_SEPARATOR, array($dir, $item)));
+	    }
+
+	}
+	rmdir($dir);
+    }
+
+    /**
+     * Converts a given size with units to bytes.
+     * @param string $str
+     */
+    protected function toBytes($str){
+	$val = trim($str);
+	$last = strtolower($str[strlen($str)-1]);
+	switch($last) {
+	    case 'g': $val *= 1024;
+	    case 'm': $val *= 1024;
+	    case 'k': $val *= 1024;
+	}
+	return $val;
+    }
+
+    /**
+     * Determines whether a directory can be accessed.
+     *
+     * is_executable() is not reliable on Windows prior PHP 5.0.0
+     *  (http://www.php.net/manual/en/function.is-executable.php)
+     * The following tests if the current OS is Windows and if so, merely
+     * checks if the folder is writable;
+     * otherwise, it checks additionally for executable status (like before).
+     *
+     * @param string $directory The target directory to test access
+     */
+    protected function isInaccessible($directory) {
+	$isWin = $this-&gt;isWindows();
+	$folderInaccessible = ($isWin) ? !is_writable($directory) : ( !is_writable($directory) &amp;&amp; !is_executable($directory) );
+	return $folderInaccessible;
+    }
+
+    /**
+     * Determines is the OS is Windows or not
+     *
+     * @return boolean
+     */
+
+    protected function isWindows() {
+    	$isWin = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
+    	return $isWin;
+    }
+
+}
+?&gt;
+</code></pre>
+
+</div>
+<div class="share">
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+  </div>
+  <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":["qzone","tsina","weixin","sqq"],"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/res/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</div>
+<div class="pagination">
+
+<a class="pagination-item newer" href="blog/2015/06/10/apache2-and-tomcat7.html"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;通过mod_jk集成Apache2和tomcat7</a>
+
+
+<a class="pagination-item older" href="blog/2015/07/22/Learning-Java.html">Java学习记录&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></a>
+
+</div>
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="blog/2015/06/14/fineuploader" data-title="fineuploader部署实例及相关配置说明" data-url="http://zhangyumin.github.io/blog/2015/06/14/fineuploader.html"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"githubjoker"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+    <footer>Copyright&nbsp;&copy;&nbsp;2015 <a href="http://zhangyumin.github.io">Joker</a><br/><i class="fa fa-cogs" style="color:blueviolet;">&nbsp;</i>Powered by <a href="http://jekyllrb.com/" target="_blank">Jekyll</a></footer>
+    </div>
+  </div>    
+  <div id="top"><a id="rocket" href="javascript:;" title="返回顶部"><i></i></a></div>
+  
+</body>
+</html>
