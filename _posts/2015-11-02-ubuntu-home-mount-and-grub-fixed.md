@@ -8,6 +8,7 @@ date: 2015-11-02
 
 显示挂载到home时出现错误，取消挂载，然后重启，压根就进不去系统了。
 <!-- more -->
+
 #Grub修复
 进不去系统直接就显示到
 	
@@ -18,11 +19,13 @@ date: 2015-11-02
 1.在grub rescue中输入以下命令
 	
 	ls
+
 可以看到所有磁盘分区的信息，列表大概是这个样子。
 	
 	(hd0,1)(hd0,2)(hd0,3)(hd0,4)(hd0,5)(hd0,6)(hd0,7)
 
 2.按照上面的分区信息
+	
 	1)若有boot分区，则依次执行
 	ls (hd0,x)/grub #x为分区号码，下同
 	2)无boot分区，则依次执行
@@ -73,30 +76,38 @@ date: 2015-11-02
 
 #/home扩容
 grub修复了，系统能用了，800G的盘还得继续扩到/home下。
+
 1.格式化分一下区，记下它的分区号码（比如/dev/sda8)
 
 2.切到root用户，根目录下新建一个copy的文件夹，然后把分区挂载上。
+	
 	mkdir /copy
 	mount /dev/sda8 /copy/
 
 3.将/home下的数据全部复制到copy目录下，ls命令查看一下copy目录下是否是原/home的内容
+	
 	mv /home/ /copy/
 	ls /copy/
 
 4.确认copy目录下没有少内容后，将sda8分区卸载掉
+	
 	umount /dev/sda8
 
 5.删除/home目录并且重新创建/home目录
+	
 	rm -rf /home
 	mkdir /home
 
 6.新分区（sda8）挂载到新的/home下
+	
 	mount /dev/sda8 /home/
 
 7.将/home/home下的内容移动到/home中去
+	
 	mv /home/home/(用户名) /home
 
 8.最后别忘了在/etc/fstab中添加内容病设置开机自动挂载
+	
 	vim /etc/fstab
 	#增加
 	/dev/sda8 /home ext4    defaults        0       0
