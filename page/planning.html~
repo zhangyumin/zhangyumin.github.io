@@ -798,6 +798,11 @@ title: 计划
 					title: 'aftertreatment改为ajax方式提交',
 					start: '2015-11-05',	
 					end: '2015-11-05'
+				},
+				{
+					title: '完成ajax提交后跳转',
+					start: '2015-11-06',	
+					end: '2015-11-06'
 				}
 			]
 		});
