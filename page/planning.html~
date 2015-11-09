@@ -823,6 +823,11 @@ title: 计划
 					title: '修改sequence_detail的序列来源',
 					start: '2015-11-08',	
 					end: '2015-11-08'
+				},
+				{
+					title: '增加fuzzy search',
+					start: '2015-11-09',	
+					end: '2015-11-09'
 				}
 			]
 		});
