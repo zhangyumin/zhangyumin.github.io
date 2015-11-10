@@ -828,6 +828,11 @@ title: 计划
 					title: '增加fuzzy search',
 					start: '2015-11-09',	
 					end: '2015-11-09'
+				},
+				{
+					title: '修改sequense_detail的intergenic显示',
+					start: '2015-11-08',	
+					end: '2015-11-08'
 				}
 			]
 		});
