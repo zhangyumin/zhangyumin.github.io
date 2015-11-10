@@ -833,6 +833,11 @@ title: 计划
 					title: '修改intergenic显示的序列截取',
 					start: '2015-11-10',	
 					end: '2015-11-10'
+				},
+				{
+					title: 'intergenic的genepic和pacpic',
+					start: '2015-11-08',	
+					end: '2015-11-08'
 				}
 			]
 		});
