@@ -836,8 +836,8 @@ title: 计划
 				},
 				{
 					title: 'intergenic的genepic和pacpic',
-					start: '2015-11-08',	
-					end: '2015-11-08'
+					start: '2015-11-10',	
+					end: '2015-11-10'
 				},
 				{
 					title: '修复pacpic中对应值关系bug',
