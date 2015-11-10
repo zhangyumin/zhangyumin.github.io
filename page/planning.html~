@@ -830,9 +830,9 @@ title: 计划
 					end: '2015-11-09'
 				},
 				{
-					title: '修改sequense_detail的intergenic显示',
-					start: '2015-11-08',	
-					end: '2015-11-08'
+					title: '修改intergenic显示的序列截取',
+					start: '2015-11-10',	
+					end: '2015-11-10'
 				}
 			]
 		});
