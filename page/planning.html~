@@ -856,8 +856,8 @@ title: 计划
 				},
 				{
 					title: '修复aftertreatment的bug',
-					start: '2015-11-13',	
-					end: '2015-11-13'
+					start: '2015-11-12',	
+					end: '2015-11-12'
 				}
 			]
 		});
