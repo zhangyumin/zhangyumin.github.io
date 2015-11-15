@@ -858,6 +858,11 @@ title: 计划
 					title: '修复aftertreatment的bug',
 					start: '2015-11-12',	
 					end: '2015-11-12'
+				},
+				{
+					title: '编辑js弹出式窗口效果',
+					start: '2015-11-12',	
+					end: '2015-11-12'
 				}
 			]
 		});
