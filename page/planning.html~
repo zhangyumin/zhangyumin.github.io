@@ -875,14 +875,19 @@ title: 计划
 					end: '2015-11-14'
 				},
 				{
+					title: 'Analysis中加入export seq',
+					start: '2015-11-15',	
+					end: '2015-11-15'
+				},
+				{
 					title: '导入GFF和FA文件到JBrowse',
-					start: '2015-11-14',	
-					end: '2015-11-14'
+					start: '2015-11-16',	
+					end: '2015-11-16'
 				},
 				{
 					title: '修复export seq文件名等bug',
-					start: '2015-11-14',	
-					end: '2015-11-14'
+					start: '2015-11-16',	
+					end: '2015-11-16'
 				}
 			]
 		});
