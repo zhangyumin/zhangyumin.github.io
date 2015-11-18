@@ -900,9 +900,9 @@ title: 计划
 					end: '2015-11-17'
 				},
 				{
-					title: '修复search中物种选择的bug',
-					start: '2015-11-16',	
-					end: '2015-11-16'
+					title: '使用jq读取并重新生成json',
+					start: '2015-11-17',	
+					end: '2015-11-17'
 				},
 				{
 					title: '修复search中物种选择的bug',
