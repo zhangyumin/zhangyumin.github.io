@@ -888,6 +888,11 @@ title: 计划
 					title: '修复export seq文件名等bug',
 					start: '2015-11-16',	
 					end: '2015-11-16'
+				},
+				{
+					title: '修复search中物种选择的bug',
+					start: '2015-11-16',	
+					end: '2015-11-16'
 				}
 			]
 		});
