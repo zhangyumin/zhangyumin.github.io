@@ -915,14 +915,14 @@ title: 计划
 					end: '2015-11-19'
 				},
 				{
-					title: '修复search中物种选择的bug',
-					start: '2015-11-16',	
-					end: '2015-11-16'
+					title: '完成修改import_polyA脚本',
+					start: '2015-11-20',	
+					end: '2015-11-20'
 				},
 				{
-					title: '修复search中物种选择的bug',
-					start: '2015-11-16',	
-					end: '2015-11-16'
+					title: '全物种polyA数据导入',
+					start: '2015-11-19',	
+					end: '2015-11-19'
 				}
 			]
 		});
