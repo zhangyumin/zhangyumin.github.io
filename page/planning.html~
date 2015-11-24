@@ -967,7 +967,7 @@ title: 计划
 				{
 					title: '修复结构改变导致的bug',
 					start: '2015-11-23',	
-					end: '2015-11-23'
+					end: '2015-11-23，'
 				},
 				{
 					title: '修复genepic坐标计算bug',
