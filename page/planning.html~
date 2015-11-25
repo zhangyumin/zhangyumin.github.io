@@ -980,7 +980,7 @@ title: 计划
 					end: '2015-11-24'
 				},
 				{
-					title: '增加loading显示',
+					title: '增加loading显示div',
 					start: '2015-11-25',	
 					end: '2015-11-25'
 				}
