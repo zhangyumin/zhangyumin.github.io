@@ -976,13 +976,13 @@ title: 计划
 				},
 				{
 					title: '修改pacpic的canvas为echart',
-					start: '2015-11-22',	
-					end: '2015-11-22'
+					start: '2015-11-24',	
+					end: '2015-11-24'
 				},
 				{
-					title: '修复genepic坐标计算bug',
-					start: '2015-11-22',	
-					end: '2015-11-22'
+					title: '增加loading显示',
+					start: '2015-11-24',	
+					end: '2015-11-24'
 				}
 			]
 		});
