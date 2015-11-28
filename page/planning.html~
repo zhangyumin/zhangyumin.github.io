@@ -998,6 +998,11 @@ title: 计划
 					title: '修复aftertreatment_result的物种bug',
 					start: '2015-11-26',	
 					end: '2015-11-26'
+				},
+				{
+					title: '增加搜索结果下载按钮',
+					start: '2015-11-28',	
+					end: '2015-11-28'
 				}
 			]
 		});
