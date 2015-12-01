@@ -1023,6 +1023,11 @@ title: 计划
 					title: 'trap改为ajax方式提交',
 					start: '2015-11-29',	
 					end: '2015-11-29'
+				},
+				{
+					title: 'seqence_detail的pac显示改为datatables',
+					start: '2015-11-30',	
+					end: '2015-11-30'
 				}
 			]
 		});
