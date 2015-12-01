@@ -1028,6 +1028,16 @@ title: 计划
 					title: 'seqence_detail的pac显示改为datatables',
 					start: '2015-11-30',	
 					end: '2015-11-30'
+				},
+				{
+					title: '重构数据导入jbrowse部分代码',
+					start: '2015-11-30',	
+					end: '2015-11-30'
+				},
+				{
+					title: '增加est数据上传',
+					start: '2015-11-29',	
+					end: '2015-11-29'
 				}
 			]
 		});
