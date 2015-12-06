@@ -10,7 +10,7 @@ date: 2015-05-03
 上传后的文件都在本地,没有理由找不到,于是百度之,发现可能是ubuntu的文件存取权限问题.
 
 但是当我把目录和文件权限都chmod为777后还是出错，google了后发现：
-
+<!-- more -->
 Recent Ubuntu Server Editions (such as 10.04) ship with AppArmor and MySQL's profile might be in enforcing mode by default. You can check this by executing 
 
 	sudo aa-status
