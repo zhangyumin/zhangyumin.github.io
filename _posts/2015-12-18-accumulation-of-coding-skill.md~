@@ -8,7 +8,24 @@ date: 2015-12-18
 <!-- more -->
 #PHP
 1.end($Array)来取key非规则数组的最后一个元素值
-2.array_merge($ARRAY)来重新排列数组的key值
+2.array_merge($Array)来重新排列数组的key值
+3.数组相加函数
+	function array_add($a,$b){
+		//根据键名获取两个数组的交集
+		$arr=array_intersect_key($a, $b);
+		//遍历第二个数组，如果键名不存在与第一个数组，将数组元素增加到第一个数组
+		foreach($b as $key=>$value){
+			if(!array_key_exists($key, $a)){
+				$a[$key]=$value;
+			}
+		}
+		//计算键名相同的数组元素的和，并且替换原数组中相同键名所对应的元素值
+		foreach($arr as $key=>$value){
+			$a[$key]=$a[$key]+$b[$key];
+		}
+		//返回相加后的数组
+		return $a;
+	}
 
 #Mysql
 1.update tablenames set one = ? , two = ? , three = ?;
