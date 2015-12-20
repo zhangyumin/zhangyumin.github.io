@@ -1186,6 +1186,11 @@ title: 计划
 				},
 				{
 					title: '找回task时读取本地存储的group信息',
+					start: '2015-12-25',	
+					end: '2015-12-25'
+				},
+				{
+					title: '大量数据测试genepic和pacpic',
 					start: '2015-12-10',	
 					end: '2015-12-12'
 				},
