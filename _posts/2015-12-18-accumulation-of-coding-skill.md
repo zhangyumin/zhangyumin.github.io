@@ -31,6 +31,9 @@ date: 2015-12-18
 		return $a;
 	}
 
+4.number_format(number,decimals,decimalpoint,separator)能够设置保留数据形式（比如多少位小数)
+	
+	number_format($views, 1, ".", "")来保留一位小数，并且没有千位分隔符.
 #Mysql
 
 1.update tablenames set one = ? , two = ? , three = ?;
