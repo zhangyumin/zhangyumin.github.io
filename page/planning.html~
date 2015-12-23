@@ -1151,6 +1151,11 @@ title: 计划
 				},
 				{
 					title: 'pacpic与genepic页面统一风格',
+					start: '2015-12-22',	
+					end: '2015-12-22'
+				},
+				{
+					title: '增加同ip下task找回功能',
 					start: '2015-12-10',	
 					end: '2015-12-12'
 				},
