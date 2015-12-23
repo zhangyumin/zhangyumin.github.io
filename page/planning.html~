@@ -1159,6 +1159,16 @@ title: 计划
 					start: '2015-12-22',	
 					end: '2015-12-22'
 				},
+				{
+					title: 'pacpic页面增加statistics数据显示',
+					start: '2015-12-23',	
+					end: '2015-12-23'
+				},
+				{
+					title: 'pacpic和genepic页面增加按钮控制js',
+					start: '2015-12-10',	
+					end: '2015-12-12'
+				},
 			]
 		});
 		
