@@ -1121,8 +1121,8 @@ title: 计划
 				},
 				{
 					title: '个性化genepic页面功能并修复bug',
-					start: '2015-12-13',	
-					end: '2015-12-15'
+					start: '2015-12-14',	
+					end: '2015-12-16'
 				},
 				{
 					title: 'mysql存储数据的sum，avg，med',
