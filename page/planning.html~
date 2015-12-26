@@ -1125,14 +1125,14 @@ title: 计划
 					end: '2015-12-16'
 				},
 				{
-					title: 'mysql存储数据的sum，avg，med',
-					start: '2015-12-10',	
-					end: '2015-12-12'
+					title: '重构genepic页面，格式化数据接口',
+					start: '2015-12-16',	
+					end: '2015-12-18'
 				},
 				{
-					title: '重构genepic页面，格式化数据接口',
-					start: '2015-12-04',	
-					end: '2015-12-04'
+					title: 'mysql存储数据的sum，avg，med',
+					start: '2015-12-19',	
+					end: '2015-12-19'
 				},
 			]
 		});
