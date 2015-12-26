@@ -1117,7 +1117,17 @@ title: 计划
 				{
 					title: '增加statistics数据的显示',
 					start: '2015-12-13',	
-					end: '2015-12-13'
+					end: '2015-12-14'
+				},
+				{
+					title: '个性化genepic页面功能并修复bug',
+					start: '2015-12-13',	
+					end: '2015-12-15'
+				},
+				{
+					title: 'mysql存储数据的sum，avg，med',
+					start: '2015-12-10',	
+					end: '2015-12-12'
 				},
 				{
 					title: '重构genepic页面，格式化数据接口',
