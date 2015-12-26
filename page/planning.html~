@@ -1115,9 +1115,9 @@ title: 计划
 					end: '2015-12-09'
 				},
 				{
-					title: '采用数据表方式存储数据的Sum，avg，med',
-					start: '2015-12-03',	
-					end: '2015-12-03'
+					title: 'mysql存储数据的Sum，avg，med',
+					start: '2015-12-10',	
+					end: '2015-12-11'
 				}
 			]
 		});
