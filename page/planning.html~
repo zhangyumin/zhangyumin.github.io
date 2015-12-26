@@ -1080,11 +1080,6 @@ title: 计划
 					end: '2015-12-04'
 				},
 				{
-					title: '重构genepic页面，格式化数据接口',
-					start: '2015-12-04',	
-					end: '2015-12-04'
-				},
-				{
 					title: 'genepic的yscale坐标调整到中间',
 					start: '2015-12-05',	
 					end: '2015-12-05'
@@ -1115,10 +1110,15 @@ title: 计划
 					end: '2015-12-09'
 				},
 				{
-					title: 'mysql存储数据的Sum，avg，med',
+					title: 'mysql存储数据的sum，avg，med',
 					start: '2015-12-10',	
 					end: '2015-12-12'
-				}
+				},
+				{
+					title: '重构genepic页面，格式化数据接口',
+					start: '2015-12-04',	
+					end: '2015-12-04'
+				},
 			]
 		});
 		
