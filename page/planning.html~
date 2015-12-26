@@ -1130,9 +1130,14 @@ title: 计划
 					end: '2015-12-18'
 				},
 				{
-					title: 'mysql存储数据的sum，avg，med',
+					title: '通过onComplete添加文件上传后的group信息',
 					start: '2015-12-19',	
-					end: '2015-12-19'
+					end: '2015-12-20'
+				},
+				{
+					title: '修改jbrowse的文本显示',
+					start: '2015-12-10',	
+					end: '2015-12-12'
 				},
 			]
 		});
