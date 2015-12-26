@@ -1117,7 +1117,7 @@ title: 计划
 				{
 					title: 'mysql存储数据的Sum，avg，med',
 					start: '2015-12-10',	
-					end: '2015-12-11'
+					end: '2015-12-12'
 				}
 			]
 		});
