@@ -35,7 +35,10 @@ date: 2015-12-18
 	
 	number_format($views, 1, ".", "")来保留一位小数，并且没有千位分隔符.
 #CSS
-1.html5开头不加< !doctype html >，会导致$(window).height()函数无法计算当前窗口值。
+1.html5开头无< !doctype html >，会导致$(window).height()函数无法计算当前窗口值。
+
+#JS
+1.各个js的引入顺序会影响页面函数的调用
 
 #Mysql
 
