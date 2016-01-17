@@ -1235,9 +1235,14 @@ title: 计划
 					end: '2016-01-01'
 				},
 				{
-					title: 'help页面添加跟随式目录',
+					title: 'help页面添加跟随式目录jumpto',
 					start: '2016-01-01',	
 					end: '2016-01-02'
+				},
+				{
+					title: '更新sumoselect到最新版本以支持checkall',
+					start: '2016-01-01',	
+					end: '2016-01-01'
 				},
 
 
