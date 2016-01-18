@@ -40,6 +40,8 @@ date: 2015-12-18
 #JS
 1.各个js的引入顺序会影响页面函数的调用.
 
+2.html头的!DOCTYPE html会影响document.height等计算，使js出现效果偏差.
+
 #Mysql
 
 1.update tablenames set one = ? , two = ? , three = ?;
