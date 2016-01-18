@@ -1290,7 +1290,12 @@ title: 计划
 					end: '2016-01-08'
 				},
 				{
-					title: '完成pacpic中ratio data的显示及js控制隐藏',
+					title: '完成pacpic中ratio data的显示及js按钮控制',
+					start: '2016-01-08',	
+					end: '2016-01-09'
+				},
+				{
+					title: '完成pac(选择显示/不选择置灰)逻辑',
 					start: '2016-01-01',	
 					end: '2016-01-01'
 				},
