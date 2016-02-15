@@ -1432,7 +1432,7 @@ title: 计划
 				{
 					title: '----新学期开始----',
 					start: '2016-02-23',
-					end: '2016-02-24'
+					end: '2016-02-24',
 					backgroundColor: 'red'
 				},
 			]
