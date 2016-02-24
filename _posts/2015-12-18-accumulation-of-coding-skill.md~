@@ -7,6 +7,7 @@ date: 2015-12-18
 本文用于记录日常coding中用到的语句，以便日后查找.
 <!-- more -->
 
+
 #PHP
 1.end($Array)来取key非规则数组的最后一个元素值
 
@@ -40,7 +41,7 @@ date: 2015-12-18
 #JS
 1.各个js的引入顺序会影响页面函数的调用.
 
-2.html头的!DOCTYPE html会影响document.height等计算，使js出现效果偏差
+2.html头的!DOCTYPE html会影响document.height等计算，使js出现效果偏差.
 
 #Mysql
 
@@ -49,3 +50,6 @@ date: 2015-12-18
 #Java
 
 #Shell
+
+#Python
+1.python中不存在自增运算符.
