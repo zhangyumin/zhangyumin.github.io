@@ -33,6 +33,7 @@ For example, if there are 4 stones in the heap, then you will never win the game
 
 ##代码:
 	
+	
 	JAVA:
 	public class Solution {
 	    public boolean canWinNim(int n) {
@@ -57,7 +58,9 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
 2.除此之外可以先进行一遍排序，这样的话单独的元素一定会出现在数组的奇数坐标下（即偶数下标，比如a[0],a[2]……），那只要判断元素和其相邻元素是否相同就能得到单独元素了。
 
 
-##代码	
+##代码
+	
+	
 	JAVA:(原始版本)	
 	public class Solution {
 	    public int singleNumber(int[] nums) {
