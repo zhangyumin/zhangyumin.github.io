@@ -100,6 +100,7 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
 给出的既符合线性时间又符合不使用额外元素的最佳算法是：使用异或XOR。
 因为XOR适用交换律和结合律（ 1^2^3^2^3^4^1 = (1^1)^(2^2)^(3^3)^4 = 0^0^0^0^4 = 4 )，所以将数组内所有元素执行XOR即可返回最终的结果。
 	
+	
 	JAVA:
 	public class Solution {
 	    public int singleNumber(int[] nums) {
