@@ -9,9 +9,9 @@ date: 2015-09-28
 Git的个人服务器搭建并不麻烦,但是实验室只有这一台服务器,需要在提交推送代码的同时,将网站同时也部署好,以达到边修改边查看页面效果的目的.
 <!-- more -->
 
-#Git个人服务器的搭建及测试
+# Git个人服务器的搭建及测试
 
-##Git的安装
+## Git的安装
 1.在服务器端和开发机端都需要在shell中输入以下命令来安装Git
 	
 	#ubuntu系统Git的安装	
@@ -19,7 +19,7 @@ Git的个人服务器搭建并不麻烦,但是实验室只有这一台服务器,
 
 2.因为netbeans上对Git的支持很好,所有没有配置常用的ssh协议,这个协议的最直接好处就在于每次向Git提交推送都不需要输密码,由于没有尝试就不写步骤了,Github官方教程可以一看[http://help.github.com/articles/generating-ssh-keys](http://help.github.com/articles/generating-ssh-keys)
 
-##Git服务器端配置
+## Git服务器端配置
 1.新建用户,作为Git服务器代码仓库的管理者.
 	
 	sudo useradd -m github
@@ -49,7 +49,7 @@ git init和git init --bare的区别:
 
 用git init初始化的版本库,其保存的都是原文件,但某些用户的push操作可能导致冲突.而git init --bare创建的是裸仓库,它不保存原文件而只保存git历史提交的版本信息,并不允许用户直接在上面进行git操作.
 
-##Git客户机(开发)操作
+## Git客户机(开发)操作
 Git服务器配置好后就可以直接git remote并提交推送到远程仓库中了.
 
 1.创建本地Git仓库目录
@@ -73,7 +73,7 @@ Git服务器配置好后就可以直接git remote并提交推送到远程仓库�
 
 3.如果推入成功,那么在远程仓库已经能够得到最新的版本了.
 
-#Git自动部署
+# Git自动部署
 Git本身可以调用自定义的Hooks脚本,分为两类:客户端和服务器端.客户端Hooks用于客户端的操作,例如提交和合并.服务器端Hooks用于服务器端操作,比如接收推入的提交.在此处,我们自动部署的思路就是每当服务器接收到客户机(开发)的推入,就自动将更新pull到apache的DocumentRoot中去.
 
 Git的hooks主要包括:

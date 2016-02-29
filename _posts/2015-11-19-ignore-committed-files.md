@@ -11,7 +11,7 @@ date: 2015-11-19
 Git端的代码比较金贵，为了保持contributions不能随意的删除，就从实验室的服务器开始动刀.
 <!-- more -->
 
-#服务器同步问题：大文件的提交
+# 服务器同步问题：大文件的提交
 
 1)小心翼翼的备份了本地服务器中的仓库和apache的RootDocument代码，新建文件夹重新初始化为裸仓库.
 
@@ -29,7 +29,7 @@ Git端的代码比较金贵，为了保持contributions不能随意的删除，�
 
 仍然失败，查看git log大文件仍然没有被忽略掉。
 
-#Git忽略已被提交的文件
+# Git忽略已被提交的文件
 在.gitignore文件中添加路径并没能忽略掉文件，原因是：
 
 我们误解了.gitignore 文件的用途，该文件只能作用于 Untracked Files，也就是那些从来没有被 Git 记录过的文件（自添加以后，从未 add 及 commit 过的文件）.
@@ -51,7 +51,7 @@ Git端的代码比较金贵，为了保持contributions不能随意的删除，�
 
 最后commit提交并且push到本地服务器.
 
-#Git回滚commit
+# Git回滚commit
 远程看了一下果然没有了data文件夹，于是向Git仓库Push，果不其然的又失败了。
 
 跟我想象的不太一样，原来Push是将每次commit都Push一遍，而不是对比服务器端与最后一次commit的文件差异.

@@ -8,7 +8,7 @@ date: 2015-12-18
 <!-- more -->
 
 
-#PHP
+# PHP
 1.end($Array)来取key非规则数组的最后一个元素值
 
 2.array_merge($Array)来重新排列数组的key值
@@ -35,23 +35,23 @@ date: 2015-12-18
 4.number_format(number,decimals,decimalpoint,separator)能够设置保留数据形式（比如多少位小数)
 	
 	number_format($views, 1, ".", "")来保留一位小数，并且没有千位分隔符.
-#CSS
+# CSS
 1.html5开头无< !doctype html >，会导致$(window).height()函数无法计算当前窗口值.
 
-#JS
+# JS
 1.各个js的引入顺序会影响页面函数的调用.
 
 2.html头的!DOCTYPE html会影响document.height等计算，使js出现效果偏差.
 
-#Mysql
+# Mysql
 
 1.update tablenames set one = ? , two = ? , three = ?;
 
-#Java
+# Java
 
-#Shell
+# Shell
 
-#Python
+# Python
 1.python中不存在自增运算符.
 	
 	在python中，变量都是对象的引用。int 类型的值是固定的，不可以改变。a+=2 的过程是，先计算a+2, 所得的结果存在一个新的int 对象，然后 a 再重新绑定为这个新的int 对象的引用。
