@@ -1,0 +1,58 @@
+---
+layout: post
+title: 升级Jekyll3.1.2后的#标题修改及rouge高亮替换（附Markdown和Rouge语法表链接）
+category: [经验积累]
+date: 2016-03-01
+---
+今早打开blog找东西的时候被眼前的排版亮瞎了，明明昨晚jekyll本地服务器上跑没问题。一百度之，原来Github上的jekyll更新版本了。
+
+于是这一早上就只更新了jekyll版本+修改了#标题+替换了rouge代码高亮+高亮了以前文章的代码，时间过得真是快。
+<!-- more -->
+# 1.更新jekyll版本
+作为最简单的一环，一句话就搞定，直接打开终端控制台（Ctrl + Alt + T)，输入
+	
+	gem update jekyll
+
+然后等着完成就行，jekyll自动升级成了3.1.2版本
+
+# 2.修改#标题
+文章中的#标题都被原封不动的输出到了页面上，去Markdown语法里找了找关于headers的描述。
+
+结果很明显，是我之前用的方式一直不对……
+
+Markdown的标准一级标题是：
+	
+	# This is an H1
+
+井号和文字之间有一个空格，其它的二三四五六级标题都是有空格的，想想之前一直写错的语法都不知道从哪学来的。
+
+附Markdown语法表：
+
+> [http://daringfireball.net/projects/markdown/syntax](http://daringfireball.net/projects/markdown/syntax)
+
+# 3.rouge高亮替换
+更新jekyll3后最明显的一点，就是jekyll3使用Rouge而不是Pygments了，所以到blog根目录的_config.yml中修改highlight，把pygments改成rouge就行了。
+
+没改的话PUSH到Github的时候，总会收到警告通知邮件，告诉你已经不支持pygments了。
+
+之前一直没用到过代码高亮（因为懒），今天按照rouge的语法改了改，效果还是很不错的，看起来倒是有点活力了……
+
+{% highlight java %}
+public class java {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}
+{% endhighlight%}
+
+PHP高亮需要特别注意，必须用<?php ?>将代码套起来，否则是没有效果的。
+
+{% highlight php %}
+<?php
+  print("Hello {$world}");
+?>
+{% endhighlight %}
+
+附Rouge语法表：
+
+> [http://rouge.jayferd.us/demo](http://rouge.jayferd.us/demo)
