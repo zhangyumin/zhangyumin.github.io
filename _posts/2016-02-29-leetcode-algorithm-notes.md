@@ -167,22 +167,12 @@ y % 9 = (m + n) % 9 = (m % 9 + n % 9) % 9 = m
 此处有一个需要注意的地方是，当number为9的时候，最后的结果就应该9，而如果按照以上算法来计算，那得出的结果就会是0，很显然是不对的。
 
 将以上结果是9的情况过滤掉，就能得到算法：
+
 JAVA:
 {% highlight java %}
 public class Solution {
     public int addDigits(int num) {
         return (num - 1) % 9 + 1;
-    }
-}
-{% endhighlight %}
-	
-JAVA:
-{% highlight java %}
-public class Solution {
-    public int singleNumber(int[] nums) {
-	for(i = 1;i <= nums.length; i++){
-		nums[i] ^= nums[i-1];
-		return nums[nums.length-1];
     }
 }
 {% endhighlight %}
