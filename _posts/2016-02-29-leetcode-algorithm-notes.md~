@@ -152,3 +152,22 @@ public class Solution {
     }
 }
 {% endhighlight %}
+
+## 参考:
+看了更有技巧的答案后恍然大悟,取任意一个六位数来举例：
+y = 100000 * a + 10000 * b + 1000 * c + 100 * d + 10 * e + f , 其中abcdef为个位上的数字。
+y = (a + b + c + d + e + f) + (99999 * a + 9999 * b + 999 * c + 99 * d + 9 * e) , 而后边括号是可以被9整除的。
+若 a + b + c + d + e >= 10 , 可以继续按照这个方法，最后总能得到一个 属于(0,9]的number +　一堆可以被9整除的数。
+
+(m + n) % 9 = (m % 9 + n % 9) % 9 = m + 1 = y % 9	
+	
+JAVA:
+{% highlight java %}
+public class Solution {
+    public int singleNumber(int[] nums) {
+	for(i = 1;i <= nums.length; i++){
+		nums[i] ^= nums[i-1];
+		return nums[nums.length-1];
+    }
+}
+{% endhighlight %}
