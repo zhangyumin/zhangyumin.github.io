@@ -1,7 +1,7 @@
 markdown: kramdown
 gems: [jekyll-paginate]
 #markdown: rdiscount
-highlighter: pygments
+highlighter: rouge
 permalink: blog/:year/:month/:day/:title.html
 paginate: 6
 paginate_path: page/:num

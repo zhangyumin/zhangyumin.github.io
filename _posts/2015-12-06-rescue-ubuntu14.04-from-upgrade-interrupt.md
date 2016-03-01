@@ -14,7 +14,7 @@ date: 2015-12-06
 有了上次升级系统失败的经历，上来先登陆遭遇了诡异的蓝色屏幕，然后就一直停在了这个页面，鼠标还是能转的。
 
 使用Ctrl + alt + f1进入控制台模式，输入用户名和密码登陆控制台看输出的错误信息，得到了下面的信息：
-	
+
 	E:Error:BorkenCount > 0run-parts:/etc/update-motd.d/90-update-motd.d/90-updates-available exited with return code 255.
 
 很明显的是这次的错误跟之前系统升级失败不同，不是环境变量的事儿。只更新了软件没有升级系统自然不太可能影响到环境变量。

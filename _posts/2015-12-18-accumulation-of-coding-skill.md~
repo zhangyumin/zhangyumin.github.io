@@ -15,26 +15,29 @@ date: 2015-12-18
 
 3.数组相加函数
 	
-	function array_add($a,$b){
-		//根据键名获取两个数组的交集
-		$arr=array_intersect_key($a, $b);
-		//遍历第二个数组，如果键名不存在与第一个数组，将数组元素增加到第一个数组
-		foreach($b as $key=>$value){
-			if(!array_key_exists($key, $a)){
-				$a[$key]=$value;
-			}
+{% highlight php5 %}
+function array_add($a,$b){
+	//根据键名获取两个数组的交集
+	$arr=array_intersect_key($a, $b);
+	//遍历第二个数组，如果键名不存在与第一个数组，将数组元素增加到第一个数组
+	foreach($b as $key=>$value){
+		if(!array_key_exists($key, $a)){
+			$a[$key]=$value;
 		}
-		//计算键名相同的数组元素的和，并且替换原数组中相同键名所对应的元素值
-		foreach($arr as $key=>$value){
-			$a[$key]=$a[$key]+$b[$key];
-		}
-		//返回相加后的数组
-		return $a;
 	}
+	//计算键名相同的数组元素的和，并且替换原数组中相同键名所对应的元素值
+	foreach($arr as $key=>$value){
+		$a[$key]=$a[$key]+$b[$key];
+	}
+	//返回相加后的数组
+	return $a;
+}
+{% endhighlight %}
 
 4.number_format(number,decimals,decimalpoint,separator)能够设置保留数据形式（比如多少位小数)
-	
-	number_format($views, 1, ".", "")来保留一位小数，并且没有千位分隔符.
+{% highlight php %}
+number_format($views, 1, ".", "")来保留一位小数，并且没有千位分隔符.
+{% endhighlight %}
 # CSS
 1.html5开头无< !doctype html >，会导致$(window).height()函数无法计算当前窗口值.
 
@@ -49,9 +52,8 @@ date: 2015-12-18
 
 # Java
 1.需要返回值的函数中，如果在if语句中return返回值，则需要保证包括所有的情况，否则将会报错缺少返回值（使用else）。
+
 # Shell
 
 # Python
-1.python中不存在自增运算符.
-	
-	在python中，变量都是对象的引用。int 类型的值是固定的，不可以改变。a+=2 的过程是，先计算a+2, 所得的结果存在一个新的int 对象，然后 a 再重新绑定为这个新的int 对象的引用。
+1.python中不存在自增运算符.在python中，变量都是对象的引用。int 类型的值是固定的，不可以改变。a+=2 的过程是，先计算a+2, 所得的结果存在一个新的int 对象，然后 a 再重新绑定为这个新的int 对象的引用。

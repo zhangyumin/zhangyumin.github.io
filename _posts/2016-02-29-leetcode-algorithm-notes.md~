@@ -32,15 +32,14 @@ For example, if there are 4 stones in the heap, then you will never win the game
 
 
 ## 代码:
-	
-	
-	JAVA:
+JAVA:
+	{% highlight java %}
 	public class Solution {
 	    public boolean canWinNim(int n) {
-		return n % 4 != 0;
+			return n % 4 != 0;
 	    }
 	}
-
+	{% endhighlight %}
 
 # 136. Single Number
 Given an array of integers, every element appears twice except for one. Find that single one.
@@ -59,41 +58,44 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
 
 
 ## 代码:
-	
-	
-	JAVA:(原始版本)	
-	public class Solution {
-	    public int singleNumber(int[] nums) {
-		int number = 0;
-		Arrays.sort(nums);
-		if(nums.length == 1){
-		    number = nums[0];
-		}
-		else{
-		    for(int i = 0;i < nums.length - 1; i+=2){
-		        if(nums[i] != nums[i+1]){
-		            number = nums[i];
-		            break;
-		        }
-		        else
-		            number = nums[nums.length-1];
-		    }
-		}
-		return number;
+JAVA:(原始版本)
+{% highlight java %}
+public class Solution {
+    public int singleNumber(int[] nums) {
+	int number = 0;
+	Arrays.sort(nums);
+	if(nums.length == 1){
+	    number = nums[0];
+	}
+	else{
+	    for(int i = 0;i < nums.length - 1; i+=2){
+	        if(nums[i] != nums[i+1]){
+	            number = nums[i];
+	            break;
+	        }
+	        else
+	            number = nums[nums.length-1];
 	    }
 	}
-	JAVA:(更新后)
-	public class Solution {
-	    public int singleNumber(int[] nums) {
-		Arrays.sort(nums);
-		for(int i = 0;i < nums.length ; i+=2){
-		    if(nums.length == i + 1 || nums[i] != nums[i+1]){
-				return nums[i];
-			}
+	return number;
+    }
+}
+{% endhighlight %}
+
+JAVA:(更新后)
+{% highlight java %}
+public class Solution {
+    public int singleNumber(int[] nums) {
+	Arrays.sort(nums);
+	for(int i = 0;i < nums.length ; i+=2){
+	    if(nums.length == i + 1 || nums[i] != nums[i+1]){
+			return nums[i];
 		}
-		    return 0;
-	    }
 	}
+	    return 0;
+    }
+}
+{% endhighlight %}
 
 
 ## 参考:
@@ -101,11 +103,13 @@ Your algorithm should have a linear runtime complexity. Could you implement it w
 因为XOR适用交换律和结合律（ 1^2^3^2^3^4^1 = (1^1)^(2^2)^(3^3)^4 = 0^0^0^0^4 = 4 )，所以将数组内所有元素执行XOR即可返回最终的结果。
 	
 	
-	JAVA:
-	public class Solution {
-	    public int singleNumber(int[] nums) {
-		for(i = 1;i <= nums.length; i++){
-			nums[i] ^= nums[i-1];
-			return nums[nums.length-1];
-	    }
-	}
+JAVA:
+{% highlight java %}
+public class Solution {
+    public int singleNumber(int[] nums) {
+	for(i = 1;i <= nums.length; i++){
+		nums[i] ^= nums[i-1];
+		return nums[nums.length-1];
+    }
+}
+{% endhighlight %}
