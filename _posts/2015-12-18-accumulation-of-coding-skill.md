@@ -56,10 +56,14 @@ date: 2015-12-18
 {% highlight sql %}
 update tablenames set one = ? , two = ? , three = ?;
 {% endhighlight %}
+
 # Java
 1.需要返回值的函数中，如果在if语句中return返回值，则需要保证包括所有的情况，否则将会报错缺少返回值（使用else）。
 
 # Shell
-
+1.查找当前文件夹下所有包含“XXX”字符的文件
+{% highlight shell %}
+grep -r xxx ./
+{% endhighlight %}
 # Python
 1.python中不存在自增运算符。在python中，变量都是对象的引用。int 类型的值是固定的，不可以改变。a+=2 的过程是，先计算a+2, 所得的结果存在一个新的int 对象，然后 a 再重新绑定为这个新的int 对象的引用。
