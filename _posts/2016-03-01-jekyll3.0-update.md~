@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 升级Jekyll3.1.2后的#标题修改及rouge高亮替换（附Markdown和Rouge语法表链接）
+title: 升级Jekyll-3.1.2后的#标题修改及rouge高亮替换（附Markdown和Rouge语法表链接）
 category: [经验积累]
 date: 2016-03-01
 ---
@@ -45,7 +45,7 @@ public class java {
 }
 {% endhighlight%}
 
-PHP高亮需要特别注意，必须用<?php ?>将代码套起来，否则是没有效果的。
+PHP高亮需要特别注意，必须用'< ?php'     '?>'将代码套起来，否则是没有效果的。
 
 {% highlight php %}
 <?php
