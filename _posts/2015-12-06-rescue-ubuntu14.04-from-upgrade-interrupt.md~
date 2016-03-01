@@ -24,8 +24,9 @@ date: 2015-12-06
 估计是某个软件更新失败导致整个更新崩溃掉了，或者被人为的中断更新了。
 
 首先就恢复更新完成整个安装过程，在控制台输入
+{% highlight sh %}
 	sudo dpkg -- configure -a
-
+{% endhighlight %}
 来进行安装更新，很顺利的完成。如果过程中有软件报错，可以尝试用下面的语句修复一下依赖关系：
 	
 	sudo apt-get install -f
