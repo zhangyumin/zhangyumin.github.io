@@ -113,3 +113,61 @@ public class Solution {
     }
 }
 {% endhighlight %}
+
+# 258.Add Digits
+Given a non-negative integer num, repeatedly add all its digits until the result has only one digit.
+
+For example:
+
+Given num = 38, the process is like: 3 + 8 = 11, 1 + 1 = 2. Since 2 has only one digit, return it.
+
+Follow up:
+Could you do it without any loop/recursion in O(1) runtime?
+
+给予一个非负整数num，将其各个数位上的数相加，直到结果为一个数字。
+例如：num = 38 ，过程将会是： 3 + 8 = 11, 1 + 1 =2。而2已经是一个数字了，所以2就是返回值。
+拓展：能否不用循环/递归且运行时间复杂度为O(1)？
+
+## 思考：
+按照基础步骤来，不管拓展先得到一个正确结果。普遍的做法就是两层循环，外层用来控制每次得到的新结果能够再进入内层循环，内层循环来累加数位，直到累加结果为个位数（小于10），就可以返回了。
+
+## 代码:
+JAVA:
+{% highlight java %}
+public class Solution {
+    public int addDigits(int num) {
+        while(true){
+            int result = 0;
+            while(num != 0){
+                result += num % 10;
+                num = num / 10;
+            }
+            if(result >= 10){
+                num = result;
+            }
+            else{
+                return result;
+            }
+        }
+    }
+}
+{% endhighlight %}
+
+## 参考:
+看了更有技巧的答案后恍然大悟,取任意一个六位数来举例：
+y = 100000 * a + 10000 * b + 1000 * c + 100 * d +10 * e + f , 其中abcdef为个位上的数字。
+y = (a + b + c + d + e) + (99999 * a + 9999 * b + 999 * c + 99 * d + 9 * e) , 而后边括号是可以被9整除的。
+若 a + b + c + d + e >= 10 , 可以继续按照这个方法，最后总能得到一个 属于(0,9]的number +　一堆可以被9整除的数。
+
+(m + n) % 9 = (m % 9 + n % 9) % 9	
+	
+JAVA:
+{% highlight java %}
+public class Solution {
+    public int singleNumber(int[] nums) {
+	for(i = 1;i <= nums.length; i++){
+		nums[i] ^= nums[i-1];
+		return nums[nums.length-1];
+    }
+}
+{% endhighlight %}
