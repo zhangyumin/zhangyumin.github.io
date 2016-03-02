@@ -56,6 +56,11 @@ date: 2015-12-18
 update tablenames set one = ? , two = ? , three = ?;
 {% endhighlight %}
 
+2.同数据库内多表导出。
+{% highlight shell %}
+mysqldump -uroot -proot dbname table1 table2 table3... > table.sql
+{% endhighlight %}
+
 # Java
 1.需要返回值的函数中，如果在if语句中return返回值，则需要保证包括所有的情况，否则将会报错缺少返回值（使用else）。
 
@@ -63,6 +68,14 @@ update tablenames set one = ? , two = ? , three = ?;
 1.查找当前文件夹下所有包含“XXX”字符的文件
 {% highlight shell %}
 grep -r xxx ./
+{% endhighlight %}
+
+2.批量替换文件中的字符串
+{% highlight shell %}
+sed -i s/aaa/bbb/g `grep aaa -rl --include='*.php' ./`
+//sed中-i表示操作文件
+//grep中-r表示查找所有子目录，-l表示仅列出符合条件的文件名
+//所以本操作是在当前目录下找到所有的php后缀名文件，将其中的aaa替换成bbb
 {% endhighlight %}
 
 # Python

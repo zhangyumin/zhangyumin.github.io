@@ -51,10 +51,14 @@ date: 2015-12-18
 2.html头的!DOCTYPE html会影响document.height等计算，使js出现效果偏差.
 
 # Mysql
-
 1.Mysql多字段同时修改。
 {% highlight sql %}
 update tablenames set one = ? , two = ? , three = ?;
+{% endhighlight %}
+
+2.同数据库内多表导出。
+{% highlight shell %}
+mysqldump -uroot -proot dbname table1 table2 table3... > table.sql
 {% endhighlight %}
 
 # Java
@@ -65,5 +69,16 @@ update tablenames set one = ? , two = ? , three = ?;
 {% highlight shell %}
 grep -r xxx ./
 {% endhighlight %}
+
+2.批量替换文件中的字符串
+{% highlight shell %}
+sed -i s/aaa/bbb/g `grep aaa -rl --include='*.php' ./`
+{% endhighlight %}
+
 # Python
 1.python中不存在自增运算符。在python中，变量都是对象的引用。int 类型的值是固定的，不可以改变。a+=2 的过程是，先计算a+2, 所得的结果存在一个新的int 对象，然后 a 再重新绑定为这个新的int 对象的引用。
+
+# Git
+1.撤销未commit的更改。
+	
+	git checkout -- filename
