@@ -73,6 +73,9 @@ grep -r xxx ./
 2.批量替换文件中的字符串
 {% highlight shell %}
 sed -i s/aaa/bbb/g `grep aaa -rl --include='*.php' ./`
+//sed中-i表示操作文件
+//grep中-r表示查找所有子目录，-l表示仅列出符合条件的文件名
+//所以本操作是在当前目录下找到所有的php后缀名文件，将其中的aaa替换成bbb
 {% endhighlight %}
 
 # Python
