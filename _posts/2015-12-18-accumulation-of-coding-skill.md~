@@ -64,6 +64,20 @@ mysqldump -uroot -proot dbname table1 table2 table3... > table.sql
 # Java
 1.需要返回值的函数中，如果在if语句中return返回值，则需要保证包括所有的情况，否则将会报错缺少返回值（使用else）。
 
+2.不能再嵌套的两个块中声明同名的变量。
+{% highlight java %}
+public class DoubleInt {
+    public static void main(String[] args) {
+        int a = 10;
+        {
+            int a = 5;//wrong
+        }
+    }
+}
+{% endhighlight %}
+
+3.String.equals("A");//双引号套住的才是String，单引号套住的是char
+
 # Shell
 1.查找当前文件夹下所有包含“XXX”字符的文件
 {% highlight shell %}

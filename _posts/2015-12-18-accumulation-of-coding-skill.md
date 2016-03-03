@@ -76,6 +76,8 @@ public class DoubleInt {
 }
 {% endhighlight %}
 
+3.String.equals("A");//双引号套住的才是String，单引号套住的是char
+
 # Shell
 1.查找当前文件夹下所有包含“XXX”字符的文件
 {% highlight shell %}
