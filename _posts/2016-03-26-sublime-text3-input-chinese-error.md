@@ -153,4 +153,4 @@ void gtk_im_context_set_client_window (GtkIMContext *context,
 
 	Exec=bash -c "LD_PRELOAD=/opt/sublime_text/libsublime-imfix.so exec /opt/sublime_text/sublime_text --command new_file"
 
-完美结束，不管是subl中还是桌面和鼠标右键打开的sublime text3都可以输入中文了
+完美结束，不管是subl中还是桌面和鼠标右键打开的sublime text3都可以输入中文了。
