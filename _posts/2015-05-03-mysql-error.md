@@ -1,7 +1,7 @@
 ---
 layout: post
 title: ERROR 29 (HY000) File '/var/www/upload/*.txt' not found (Errcode 13)
-category: [MySQL,战error]
+category: [MySQL,战Error]
 date: 2015-05-03
 ---
 
