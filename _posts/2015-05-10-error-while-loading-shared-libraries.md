@@ -1,7 +1,7 @@
 ---
 layout: post
 title: error while loading shared libraries libpcre.so.1 的解决方法 
-category: [战error]
+category: [战Error]
 date: 2015-05-10
 ---
 
