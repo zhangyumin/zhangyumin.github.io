@@ -8,7 +8,24 @@ date: 2016-04-02
 
 jsoup 是一款Java 的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。
 <!-- more -->
-	
+
+## 准备工作：
+
+1.Intellij等建好项目
+
+2.到[http://jsoup.org/packages/jsoup-1.8.3.jar](http://jsoup.org/packages/jsoup-1.8.3.jar)下载好jsoup包
+
+3.将包导入到项目library中即可
+
+
+## 关键
+
+1.使用Chorome审查元素浏览页面，分析所需要抓取的位置。
+2.使用选择器语法，能够正确得到Elements和element对象。
+
+## 运行结果
+
+## 代码
 	
 {% highlight java %}
 import org.jsoup.*;
@@ -57,3 +74,4 @@ public class FirstCrawler {
     }
 }
 {% endhighlight %}
+
