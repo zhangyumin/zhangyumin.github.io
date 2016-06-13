@@ -61,8 +61,8 @@ strong,b {
 }
 table {
 	border-collapse:collapse;
-	margin-bottom:25px;
-	margin-top:-10px;
+	/*margin-bottom:25px;
+	margin-top:-10px;*/
 }
 th {
 	padding:8px 20px;
@@ -199,38 +199,11 @@ a:link {
 	width:28px;
 	margin:0 7px 0 7px;
 }
-#sub-nav a.weibo {
-	color:#fff;
-	background:#55cff8;
-	line-height:25px;
-	padding-top:1px;
+#sub-nav a{
+	color:#FFF;
 }
-#sub-nav a.weibo:hover {
-	color:#55cff8;
-	background:#ffeb00;
-	line-height:25px;
-	padding-top:1px;
-}
-#sub-nav a.github {
-	margin-bottom:4px;
-	color:#dfdfdf;
-}
-#sub-nav a.github:hover {
-	margin-bottom:4px;
-	color:#ffeb00;
-	opacity:0.9;
-}
-#sub-nav a.rss {
-	color:#fff;
-	background:#10B909;
-	padding-left:2px;
-	padding-top:3px;
-}
-#sub-nav a.rss:hover {
-	color:#4999E2;
-	background:#ef7522;
-	padding-left:2px;
-	padding-top:3px;
+#sub-nav a:hover{
+	color:#00bb2f;
 }
 #license {
 	margin-top:5%;
