@@ -16,7 +16,7 @@ date: 2016-06-23
 	
 	PHP Fatal error: require_once(): Failed opening required './libraries/php-gettext/gettext.inc' (include_path='.') in /usr/share/phpmyadmin/libraries/select_lang.lib.php on line 370
 
-结果就很明显了，应该是升级了php7.0以后缺少了 php-gettext，执行下面语句就可以解决了
+结果就很明显了，应该是升级了php7.0以后缺少了 php-gettext，执行下面语句就可以解决了：
 	
 	sudo apt-get install php-gettext
 
