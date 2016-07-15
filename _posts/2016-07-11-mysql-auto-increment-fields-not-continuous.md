@@ -65,3 +65,17 @@ Create Table: CREATE TABLE `tmp_auto_inc` (
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=gbk
 1 row in set (0.00 sec)
 {% endhighlight %}
+
+插入10条记录，但表的AUTO_INCREMENT=16，再插入一条的时候，表的自增id已经是不连续了。
+
+*原因：*
+
+参数innodb_autoinc_lock_mode = 1时，每次会“预申请”多余的id(handler.cc:compute_next_insert_id)，而insert执行完成后，会特别将这些预留的id空出，就是特意将预申请后的当前最大id回写到表中(dict0dict.c:dict_table_autoinc_update_if_greater)。
+
+这个预留的策略是“不够时多申请几个”， 实际执行中是分步申请。至于申请几个，是由当时“已经插入了几条数据N”决定的。当auto_increment_offset＝1时，预申请的个数是 N-1。
+
+所以会发现：插入只有1行时，你看不到这个现象，并不预申请。而当有N>1行时，则需要。多申请的数目为N-1，因此执行后的自增值为：1+N+(N-1)。测试中为10行，则：1+10+9 =20，和 16不一致？原因是：当插入8行的时候，表的AUTO_INCREMENT已经是16了，所以插入10行时，id已经在第8行时预留了，所以直接使用，自增值仍为16。所以当插入8行的时候，多申请了7个id，即：9，10，11，12，13，14，15。按照例子中的方法插入8~15行，表的AUTO_INCREMENT始终是16
+
+*验证：*
+
+插入16行：猜测 预申请的id：1+16+（16-1）= 32，即：AUTO_INCREMENT=32
