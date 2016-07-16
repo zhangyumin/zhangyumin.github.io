@@ -79,3 +79,28 @@ Create Table: CREATE TABLE `tmp_auto_inc` (
 *验证：*
 
 插入16行：猜测 预申请的id：1+16+（16-1）= 32，即：AUTO_INCREMENT=32
+
+{% highlight mysql %}
+root@localhost : test 04:55:45>create table tmp_auto_inc(id int auto_increment primary key,talkid int)engine = innodb default charset gbk;
+Query OK, 0 rows affected (0.17 sec)
+
+root@localhost : test 04:55:48>insert into tmp_auto_inc(talkid) select talkId from sns_talk_dialog limit 16;
+Query OK, 16 rows affected (0.00 sec)
+Records: 16  Duplicates: 0  Warnings: 0
+
+root@localhost : test 04:55:50>show create table tmp_auto_inc\G;
+*************************** 1. row ***************************
+       Table: tmp_auto_inc
+Create Table: CREATE TABLE `tmp_auto_inc` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `talkid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=gbk
+1 row in set (0.00 sec)
+{% endhighlight %}
+
+和猜测的一样，自增id到了32。所以当插入16行的时候，多申请了17,18,19...,31 。
+
+所以导致ID不连续的原因是因为innodb_autoinc_lock_mode = 1时，会多申请id。好处是：一次性分配足够的auto_increment id，只会将整个分配的过程锁住。
+
+5.1.22前 默认：innodb_autoinc_lock_mode = 0
