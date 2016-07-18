@@ -131,3 +131,19 @@ Create Table: CREATE TABLE `tmp_auto_inc` (
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=gbk
 1 row in set (0.00 sec)
 {% endhighlight %}
+
+插入10条记录，但表的AUTO_INCREMENT=11，再插入一条的时候，表的自增id还是连续的。
+
+innodb_autoinc_lock_mode = 2 和 innodb_autoinc_lock_mode = 1 的测试情况一样。但该模式下是来一个分配一个，而不会锁表，只会锁住分配id的过程，和1的区别在于，不会预分配多个，这种方式并发性最高。但是在replication中当binlog_format为statement-based时存在问题
+
+*解决：*
+
+尽量让主键ID没有业务意义，或则使用simple inserts模式插入。
+
+*结论：*
+
+当innodb_autoinc_lock_mode为0时候， 自增id都会连续，但是会出现表锁的情况，解决该问题可以把innodb_autoinc_lock_mode 设置为1，甚至是2。会提高性能，但是会在一定的条件下导致自增id不连续。
+
+*总结：*
+
+通过上面2个问题的说明，自增主键会产生表锁，从而引发问题；自增主键有业务意义，不连续的主键导致主从主键不一致到出现问题。对于simple inserts 的插入类型，上面的问题都不会出现。对于Bulk inserts的插入类型，会出现上述的问题。
