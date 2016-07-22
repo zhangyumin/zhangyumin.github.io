@@ -32,3 +32,13 @@ date: 2016-07-11
 	总结:
 	当结果集不大时,或者需要在读取所有行前获取结果集行数时,使用缓冲查询(默认).
 	当结果集很大时,使用无缓冲查询,避免PHP进程占用大量的内存.
+
+解决方法很简单，将 PDO::MYSQL_ATTR_USE_BUFFERED_QUERY 置为false就可以了，比如：
+{% highlight php %}
+<?php
+	$pdo = new PDO('mysql:host=127.0.0.1', 'foo', 'bar', array(
+	    PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,
+	));
+	$pdo->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
+?>
+{% endhighlight %}
