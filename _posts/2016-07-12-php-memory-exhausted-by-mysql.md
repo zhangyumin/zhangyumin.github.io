@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Fatal error: Allowed memory size of unknown bytes exhausted (tried to allocate 32 bytes) in unknown.php on line unknown
+title: Fatal error:Allowed memory size of unknown bytes exhausted (tried to allocate 32 bytes) in unknown.php on line unknown
 category: [战Error]
-date: 2016-07-11
+date: 2016-07-12
 ---
 上一次碰到这个问题还是刚开始学PHP的时候，果断的在php.ini中把memory_limit改大，重启apache再试，仍然报错。
 
@@ -42,3 +42,5 @@ date: 2016-07-11
 	$pdo->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
 ?>
 {% endhighlight %}
+
+当然对于Mysql，你也可以使用mysql_unbuffered_query()来代替mysql_query()
