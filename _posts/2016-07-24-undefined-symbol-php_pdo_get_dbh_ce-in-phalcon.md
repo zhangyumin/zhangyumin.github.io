@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Phalcon "undefined symbol: php_pdo_get_dbh_ce in Unknown on line 0"
+title: Phalcon "undefined symbol:php_pdo_get_dbh_ce in Unknown on line 0"
 category: [战Error]
 date: 2016-07-24
 ---
