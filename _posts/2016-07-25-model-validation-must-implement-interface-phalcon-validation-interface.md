@@ -83,3 +83,5 @@ date: 2016-07-24
 		return $this->validate($validator);
 	    }
 	}
+
+已经不支持以前的那种validation方式了，validator的位置变了，添加validation方式也变成了先创建一个validation对象，然后调用add方法来添加需要验证的字段。
